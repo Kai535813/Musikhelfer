@@ -1,6 +1,7 @@
 //Ethan Tang | 3B | 11/4/25
 import processing.sound.*;
 SoundFile pitch, pitchA, pitchAs, pitchB, pitchC, pitchCs, pitchD, pitchDs, pitchE, pitchF, pitchFs, pitchG, pitchGs;
+SoundFile metroSound;
 import java.util.Map;
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 ArrayList<Note> notes = new ArrayList<Note>();
@@ -153,6 +154,7 @@ void setup() {
   metroButtons[1] = new Button(362, 600, 100, 100, 25, #7FA3E0, #5E86D8, "0", "-1");
   metroButtons[2] = new Button(362, 475, 100, 75, 25, #767676, #767676, "0", "PLAY");
   metroVal = "100";
+  metroSound = new SoundFile(this, "Metronome Sound.mp3");
 
   //Mo Spiegel
   harmButtons[0] = new Button(170, 30, 60, 40, 25, #7FA3E0, #5E86D8, "1", "Quart");
@@ -464,6 +466,7 @@ void metroMode() {
     if (millis() - lastTick >= interval) {
       flashOn = true;
       lastTick = millis();
+      metroSound.play();
     }
     if (millis() - lastTick> 100) {
       flashOn = false;
