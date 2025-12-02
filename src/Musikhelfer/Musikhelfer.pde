@@ -217,11 +217,62 @@ void keyPressed() {
 }
 
 void mouseReleased() {
+  //Simon Sakata
   if (pitchButtons[13].hover(mouseX, mouseY)) {
-    note1 = int(random(1, 14));
+    note1 = int(random(1, 13));
     note2 = note1 + int(random(0, 13));
     interval = note2-note1;
     println(interval);
+    if (note1 == 1) {
+      pitchA.play();
+    }else if (note1 == 2) {
+      pitchAs.play();
+    }else if (note1 == 3) {
+      pitchB.play();
+    }else if (note1 == 4) {
+      pitchC.play();
+    }else if (note1 == 5) {
+      pitchCs.play();
+    }else if (note1 == 6) {
+      pitchD.play();
+    }else if (note1 == 7) {
+      pitchDs.play();
+    }else if (note1 == 8) {
+      pitchE.play();
+    }else if (note1 == 9) {
+      pitchF.play();
+    }else if (note1 == 10) {
+      pitchFs.play();
+    }else if (note1 == 11) {
+      pitchG.play();
+    }else if (note1 == 12) {
+      pitchGs.play();
+    }
+    if (note2 == 1) {
+      pitchA.play();
+    }else if (note2 == 2) {
+      pitchAs.play();
+    }else if (note2 == 3) {
+      pitchB.play();
+    }else if (note2 == 4) {
+      pitchC.play();
+    }else if (note2 == 5) {
+      pitchCs.play();
+    }else if (note2 == 6) {
+      pitchD.play();
+    }else if (note2 == 7) {
+      pitchDs.play();
+    }else if (note2 == 8) {
+      pitchE.play();
+    }else if (note2 == 9) {
+      pitchF.play();
+    }else if (note2 == 10) {
+      pitchFs.play();
+    }else if (note2 == 11) {
+      pitchG.play();
+    }else if (note2 == 12) {
+      pitchGs.play();
+    }
   }
   if (pitchButtons[0].hover(mouseX, mouseY)) {
   }
