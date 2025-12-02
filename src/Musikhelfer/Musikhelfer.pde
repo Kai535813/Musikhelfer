@@ -16,6 +16,9 @@ Button[] pitchButtons=new Button[14];
 int modeTog, clef;
 String buttonVal, tuneNote, scoreNote, metroVal;
 Boolean play;
+Boolean metroPlaying = false;
+Boolean flashOn = false;
+int lastTick = 0;
 int Y_AXIS = 1;
 int X_AXIS = 2;
 color c1, c2;
@@ -304,6 +307,27 @@ void mouseReleased() {
 
     mouseClicked = false;
   }
+//Metronome Buttons
+  if (modeTog == 4) {
+    //+1 BPM
+    if (metroButtons[0].hover(mouseX, mouseY)) {
+      int v = int(metroVal);
+      v++;
+      metroVal = str(v);
+    }
+    //-1 BPM
+    if (metroButtons[1].hover(mouseX, mouseY)) {
+      int v = int(metroVal);
+      v--;
+      metroVal=str(v);
+    }
+    //PLAY
+    if (metroButtons[2].hover(mouseX, mouseY)) {
+      metroPlaying = !metroPlaying;
+      flashOn = false;
+      lastTick = millis();
+    }
+  }
 }
 
 void mousePressed() {
@@ -414,33 +438,37 @@ void pitchMode() {
 }
 
 void metroMode() {
-  //+1 BPM Button
-  metroButtons[0] = new Button(362, 350, 100, 100, 25, #7FA3E0, #5E86D8, "0", "+1");
-  metroButtons[0].display();
-  metroButtons[0].hover(mouseX, mouseY);
-  //-1 BPM Button
-  metroButtons[1] = new Button(362, 600, 100, 100, 25, #7FA3E0, #5E86D8, "0", "-1");
-  metroButtons[1].display();
-  metroButtons[1].hover(mouseX, mouseY);
-  //Play Button
-  metroButtons[2] = new Button(362, 475, 100, 75, 25, #767676, #767676, "0", "PLAY");
-  metroButtons[2].display();
-  metroButtons[2].hover(mouseX, mouseY);
-  //Hover For Buttons
+//Button Funtionality
   for (int i = 0; i < metroButtons.length; i++) {
     metroButtons[i].hover(mouseX, mouseY);
     metroButtons[i].display();
   }
 
   //Metronome Display
-  rectMode(CENTER);
-  fill(200);
+   rectMode(CENTER);
+
+  // Flash white on beat
+  if (flashOn) fill(240,240,255);
+  else fill(200);
+
   rect(362, 150, 420, 225, 25);
 
   textAlign(CENTER, CENTER);
   fill(0);
   textSize(150);
   text(metroVal, 362, 125);
+
+
+  if (metroPlaying) {
+    float interval = 60000 / int(metroVal);
+    if (millis() - lastTick >= interval) {
+      flashOn = true;
+      lastTick = millis();
+    }
+    if (millis() - lastTick> 100) {
+      flashOn = false;
+    }
+  }
 }
 
 void harmMode() {
