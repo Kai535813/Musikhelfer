@@ -279,10 +279,9 @@ void mousePressed() {
 
   //Kai Yun Chao | 3B
   for (int i = 0; i<tuneButtons.length; i++) {
-    if (tuneButtons[i].over) {
-      play(tuneButtons[i].disVal);
-      println(tuneButtons[i].disVal);
-
+    if (tuneButtons[i].over&&tuneButtons[i].val.equals("C/B#")) {
+      pitchC.play();
+      println("test");
       //if (pitchC.isPlaying()) {
       //  pitchC.stop();
       //} else {
@@ -543,3 +542,4 @@ void play(String noteVal) {
     println("playing");
   }
 }
+
