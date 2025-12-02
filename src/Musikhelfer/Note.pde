@@ -172,7 +172,7 @@ class Note {
 
   //Draws a note when it is inputted (mouse clicked)
   void inputNote() {
-    if (mouseClicked == true && inputted == false && mouseX>= 40 && mouseX<=540 && mouseY> 60 && mouseY<180) {
+    if (mouseClicked == true && inputted == false && mouseX>= 40 && mouseX<=580 && mouseY> 60 && mouseY<180) {
       clickX = mouseX;
       clickY =  mouseY;
     }
