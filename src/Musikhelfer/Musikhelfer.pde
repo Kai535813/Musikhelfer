@@ -1,6 +1,6 @@
 //Ethan Tang | 3B | 11/4/25
 import processing.sound.*;
-SoundFile pitch, pitchC;
+SoundFile pitch, pitchA, pitchAs, pitchB, pitchC, pitchCs, pitchD, pitchDs, pitchE, pitchF, pitchFs, pitchG, pitchGs;
 import java.util.Map;
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 ArrayList<Note> notes = new ArrayList<Note>();
@@ -26,16 +26,18 @@ int interval, note1, note2;
 
 void setup() {
   clef = 1;
-
-  pitch = new SoundFile(this, "C5.mp3");
-  pitchC = new SoundFile(this, "C5.mp3");
-  //pitchA = new SoundFile(this, "A5.mp3");
-  //file = new SoundFile(this, "sample.mp3");
-  //file = new SoundFile(this, "sample.mp3");
-  //file = new SoundFile(this, "sample.mp3");
-  //file = new SoundFile(this, "sample.mp3");
-  //file = new SoundFile(this, "sample.mp3");
-  //file = new SoundFile(this, "sample.mp3");
+  pitchA = new SoundFile(this, "A4.mp3");
+  pitchC = new SoundFile(this, "C4.mp3");
+  pitchAs = new SoundFile(this, "A#4.mp3");
+  pitchB = new SoundFile(this, "B4.mp3");
+  pitchCs = new SoundFile(this, "C#4.mp3");
+  pitchD = new SoundFile(this, "D4.mp3");
+  pitchDs = new SoundFile(this, "D#4.mp3");
+  pitchE = new SoundFile(this, "E4.mp3");
+  pitchF = new SoundFile(this, "F4.mp3");
+  pitchFs = new SoundFile(this, "F#4.mp3");
+  pitchG = new SoundFile(this, "G4.mp3");
+  pitchGs = new SoundFile(this, "G#4.mp3");
   //Notes
   noteImages[0] = loadImage("Quarter Note.png");
   noteImages[1] = loadImage("Quarter Note (BOTTOM SIDE).png");
@@ -308,21 +310,8 @@ void mousePressed() {
 
   //Kai Yun Chao | 3B
   for (int i = 0; i<tuneButtons.length; i++) {
-    if (tuneButtons[i].over&&tuneButtons[i].val.equals("C/B#")) {
-      pitchC.play();
-      println("test");
-      //if (pitchC.isPlaying()) {
-      //  pitchC.stop();
-      //} else {
-      //  pitchC.play();
-      //}
-      //  if (tuneButtons[i].over&&tuneButtons[i].val.equals("A"))
-      //    pitchA.play();
-      //} else if (file.isPlaying()) {
-      //  file.pause();
-      //} else {
-      //  file.play();
-      //}
+    if (tuneButtons[i].over) {
+       play(tuneButtons[i].disVal);
     }
   }
 }
@@ -552,5 +541,54 @@ void harmonize() {
   println(inputScore);
 }
 
-void play() {
+void play(String noteVal) {
+  if (noteVal.equals("A")) {
+    pitchA.play();
+    println("playing");
+  }
+  if (noteVal.equals("A#/Bb")) {
+    pitchAs.play();
+    println("playing");
+  }
+  if (noteVal.equals("B/Cb")) {
+    pitchB.play();
+    println("playing");
+  }
+
+  if (noteVal.equals("C/B#")) {
+    pitchC.play();
+    println("playing");
+  }
+  if (noteVal.equals("C#/Db")) {
+    pitchCs.play();
+    println("playing");
+  }
+  if (noteVal.equals("D")) {
+    pitchD.play();
+    println("playing");
+  }
+  if (noteVal.equals("D#/Eb")) {
+    pitchDs.play();
+    println("playing");
+  }
+  if (noteVal.equals("E/Fb")) {
+    pitchE.play();
+    println("playing");
+  }
+  if (noteVal.equals("F/E#")) {
+    pitchF.play();
+    println("playing");
+  }
+  if (noteVal.equals("F#/Gb")) {
+    pitchFs.play();
+    println("playing");
+  }
+  if (noteVal.equals("G")) {
+    pitchG.play();
+    println("playing");
+  }
+  if (noteVal.equals("G#/Ab")) {
+    pitchGs.play();
+    println("playing");
+  }
 }
