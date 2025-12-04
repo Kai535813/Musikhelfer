@@ -234,13 +234,13 @@ void keyPressed() {
 }
 
 void mouseReleased() {
-  if (pitchButtons[13].hover(mouseX, mouseY)) {
+  if (pitchButtons[13].hover(mouseX, mouseY)&& modeTog==1) {
     note1 = int(random(1, 14));
     note2 = note1 + int(random(0, 13));
     interval = note2-note1;
     println(interval);
   }
-  if (pitchButtons[0].hover(mouseX, mouseY)) {
+  if (pitchButtons[0].hover(mouseX, mouseY)&&modeTog==1) {
   }
   for (int i=0; i<modeButtons.length; i++) {
     if (modeButtons[i].hover(mouseX, mouseY)) {
