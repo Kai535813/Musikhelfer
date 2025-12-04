@@ -6,6 +6,7 @@ import java.util.Map;
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 ArrayList<Note> notes = new ArrayList<Note>();
 PImage[] noteImages = new PImage[35];
+PImage[] musikHelferLogo = new PImage[1];
 boolean mouseClicked, firstSwitch;
 StringList inputScore;
 StringList harmonizeRes;
@@ -43,6 +44,10 @@ void setup() {
   pitchFs = new SoundFile(this, "F#4.mp3");
   pitchG = new SoundFile(this, "G4.mp3");
   pitchGs = new SoundFile(this, "G#4.mp3");
+
+  //Logo
+  musikHelferLogo[0] = loadImage("Musik Helfer Logo.png");
+
   //Notes
   noteImages[0] = loadImage("Quarter Note.png");
   noteImages[1] = loadImage("Quarter Note (BOTTOM SIDE).png");
@@ -138,6 +143,9 @@ void setup() {
   noteImages[33].resize(65, 140);
   noteImages[34].resize(60, 96);
 
+  //Logo
+  musikHelferLogo[0].resize(500,280);
+
   size(600, 700);
   c1 = color(#5E86D8);
   c2 = color(#6C6C6C);
@@ -151,9 +159,9 @@ void setup() {
   mouseClicked = false;
 
   //Aristotle Stokes
-  metroButtons[0] = new Button(362, 350, 100, 100, 25, #7FA3E0, #5E86D8, "0", "+1");
-  metroButtons[1] = new Button(362, 600, 100, 100, 25, #7FA3E0, #5E86D8, "0", "-1");
-  metroButtons[2] = new Button(362, 475, 100, 75, 25, #767676, #767676, "0", "PLAY");
+  metroButtons[0] = new Button(362, 350, 100, 100, 25, #7FA3E0, #5E86D8, "0", "+");
+  metroButtons[1] = new Button(362, 600, 100, 100, 25, #7FA3E0, #5E86D8, "0", "-");
+  metroButtons[2] = new Button(362, 475, 100, 75, 25, #D3D3D3, #767676, "0", "PLAY");
   metroVal = "100";
   metroSound = new SoundFile(this, "Metronome Sound.mp3");
 
@@ -339,13 +347,13 @@ void mouseReleased() {
     //+1 BPM
     if (metroButtons[0].hover(mouseX, mouseY)) {
       int v = int(metroVal);
-      v++;
+      v = v + 4;
       metroVal = str(v);
     }
     //-1 BPM
     if (metroButtons[1].hover(mouseX, mouseY)) {
       int v = int(metroVal);
-      v--;
+      v = v -4;
       metroVal=str(v);
     }
     //PLAY
@@ -404,10 +412,7 @@ void draw() {
   switch(modeTog) {
   case 0:
     fill(230);
-    textSize(60);
-    text("MusikHelfer", width/2+60, 30);
-    textSize(30);
-    text("Use buttons on the side to navigate and switch functionality", width/2+60, 140, 450, 700);
+    image(musikHelferLogo[0],125,210);
     break;
   case 1:
     pitchMode();
