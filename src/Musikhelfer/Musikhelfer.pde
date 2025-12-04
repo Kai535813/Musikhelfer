@@ -5,14 +5,15 @@ SoundFile metroSound;
 import java.util.Map;
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 ArrayList<Note> notes = new ArrayList<Note>();
-PImage[] noteImages = new PImage[35];
+PImage[] noteImages = new PImage[45];
+PFont font;
 PImage[] musikHelferLogo = new PImage[1];
 boolean mouseClicked, firstSwitch;
 StringList inputScore;
 StringList harmonizeRes;
 Button[] modeButtons=new Button[4];
 Button[] tuneButtons=new Button[12];
-Button[] harmButtons=new Button[12];
+Button[] harmButtons=new Button[13];
 Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
 int modeTog, clef;
@@ -90,6 +91,18 @@ void setup() {
   noteImages[33] = loadImage("rTreble Clef.png");
   noteImages[34] = loadImage("rBass Clef.png");
 
+  //Labels
+  noteImages[35] = loadImage("Quarter Note (LABEL).png");
+  noteImages[36] = loadImage("Eight Note (LABEL).png");
+  noteImages[37] = loadImage("Sixteenth Note (LABEL).png");
+  noteImages[38] = loadImage("Half Note (LABEL).png");
+  noteImages[39] = loadImage("Whole Note (LABEL).png");
+  noteImages[40] = loadImage("Flat (LABEL).png");
+  noteImages[41] = loadImage("Sharp (LABEL).png");
+  noteImages[42] = loadImage("rTreble Clef (LABEL).png");
+  noteImages[43] = loadImage("rBass Clef (LABEL).png");
+  noteImages[44] = loadImage("Rest (LABEL).png");
+
   noteImages[0].resize(40, 80);
   noteImages[1].resize(40, 80);
   noteImages[2].resize(40, 80);
@@ -137,11 +150,22 @@ void setup() {
   noteImages[30].resize(17, 25);
   noteImages[31].resize(17, 25);
 
-  noteImages[32].resize(80, 160);
-
   //Clefs
   noteImages[33].resize(65, 140);
   noteImages[34].resize(60, 96);
+
+  //Labels
+  noteImages[35].resize(40, 60); //Quarter
+  noteImages[36].resize(40, 60); //Eight
+  noteImages[37].resize(40, 60); //Sixteenth
+  noteImages[38].resize(40, 60); //Half
+  noteImages[39].resize(25, 25); //Whole
+  noteImages[40].resize(25, 40); //Flat
+  noteImages[41].resize(30, 40); //Sharp
+  noteImages[32].resize(80, 160); //Play
+  noteImages[42].resize(50, 110); //Treble
+  noteImages[43].resize(50, 70); //Bass
+  noteImages[44].resize(40,60); //Rest
 
   //Logo
   musikHelferLogo[0].resize(500,280);
@@ -166,18 +190,19 @@ void setup() {
   metroSound = new SoundFile(this, "Metronome Sound.mp3");
 
   //Mo Spiegel
-  harmButtons[0] = new Button(170, 30, 60, 40, 25, #7FA3E0, #5E86D8, "1", "Quart");
-  harmButtons[1] = new Button(245, 30, 60, 40, 25, #7FA3E0, #5E86D8, "2", "Eight");
-  harmButtons[2] = new Button(320, 30, 60, 40, 25, #7FA3E0, #5E86D8, "3", "Sixt");
-  harmButtons[3] = new Button(395, 30, 60, 40, 25, #7FA3E0, #5E86D8, "4", "Half");
-  harmButtons[4] = new Button(470, 30, 60, 40, 25, #7FA3E0, #5E86D8, "5", "Whole");
-  harmButtons[5] = new Button(545, 30, 60, 40, 25, #7FA3E0, #5E86D8, "6", "Rest");
-  harmButtons[6] = new Button(358, 220, 135, 40, 25, #7FA3E0, #5E86D8, "7", "Clear" );
-  harmButtons[7] = new Button(245, 220, 60, 40, 25, #7FA3E0, #5E86D8, "8", "#");
-  harmButtons[8] = new Button(470, 220, 60, 40, 25, #7FA3E0, #5E86D8, "9", "b");
-  harmButtons[9] = new Button(170, 260, 60, 120, 25, #7FA3E0, #5E86D8, "10", "Clef \n Tog");
-  harmButtons[10] = new Button(545, 260, 60, 120, 25, #7FA3E0, #5E86D8, "11", "Del");
-  harmButtons[11] = new Button(358, 300, 270, 90, 25, #7FA3E0, #5E86D8, "12", "Harmonize");
+  harmButtons[0] = new Button(170, 40, 60, 60, 25, #7FA3E0, #5E86D8, "1", "");
+  harmButtons[1] = new Button(245, 40, 60, 60, 25, #7FA3E0, #5E86D8, "2", "");
+  harmButtons[2] = new Button(320, 40, 60, 60, 25, #7FA3E0, #5E86D8, "3", "");
+  harmButtons[3] = new Button(395, 40, 60, 60, 25, #7FA3E0, #5E86D8, "4", "");
+  harmButtons[4] = new Button(470, 40, 60, 60, 25, #7FA3E0, #5E86D8, "5", "");
+  harmButtons[5] = new Button(545, 40, 60, 60, 25, #7FA3E0, #5E86D8, "6", "");
+  harmButtons[6] = new Button(358, 260, 135, 60, 25, #7FA3E0, #5E86D8, "7", "CLEAR" );
+  harmButtons[7] = new Button(245, 260, 60, 60, 25, #7FA3E0, #5E86D8, "8", "");
+  harmButtons[8] = new Button(470, 260, 60, 60, 25, #7FA3E0, #5E86D8, "9", "");
+  harmButtons[9] = new Button(170, 290, 60, 120, 25, #7FA3E0, #5E86D8, "10", "");
+  harmButtons[10] = new Button(545, 290, 60, 120, 25, #7FA3E0, #5E86D8, "11", "Del");
+  harmButtons[11] = new Button(358, 350, 270, 90, 25, #7FA3E0, #5E86D8, "12", "HARMONIZE");
+  harmButtons[12] = new Button(240, 515, 200, 100, 25, #7FA3E0, #5E86D8, "13", "PLAY");
 
   pitchButtons[0] = new Button(200, 70, 100, 40, 25, #7FA3E0, #5E86D8, "31", "Unison");
   pitchButtons[1] = new Button(320, 140, 100, 40, 25, #7FA3E0, #5E86D8, "31.5", "Minor 2nd");
@@ -221,6 +246,8 @@ void keyPressed() {
           notes.remove(notes.size()-1);
         }
       }
+    } else if (keyCode == 32) {
+      harmonize();
     }
   }
 }
@@ -332,7 +359,7 @@ void mouseReleased() {
         }
       }
     }
-    if (mouseX>= 40 && mouseX<=580 && mouseY>= 60 && mouseY<=180) {
+    if (mouseX>= 40 && mouseX<=580 && mouseY>= 80 && mouseY<=200) {
       if ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x <=490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x <=535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x <=558) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x <=400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220)) {
         notes.get(notes.size()-1).mouseClick();
         notes.get(notes.size()-1).inputNote();
@@ -532,14 +559,26 @@ void metroMode() {
 
 void harmMode() {
   //Mo Spiegel | 3B
+
+  //Draw scores
   rectMode(CORNER);
+  noStroke();
+  fill(60);
+  rect(135, 97, 444, 120, 25);
   strokeWeight(1);
+  stroke(255);
   fill(255);
-  rect(140, 60, 440, 120, 25);
+  rect(140, 90, 440, 120, 25);
+  rect(360, 465, 220, 160, 25);
   stroke(0);
-  for (int i = 80; i <= 160; i = i + 20) {
+  for (int i = 505; i <= 585; i = i + 20) {
+    line(360, i, 580, i);
+  }
+  for (int i = 110; i <= 190; i = i + 20) {
     line(140, i, 580, i);
   }
+
+  //Logic for note adding
   if (notes.size() == 0) {
     notes.add(new Note(125, 0, 220, 2, false, false, false, false));
   }
@@ -576,18 +615,42 @@ void harmMode() {
       notes.add(new Note(125, 0, 220 +180, 4, false, false, false, false));
     }
   }
+
+  //Call note methods
   for (int i = 0; i < notes.size(); i++) {
     notes.get(i).hover();
-    notes.get(i).inputNote();
+    if (notes.get(i).inputted == true) {
+      notes.get(i).inputNote();
+    }
   }
+
+  //Call harmonizer button methods
   for (int i = 0; i < harmButtons.length; i++) {
     harmButtons[i].display();
     harmButtons[i].hover(mouseX, mouseY);
   }
+
+  //Display clefs
   if (clef == 1) {
-    image(noteImages[33], 170, 125);
+    image(noteImages[33], 170, 155);
   } else if (clef == 2) {
-    image(noteImages[34], 175, 115);
+    image(noteImages[34], 175, 145);
+  }
+
+  //Display button labels
+  image(noteImages[35], 170, 40);
+  image(noteImages[36], 245, 40);
+  image(noteImages[37], 320, 40);
+  image(noteImages[38], 395, 40);
+  image(noteImages[39], 470, 40);
+  image(noteImages[44], 548, 40);
+  image(noteImages[41], 245, 260);
+  image(noteImages[40], 468, 260);
+  
+  if (clef == 1) {
+    image(noteImages[43], 170, 290);
+  } else if (clef == 2) {
+    image(noteImages[42], 168, 290);
   }
 }
 
