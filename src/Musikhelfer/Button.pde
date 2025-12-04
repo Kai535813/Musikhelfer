@@ -1,4 +1,4 @@
-
+//Simon Sakata
 class Button {
   // Member variables
   int x, y, w, h, r;
@@ -23,28 +23,26 @@ class Button {
   // Member Methods
   void display() {
     rectMode(CENTER);
+    //Draw shadow
     noStroke();
-    if(over) {
+    fill(60);
+    rect(x-3, y+4, w, h, r);
+
+    if (over) {
       fill(c1);
     } else {
       fill(c2);
     }
-    rect(x,y,w,h,r);
-    
-
-   
-    // Optional: draw button border
-    stroke(0);
-    strokeWeight(2);
-    noFill();
-    rect(x, y, w, h, 25);
+    stroke(#3348F2);
+    rect(x, y, w, h, r);
 
     // Draw button text
-    fill(0);
+    textFont(font, 30);
     noStroke();
     textAlign(CENTER, CENTER);
     textSize(20);
-    text(disVal, x, y,w,h);
+    fill(255);
+    text(disVal, x, y, w, h);
   }
 
   boolean hover(int tempX, int tempY) {
