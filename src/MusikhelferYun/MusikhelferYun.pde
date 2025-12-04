@@ -24,6 +24,7 @@ int X_AXIS = 2;
 color c1, c2;
 PFont myFont;
 //Simon Sakata
+Boolean intervalActive = false;
 int interval, note1, note2;
 
 
@@ -235,11 +236,35 @@ void keyPressed() {
 }
 
 void mouseReleased() {
+  //Simon Sakata
   if (pitchButtons[13].hover(mouseX, mouseY)) {
-    note1 = int(random(1, 14));
-    note2 = note1 + int(random(0, 13));
-    interval = note2-note1;
-    println(interval);
+    if (!intervalActive) {
+      note1 = int(random(1, 13));
+      note2 = note1 + int(random(0, 13));
+      interval = note2-note1;
+      println("interval:" + interval);
+      println("note1:" + note1);
+      println("note2:" + note2);
+      
+      intervalActive = true;
+    }
+    playNoteNumber(note1);
+    delay(800);
+    playNoteNumber(note2);
+  }
+  for (int i = 0; i < 13; i++) {
+    if (pitchButtons[i].hover(mouseX, mouseY)) {
+      if (intervalActive) {
+        int guessedInterval = i;
+        
+        if (guessedInterval == interval) {
+          println("Correct interval");
+          intervalActive = false;
+        } else {
+          println("wrong");
+        }
+      }
+    }
   }
   if (pitchButtons[0].hover(mouseX, mouseY)) {
   }
@@ -328,7 +353,32 @@ void mouseReleased() {
     mouseClicked = false;
   }
 }
-
+void playNoteNumber(int n) {
+ if (n == 1)       pitchA4.play();
+  else if (n == 2)  pitchAs4.play();
+  else if (n == 3)  pitchB4.play();
+  else if (n == 4)  pitchC4.play();
+  else if (n == 5)  pitchCs4.play();
+  else if (n == 6)  pitchD4.play();
+  else if (n == 7)  pitchDs4.play();
+  else if (n == 8)  pitchE4.play();
+  else if (n == 9)  pitchF4.play();
+  else if (n == 10) pitchFs4.play();
+  else if (n == 11) pitchG4.play();
+  else if (n == 12) pitchGs4.play();
+  else if (n == 13)  pitchA5.play();
+  else if (n == 14)  pitchAs5.play();
+  else if (n == 15)  pitchB5.play();
+  else if (n == 16)  pitchC5.play();
+  else if (n == 17)  pitchCs5.play();
+  else if (n == 18)  pitchD5.play();
+  else if (n == 19)  pitchDs5.play();
+  else if (n == 20)  pitchE5.play();
+  else if (n == 21)  pitchF5.play();
+  else if (n == 22) pitchFs5.play();
+  else if (n == 23) pitchG5.play();
+  else if (n == 24) pitchGs5.play();
+}
 void mousePressed() {
   //Ethan Tang | 3B
   for (int i = 0; i<tuneButtons.length; i++) {
