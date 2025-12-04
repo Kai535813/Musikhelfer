@@ -19,6 +19,7 @@ String buttonVal, tuneNote, scoreNote, metroVal;
 Boolean play;
 Boolean metroPlaying = false;
 Boolean flashOn = false;
+Boolean intervalActive = false;
 int lastTick = 0;
 int Y_AXIS = 1;
 int X_AXIS = 2;
@@ -219,59 +220,32 @@ void keyPressed() {
 void mouseReleased() {
   //Simon Sakata
   if (pitchButtons[13].hover(mouseX, mouseY)) {
-    note1 = int(random(1, 13));
-    note2 = note1 + int(random(0, 13));
-    interval = note2-note1;
-    println(interval);
-    if (note1 == 1) {
-      pitchA.play();
-    }else if (note1 == 2) {
-      pitchAs.play();
-    }else if (note1 == 3) {
-      pitchB.play();
-    }else if (note1 == 4) {
-      pitchC.play();
-    }else if (note1 == 5) {
-      pitchCs.play();
-    }else if (note1 == 6) {
-      pitchD.play();
-    }else if (note1 == 7) {
-      pitchDs.play();
-    }else if (note1 == 8) {
-      pitchE.play();
-    }else if (note1 == 9) {
-      pitchF.play();
-    }else if (note1 == 10) {
-      pitchFs.play();
-    }else if (note1 == 11) {
-      pitchG.play();
-    }else if (note1 == 12) {
-      pitchGs.play();
+    if (!intervalActive) {
+      note1 = int(random(1, 13));
+      note2 = note1 + int(random(0, 13));
+      interval = note2-note1;
+      println("interval:" + interval);
+      println("note1:" + note1);
+      println("note2:" + note2);
+      
+      intervalActive = true;
     }
-    if (note2 == 1) {
-      pitchA.play();
-    }else if (note2 == 2) {
-      pitchAs.play();
-    }else if (note2 == 3) {
-      pitchB.play();
-    }else if (note2 == 4) {
-      pitchC.play();
-    }else if (note2 == 5) {
-      pitchCs.play();
-    }else if (note2 == 6) {
-      pitchD.play();
-    }else if (note2 == 7) {
-      pitchDs.play();
-    }else if (note2 == 8) {
-      pitchE.play();
-    }else if (note2 == 9) {
-      pitchF.play();
-    }else if (note2 == 10) {
-      pitchFs.play();
-    }else if (note2 == 11) {
-      pitchG.play();
-    }else if (note2 == 12) {
-      pitchGs.play();
+    playNoteNumber(note1);
+    delay(800);
+    playNoteNumber(note2);
+  }
+  for (int i = 0; i < 13; i++) {
+    if (pitchButtons[i].hover(mouseX, mouseY)) {
+      if (intervalActive) {
+        int guessedInterval = i;
+        
+        if (guessedInterval == interval) {
+          println("Correct interval");
+          intervalActive = false;
+        } else {
+          println("wrong");
+        }
+      }
     }
   }
   if (pitchButtons[0].hover(mouseX, mouseY)) {
@@ -360,7 +334,7 @@ void mouseReleased() {
 
     mouseClicked = false;
   }
-//Metronome Buttons
+  //Metronome Buttons
   if (modeTog == 4) {
     //+1 BPM
     if (metroButtons[0].hover(mouseX, mouseY)) {
@@ -383,12 +357,26 @@ void mouseReleased() {
   }
 }
 
+void playNoteNumber(int n) {
+  if (n == 1 || n == 13)       pitchA.play();
+  else if (n == 2 || n == 14)  pitchAs.play();
+  else if (n == 3 || n == 15)  pitchB.play();
+  else if (n == 4 || n == 16)  pitchC.play();
+  else if (n == 5 || n == 17)  pitchCs.play();
+  else if (n == 6 || n == 18)  pitchD.play();
+  else if (n == 7 || n == 19)  pitchDs.play();
+  else if (n == 8 || n == 20)  pitchE.play();
+  else if (n == 9 || n == 21)  pitchF.play();
+  else if (n == 10 || n == 22) pitchFs.play();
+  else if (n == 11 || n == 23) pitchG.play();
+  else if (n == 12 || n == 24) pitchGs.play();
+}
 void mousePressed() {
 
   //Kai Yun Chao | 3B
   for (int i = 0; i<tuneButtons.length; i++) {
     if (tuneButtons[i].over) {
-       play(tuneButtons[i].disVal);
+      play(tuneButtons[i].disVal);
     }
   }
 }
@@ -491,17 +479,17 @@ void pitchMode() {
 }
 
 void metroMode() {
-//Button Funtionality
+  //Button Funtionality
   for (int i = 0; i < metroButtons.length; i++) {
     metroButtons[i].hover(mouseX, mouseY);
     metroButtons[i].display();
   }
 
   //Metronome Display
-   rectMode(CENTER);
+  rectMode(CENTER);
 
   // Flash white on beat
-  if (flashOn) fill(240,240,255);
+  if (flashOn) fill(240, 240, 255);
   else fill(200);
 
   rect(362, 150, 420, 225, 25);
