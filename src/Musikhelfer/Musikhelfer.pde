@@ -1,7 +1,9 @@
-//Ethan Tang | 3B | 11/4/25
+//Kai Yun Chao | 3B
 import processing.sound.*;
-SoundFile pitch, pitchA, pitchAs, pitchB, pitchC, pitchCs, pitchD, pitchDs, pitchE, pitchF, pitchFs, pitchG, pitchGs;
-SoundFile metroSound;
+SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5;
+Delay delay;
+
+//Ethan Tang | 3B | 11/4/25
 import java.util.Map;
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> orderSharp= new HashMap<Integer, String>();
@@ -27,7 +29,7 @@ Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
 int modeTog, clef, degKey, harmKey;
 char keySig;
-String buttonVal, tuneNote, scoreNote, metroVal;
+String buttonVal, tuneNote, scoreNote, metroVal, noteVal, note;
 Boolean first, added;
 Boolean metroPlaying = false;
 Boolean flashOn = false;
@@ -89,18 +91,35 @@ void setup() {
   orderFlat.put(6, "Cb");
   orderFlat.put(7, "Fb");
   clef = 1;
-  pitchA = new SoundFile(this, "A4.mp3");
-  pitchC = new SoundFile(this, "C4.mp3");
-  pitchAs = new SoundFile(this, "A#4.mp3");
-  pitchB = new SoundFile(this, "B4.mp3");
-  pitchCs = new SoundFile(this, "C#4.mp3");
-  pitchD = new SoundFile(this, "D4.mp3");
-  pitchDs = new SoundFile(this, "D#4.mp3");
-  pitchE = new SoundFile(this, "E4.mp3");
-  pitchF = new SoundFile(this, "F4.mp3");
-  pitchFs = new SoundFile(this, "F#4.mp3");
-  pitchG = new SoundFile(this, "G4.mp3");
-  pitchGs = new SoundFile(this, "G#4.mp3");
+  //Sounds and Sound Settings, Kai Yun Chao | 3B
+  pitchA4 = new SoundFile(this, "A4.mp3");
+  pitchC4 = new SoundFile(this, "C4.mp3");
+  pitchAs4 = new SoundFile(this, "A#4.mp3");
+  pitchB4 = new SoundFile(this, "B4.mp3");
+  pitchCs4 = new SoundFile(this, "C#4.mp3");
+  pitchD4 = new SoundFile(this, "D4.mp3");
+  pitchDs4 = new SoundFile(this, "D#4.mp3");
+  pitchE4 = new SoundFile(this, "E4.mp3");
+  pitchF4 = new SoundFile(this, "F4.mp3");
+  pitchFs4 = new SoundFile(this, "F#4.mp3");
+  pitchG4 = new SoundFile(this, "G4.mp3");
+  pitchGs4 = new SoundFile(this, "G#4.mp3");
+  pitchA5 = new SoundFile(this, "A5.mp3");
+  pitchC5 = new SoundFile(this, "C5.mp3");
+  pitchAs5 = new SoundFile(this, "As5.mp3");
+  pitchB5 = new SoundFile(this, "B5.mp3");
+  pitchCs5 = new SoundFile(this, "Cs5.mp3");
+  pitchD5 = new SoundFile(this, "D5.mp3");
+  pitchDs5 = new SoundFile(this, "Ds5.mp3");
+  pitchE5 = new SoundFile(this, "E5.mp3");
+  pitchF5 = new SoundFile(this, "F5.mp3");
+  pitchFs5 = new SoundFile(this, "Fs5.mp3");
+  pitchG5 = new SoundFile(this, "G5.mp3");
+  pitchGs5 = new SoundFile(this, "Gs5.mp3");
+
+  delay = new Delay(this);
+  //delay.process("A4.mp3" );
+  //delay.time(1.0);
 
   //Logo
   musikHelferLogo[0] = loadImage("Musik Helfer Logo.png");
@@ -205,6 +224,7 @@ void setup() {
   //Sharps
   noteImages[30].resize(17, 25);
   noteImages[31].resize(17, 25);
+  noteImages[32].resize(80, 160);
 
   //Clefs
   noteImages[33].resize(65, 140);
@@ -274,18 +294,18 @@ void setup() {
   pitchButtons[12] = new Button(200, 560, 100, 40, 25, #7FA3E0, #5E86D8, "38", "Octave");
   pitchButtons[13] = new Button(200, 650, 80, 80, 25, #7FA3E0, #5E86D8, "39", "PLAY");
 
-  tuneButtons[0]=new Button(180, 300, 80, 80, 25, #FFEB05, #FC035A, "", "A");
-  tuneButtons[1]=new Button(300, 300, 80, 80, 25, #FFEB05, #FC035A, "", "A#/Bb");
-  tuneButtons[2]=new Button(420, 300, 80, 80, 25, #FFEB05, #FC035A, "", "B/Cb");
-  tuneButtons[3]=new Button(540, 300, 80, 80, 25, #FFEB05, #FC035A, "", "C/B#");
-  tuneButtons[4]=new Button(180, 420, 80, 80, 25, #FFEB05, #FC035A, "", "C#/Db");
-  tuneButtons[5]=new Button(300, 420, 80, 80, 25, #FFEB05, #FC035A, "", "D");
-  tuneButtons[6]=new Button(420, 420, 80, 80, 25, #FFEB05, #FC035A, "", "D#/Eb");
-  tuneButtons[7]=new Button(540, 420, 80, 80, 25, #FFEB05, #FC035A, "", "E/Fb");
-  tuneButtons[8]=new Button(180, 540, 80, 80, 25, #FFEB05, #FC035A, "", "F/E#");
-  tuneButtons[9]=new Button(300, 540, 80, 80, 25, #FFEB05, #FC035A, "", "F#/Gb");
-  tuneButtons[10]=new Button(420, 540, 80, 80, 25, #FFEB05, #FC035A, "", "G");
-  tuneButtons[11]=new Button(540, 540, 80, 80, 25, #FFEB05, #FC035A, "", "G#/Ab");
+  tuneButtons[0]=new Button(180, 300, 80, 80, 25, #7FA3E0, #5E86D8, "", "A");
+  tuneButtons[1]=new Button(300, 300, 80, 80, 25,#7FA3E0, #5E86D8, "", "A#/Bb");
+  tuneButtons[2]=new Button(420, 300, 80, 80, 25, #7FA3E0,#5E86D8, "", "B/Cb");
+  tuneButtons[3]=new Button(540, 300, 80, 80, 25, #7FA3E0, #5E86D8, "", "C/B#");
+  tuneButtons[4]=new Button(180, 420, 80, 80, 25, #7FA3E0, #5E86D8, "", "C#/Db");
+  tuneButtons[5]=new Button(300, 420, 80, 80, 25, #7FA3E0, #5E86D8, "", "D");
+  tuneButtons[6]=new Button(420, 420, 80, 80, 25, #7FA3E0,#5E86D8, "", "D#/Eb");
+  tuneButtons[7]=new Button(540, 420, 80, 80, 25, #7FA3E0, #5E86D8, "", "E/Fb");
+  tuneButtons[8]=new Button(180, 540, 80, 80, 25,#7FA3E0, #5E86D8, "", "F/E#");
+  tuneButtons[9]=new Button(300, 540, 80, 80, 25, #7FA3E0, #5E86D8, "", "F#/Gb");
+  tuneButtons[10]=new Button(420, 540, 80, 80, 25, #7FA3E0, #5E86D8, "", "G");
+  tuneButtons[11]=new Button(540, 540, 80, 80, 25, #7FA3E0, #5E86D8, "", "G#/Ab");
 }
 
 void keyPressed() {
@@ -542,33 +562,39 @@ void display() {
 }
 
 void tunerMode() {
-  //Kai Yun Chao | 3B
+    //Kai Yun Chao | 3B
 
-  fill(255);
-  rect(360, 120, 440, 160, 25);
 
-  rectMode(CENTER);
-  fill(#2B7FD6);
-  //rect(370, 233);
-  textAlign(CENTER, CENTER);
-  textSize(65);
+    fill(#5E86D8);
+    rect(360, 120, 440, 160, 25);
+    
+  fill(0);
+  textSize(120);
+   //text(noteVal,360,100);
+   
+   
+    rectMode(CENTER);
+    fill(#2B7FD6);
+    //rect(370, 233);
+    textAlign(CENTER, CENTER);
+    textSize(65);
 
-  tuneButtons[0].display();
-  tuneButtons[1].display();
-  tuneButtons[2].display();
-  tuneButtons[3].display();
-  tuneButtons[4].display();
-  tuneButtons[5].display();
-  tuneButtons[6].display();
-  tuneButtons[7].display();
-  tuneButtons[8].display();
-  tuneButtons[9].display();
-  tuneButtons[10].display();
-  tuneButtons[11].display();
+    tuneButtons[0].display();
+    tuneButtons[1].display();
+    tuneButtons[2].display();
+    tuneButtons[3].display();
+    tuneButtons[4].display();
+    tuneButtons[5].display();
+    tuneButtons[6].display();
+    tuneButtons[7].display();
+    tuneButtons[8].display();
+    tuneButtons[9].display();
+    tuneButtons[10].display();
+    tuneButtons[11].display();
 
-  //pitch[0] = new SoundFile(this, "C5.mp3");
-  //pitch[1] = new SoundFile(this, "A5.mp3");
-}
+    //pitch[0] = new SoundFile(this, "C5.mp3");
+    //pitch[1] = new SoundFile(this, "A5.mp3");
+  }
 
 void pitchMode() {
   for (int i=0; i<pitchButtons.length; i++) {
@@ -883,55 +909,64 @@ void harmonize() {
     }
   }
 }
+
 //Ethan Tang and Kai Yun Chao | 3B
 void play(String noteVal) {
-  if (noteVal.equals("A")) {
-    pitchA.play();
-    println("playing");
-  }
-  if (noteVal.equals("A#/Bb")) {
-    pitchAs.play();
-    println("playing");
-  }
-  if (noteVal.equals("B/Cb")) {
-    pitchB.play();
-    println("playing");
-  }
+    if (noteVal.equals("A")) {
+      pitchA4.playFor(2);
+      println("playing");
+      // delay.process("A4.mp3" );
+      //delay.time(1.0);
+      
+    }
+    if (noteVal.equals("A#/Bb")) {
+      pitchAs4.playFor(2);
+      println("playing");
+      //n = str(n);
+    }
+    if (noteVal.equals("B/Cb")) {
+      pitchB4.playFor(2);
+       println("playing");
+    }
 
-  if (noteVal.equals("C/B#")) {
-    pitchC.play();
-    println("playing");
+    if (noteVal.equals("C/B#")) {
+      pitchC4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("C#/Db")) {
+      pitchCs4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("D")) {
+      pitchD4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("D#/Eb")) {
+      pitchDs4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("E/Fb")) {
+      pitchE4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("F/E#")) {
+      pitchF4.playFor(2);
+
+      println("playing");
+    }
+    if (noteVal.equals("F#/Gb")) {
+      pitchFs4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("G")) {
+      pitchG4.playFor(2);
+      println("playing");
+    }
+    if (noteVal.equals("G#/Ab")) {
+      pitchGs4.playFor(2);
+      println("playing");
+    }
+    
+    println("note:" + note);
+    //note = str(n);
   }
-  if (noteVal.equals("C#/Db")) {
-    pitchCs.play();
-    println("playing");
-  }
-  if (noteVal.equals("D")) {
-    pitchD.play();
-    println("playing");
-  }
-  if (noteVal.equals("D#/Eb")) {
-    pitchDs.play();
-    println("playing");
-  }
-  if (noteVal.equals("E/Fb")) {
-    pitchE.play();
-    println("playing");
-  }
-  if (noteVal.equals("F/E#")) {
-    pitchF.play();
-    println("playing");
-  }
-  if (noteVal.equals("F#/Gb")) {
-    pitchFs.play();
-    println("playing");
-  }
-  if (noteVal.equals("G")) {
-    pitchG.play();
-    println("playing");
-  }
-  if (noteVal.equals("G#/Ab")) {
-    pitchGs.play();
-    println("playing");
-  }
-}
