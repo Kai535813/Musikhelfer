@@ -468,30 +468,30 @@ void mouseReleased() {
 }
 
 void playNoteNumber(int n) {
-  if (n == 1)       pitchA.play();
-  else if (n == 2)  pitchAs.play();
-  else if (n == 3)  pitchB.play();
-  else if (n == 4)  pitchC.play();
-  else if (n == 5)  pitchCs.play();
-  else if (n == 6)  pitchD.play();
-  else if (n == 7)  pitchDs.play();
-  else if (n == 8)  pitchE.play();
-  else if (n == 9)  pitchF.play();
-  else if (n == 10) pitchFs.play();
-  else if (n == 11) pitchG.play();
-  else if (n == 12) pitchGs.play();
-  else if (n == 13)  pitchA.play();
-  else if (n == 14)  pitchAs.play();
-  else if (n == 15)  pitchB.play();
-  else if (n == 16)  pitchC.play();
-  else if (n == 17)  pitchCs.play();
-  else if (n == 18)  pitchD.play();
-  else if (n == 19)  pitchDs.play();
-  else if (n == 20)  pitchE.play();
-  else if (n == 21)  pitchF.play();
-  else if (n == 22) pitchFs.play();
-  else if (n == 23) pitchG.play();
-  else if (n == 24) pitchGs.play();
+ if (n == 1)       pitchA4.play();
+  else if (n == 2)  pitchAs4.play();
+  else if (n == 3)  pitchB4.play();
+  else if (n == 4)  pitchC4.play();
+  else if (n == 5)  pitchCs4.play();
+  else if (n == 6)  pitchD4.play();
+  else if (n == 7)  pitchDs4.play();
+  else if (n == 8)  pitchE4.play();
+  else if (n == 9)  pitchF4.play();
+  else if (n == 10) pitchFs4.play();
+  else if (n == 11) pitchG4.play();
+  else if (n == 12) pitchGs4.play();
+  else if (n == 13)  pitchA5.play();
+  else if (n == 14)  pitchAs5.play();
+  else if (n == 15)  pitchB5.play();
+  else if (n == 16)  pitchC5.play();
+  else if (n == 17)  pitchCs5.play();
+  else if (n == 18)  pitchD5.play();
+  else if (n == 19)  pitchDs5.play();
+  else if (n == 20)  pitchE5.play();
+  else if (n == 21)  pitchF5.play();
+  else if (n == 22) pitchFs5.play();
+  else if (n == 23) pitchG5.play();
+  else if (n == 24) pitchGs5.play();
 }
 void mousePressed() {
 
