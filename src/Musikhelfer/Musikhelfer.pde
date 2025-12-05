@@ -1,6 +1,7 @@
 //Kai Yun Chao | 3B
 import processing.sound.*;
 SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5;
+SoundFile metroSound;
 Delay delay;
 
 //Ethan Tang | 3B | 11/4/25
@@ -24,7 +25,7 @@ StringList keySigF;
 IntList index;
 Button[] modeButtons=new Button[4];
 Button[] tuneButtons=new Button[12];
-Button[] harmButtons=new Button[13];
+Button[] harmButtons=new Button[12];
 Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
 int modeTog, clef, degKey, harmKey;
@@ -251,61 +252,60 @@ void setup() {
   c2 = color(#6C6C6C);
 
   //Simon Sakata | 3B
-  modeButtons[0]=new Button(60, 120, 100, 100, 25, #7FA3E0, #5E86D8, "1", "Pitch Ear Training");
-  modeButtons[1]=new Button(60, 270, 100, 100, 25, #7FA3E0, #5E86D8, "2", "Tuner");
-  modeButtons[2]=new Button(60, 420, 100, 100, 25, #7FA3E0, #5E86D8, "3", "Harmonizer");
-  modeButtons[3]=new Button(60, 570, 100, 100, 25, #7FA3E0, #5E86D8, "4", "Metronome");
+  modeButtons[0]=new Button(60, 120, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "1", "Pitch Ear Training");
+  modeButtons[1]=new Button(60, 270, 100, 100, 25, 25, #7FA3E0, #5E86D8, #3348F2, "2", "Tuner");
+  modeButtons[2]=new Button(60, 420, 100, 100, 25, 16, #7FA3E0, #5E86D8, #3348F2, "3", "Auto \n Harmonizer");
+  modeButtons[3]=new Button(60, 570, 100, 100, 25, 16, #7FA3E0, #5E86D8, #3348F2, "4", "Metronome");
   mouseClicked = false;
 
   //Aristotle Stokes
-  metroButtons[0] = new Button(362, 350, 100, 100, 25, #7FA3E0, #5E86D8, "0", "+");
-  metroButtons[1] = new Button(362, 600, 100, 100, 25, #7FA3E0, #5E86D8, "0", "-");
-  metroButtons[2] = new Button(362, 475, 100, 75, 25, #D3D3D3, #767676, "0", "PLAY");
+  metroButtons[0] = new Button(362, 350, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "0", "+");
+  metroButtons[1] = new Button(362, 600, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "0", "-");
+  metroButtons[2] = new Button(362, 475, 100, 75, 25, 20, #D3D3D3, #767676, #3348F2, "0", "PLAY");
   metroVal = "100";
-  metroSound[0] = new SoundFile(this, "Metronome Sound.mp3");
+  metroSound = new SoundFile(this, "Metronome Sound.mp3");
 
   //Mo Spiegel
-  harmButtons[0] = new Button(170, 40, 60, 60, 25, #7FA3E0, #5E86D8, "1", "");
-  harmButtons[1] = new Button(245, 40, 60, 60, 25, #7FA3E0, #5E86D8, "2", "");
-  harmButtons[2] = new Button(320, 40, 60, 60, 25, #7FA3E0, #5E86D8, "3", "");
-  harmButtons[3] = new Button(395, 40, 60, 60, 25, #7FA3E0, #5E86D8, "4", "");
-  harmButtons[4] = new Button(470, 40, 60, 60, 25, #7FA3E0, #5E86D8, "5", "");
-  harmButtons[5] = new Button(545, 40, 60, 60, 25, #7FA3E0, #5E86D8, "6", "");
-  harmButtons[6] = new Button(358, 260, 135, 60, 25, #7FA3E0, #5E86D8, "7", "CLEAR" );
-  harmButtons[7] = new Button(245, 260, 60, 60, 25, #7FA3E0, #5E86D8, "8", "");
-  harmButtons[8] = new Button(470, 260, 60, 60, 25, #7FA3E0, #5E86D8, "9", "");
-  harmButtons[9] = new Button(170, 290, 60, 120, 25, #7FA3E0, #5E86D8, "10", "");
-  harmButtons[10] = new Button(545, 290, 60, 120, 25, #7FA3E0, #5E86D8, "11", "Del");
-  harmButtons[11] = new Button(358, 350, 270, 90, 25, #7FA3E0, #5E86D8, "12", "HARMONIZE");
-  harmButtons[12] = new Button(240, 515, 200, 100, 25, #7FA3E0, #5E86D8, "13", "PLAY");
+  harmButtons[0] = new Button(170, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "1", "");
+  harmButtons[1] = new Button(245, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "2", "");
+  harmButtons[2] = new Button(320, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "3", "");
+  harmButtons[3] = new Button(395, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "4", "");
+  harmButtons[4] = new Button(470, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "5", "");
+  harmButtons[5] = new Button(545, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "6", "");
+  harmButtons[6] = new Button(358, 260, 135, 60, 25, 25, #7FA3E0, #5E86D8, #3348F2, "7", "Clear" );
+  harmButtons[7] = new Button(245, 260, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "8", "");
+  harmButtons[8] = new Button(470, 260, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "9", "");
+  harmButtons[9] = new Button(170, 290, 60, 120, 25, 20, #7FA3E0, #5E86D8, #3348F2, "10", "");
+  harmButtons[10] = new Button(545, 290, 60, 120, 25, 25, #7FA3E0, #5E86D8, #3348F2, "11", "Del");
+  harmButtons[11] = new Button(358, 350, 270, 90, 25, 30, #7FA3E0, #5E86D8, #3348F2, "12", "Harmonize");
 
-  pitchButtons[0] = new Button(200, 70, 100, 40, 25, #7FA3E0, #5E86D8, "31", "Unison");
-  pitchButtons[1] = new Button(320, 140, 100, 40, 25, #7FA3E0, #5E86D8, "31.5", "Minor 2nd");
-  pitchButtons[2] = new Button(200, 140, 100, 40, 25, #7FA3E0, #5E86D8, "32", "Major 2nd");
-  pitchButtons[3] = new Button(320, 210, 100, 40, 25, #7FA3E0, #5E86D8, "32.5", "Minor 3rd");
-  pitchButtons[4] = new Button(200, 210, 100, 40, 25, #7FA3E0, #5E86D8, "33", "Major 3rd");
-  pitchButtons[5] = new Button(200, 280, 100, 40, 25, #7FA3E0, #5E86D8, "34", "Perfect 4th");
-  pitchButtons[6] = new Button(320, 350, 100, 40, 25, #7FA3E0, #5E86D8, "34.5", "Tritone");
-  pitchButtons[7] = new Button(200, 350, 100, 40, 25, #7FA3E0, #5E86D8, "35", "Perfect 5th");
-  pitchButtons[8] = new Button(320, 420, 100, 40, 25, #7FA3E0, #5E86D8, "35.5", "Minor 6th");
-  pitchButtons[9] = new Button(200, 420, 100, 40, 25, #7FA3E0, #5E86D8, "36", "Major 6th");
-  pitchButtons[10] = new Button(320, 490, 100, 40, 25, #7FA3E0, #5E86D8, "36.5", "Minor 7th");
-  pitchButtons[11] = new Button(200, 490, 100, 40, 25, #7FA3E0, #5E86D8, "37", "Major 7th");
-  pitchButtons[12] = new Button(200, 560, 100, 40, 25, #7FA3E0, #5E86D8, "38", "Octave");
-  pitchButtons[13] = new Button(200, 650, 80, 80, 25, #7FA3E0, #5E86D8, "39", "PLAY");
+  pitchButtons[0] = new Button(200, 70, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "31", "Unison");
+  pitchButtons[1] = new Button(320, 140, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "31.5", "Minor 2nd");
+  pitchButtons[2] = new Button(200, 140, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "32", "Major 2nd");
+  pitchButtons[3] = new Button(320, 210, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "32.5", "Minor 3rd");
+  pitchButtons[4] = new Button(200, 210, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "33", "Major 3rd");
+  pitchButtons[5] = new Button(200, 280, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "34", "Perfect 4th");
+  pitchButtons[6] = new Button(320, 350, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "34.5", "Tritone");
+  pitchButtons[7] = new Button(200, 350, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "35", "Perfect 5th");
+  pitchButtons[8] = new Button(320, 420, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "35.5", "Minor 6th");
+  pitchButtons[9] = new Button(200, 420, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "36", "Major 6th");
+  pitchButtons[10] = new Button(320, 490, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "36.5", "Minor 7th");
+  pitchButtons[11] = new Button(200, 490, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "37", "Major 7th");
+  pitchButtons[12] = new Button(200, 560, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "38", "Octave");
+  pitchButtons[13] = new Button(200, 650, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "39", "PLAY");
 
-  tuneButtons[0]=new Button(180, 300, 80, 80, 25, #7FA3E0, #5E86D8, "", "A");
-  tuneButtons[1]=new Button(300, 300, 80, 80, 25,#7FA3E0, #5E86D8, "", "A#/Bb");
-  tuneButtons[2]=new Button(420, 300, 80, 80, 25, #7FA3E0,#5E86D8, "", "B/Cb");
-  tuneButtons[3]=new Button(540, 300, 80, 80, 25, #7FA3E0, #5E86D8, "", "C/B#");
-  tuneButtons[4]=new Button(180, 420, 80, 80, 25, #7FA3E0, #5E86D8, "", "C#/Db");
-  tuneButtons[5]=new Button(300, 420, 80, 80, 25, #7FA3E0, #5E86D8, "", "D");
-  tuneButtons[6]=new Button(420, 420, 80, 80, 25, #7FA3E0,#5E86D8, "", "D#/Eb");
-  tuneButtons[7]=new Button(540, 420, 80, 80, 25, #7FA3E0, #5E86D8, "", "E/Fb");
-  tuneButtons[8]=new Button(180, 540, 80, 80, 25,#7FA3E0, #5E86D8, "", "F/E#");
-  tuneButtons[9]=new Button(300, 540, 80, 80, 25, #7FA3E0, #5E86D8, "", "F#/Gb");
-  tuneButtons[10]=new Button(420, 540, 80, 80, 25, #7FA3E0, #5E86D8, "", "G");
-  tuneButtons[11]=new Button(540, 540, 80, 80, 25, #7FA3E0, #5E86D8, "", "G#/Ab");
+  tuneButtons[0]=new Button(180, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "A");
+  tuneButtons[1]=new Button(300, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "A#/Bb");
+  tuneButtons[2]=new Button(420, 300, 80, 80, 25, 20, #7FA3E0,#5E86D8, #3348F2, "", "B/Cb");
+  tuneButtons[3]=new Button(540, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "C/B#");
+  tuneButtons[4]=new Button(180, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "C#/Db");
+  tuneButtons[5]=new Button(300, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "D");
+  tuneButtons[6]=new Button(420, 420, 80, 80, 25, 20, #7FA3E0,#5E86D8, #3348F2, "", "D#/Eb");
+  tuneButtons[7]=new Button(540, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "E/Fb");
+  tuneButtons[8]=new Button(180, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "F/E#");
+  tuneButtons[9]=new Button(300, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "F#/Gb");
+  tuneButtons[10]=new Button(420, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "G");
+  tuneButtons[11]=new Button(540, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "G#/Ab");
 }
 
 void keyPressed() {
@@ -646,13 +646,16 @@ void harmMode() {
   noStroke();
   fill(60);
   rect(135, 97, 444, 120, 25);
-  strokeWeight(1);
-  stroke(255);
+  rect(355, 452, 224, 160, 25);
+  rect(135, 452, 204, 160, 25);
   fill(255);
   rect(140, 90, 440, 120, 25);
-  rect(360, 465, 220, 160, 25);
+  rect(360, 445, 220, 160, 25);
+  fill(50);
+  rect(140, 445, 200, 160, 25);
+  strokeWeight(1);
   stroke(0);
-  for (int i = 505; i <= 585; i = i + 20) {
+  for (int i = 485; i <= 565; i = i + 20) {
     line(360, i, 580, i);
   }
   for (int i = 110; i <= 190; i = i + 20) {
