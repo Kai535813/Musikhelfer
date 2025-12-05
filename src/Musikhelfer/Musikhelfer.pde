@@ -15,7 +15,7 @@ HashMap<Integer, String> degKeys= new HashMap<Integer, String>();
 HashMap<Integer, String> harmIndex= new HashMap<Integer, String>();
 ArrayList<Note> notes = new ArrayList<Note>();
 PImage[] noteImages = new PImage[45];
-//PFont font;
+PFont font;
 PImage[] musikHelferLogo = new PImage[1];
 boolean mouseClicked, firstSwitch;
 StringList inputScore;
@@ -44,6 +44,8 @@ int interval, note1, note2;
 
 
 void setup() {
+  font = loadFont("GurmukhiMN-48.vlw");
+
   degKeys.put(1, "C");
   degKeys.put(2, "D");
   degKeys.put(3, "E");
