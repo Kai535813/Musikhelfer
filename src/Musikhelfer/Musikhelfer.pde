@@ -298,11 +298,11 @@ void setup() {
 
   tuneButtons[0]=new Button(180, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "A");
   tuneButtons[1]=new Button(300, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "A#/Bb");
-  tuneButtons[2]=new Button(420, 300, 80, 80, 25, 20, #7FA3E0,#5E86D8, #3348F2, "", "B/Cb");
+  tuneButtons[2]=new Button(420, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "B/Cb");
   tuneButtons[3]=new Button(540, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "C/B#");
   tuneButtons[4]=new Button(180, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "C#/Db");
   tuneButtons[5]=new Button(300, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "D");
-  tuneButtons[6]=new Button(420, 420, 80, 80, 25, 20, #7FA3E0,#5E86D8, #3348F2, "", "D#/Eb");
+  tuneButtons[6]=new Button(420, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "D#/Eb");
   tuneButtons[7]=new Button(540, 420, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "E/Fb");
   tuneButtons[8]=new Button(180, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "F/E#");
   tuneButtons[9]=new Button(300, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "F#/Gb");
@@ -470,7 +470,7 @@ void mouseReleased() {
 }
 
 void playNoteNumber(int n) {
- if (n == 1)       pitchA4.play();
+  if (n == 1)       pitchA4.play();
   else if (n == 2)  pitchAs4.play();
   else if (n == 3)  pitchB4.play();
   else if (n == 4)  pitchC4.play();
@@ -564,39 +564,39 @@ void display() {
 }
 
 void tunerMode() {
-    //Kai Yun Chao | 3B
+  //Kai Yun Chao | 3B
 
 
-    fill(#5E86D8);
-    rect(360, 120, 440, 160, 25);
-    
+  fill(#5E86D8);
+  rect(360, 120, 440, 160, 25);
+
   fill(0);
   textSize(120);
-   //text(noteVal,360,100);
-   
-   
-    rectMode(CENTER);
-    fill(#2B7FD6);
-    //rect(370, 233);
-    textAlign(CENTER, CENTER);
-    textSize(65);
+  //text(noteVal,360,100);
 
-    tuneButtons[0].display();
-    tuneButtons[1].display();
-    tuneButtons[2].display();
-    tuneButtons[3].display();
-    tuneButtons[4].display();
-    tuneButtons[5].display();
-    tuneButtons[6].display();
-    tuneButtons[7].display();
-    tuneButtons[8].display();
-    tuneButtons[9].display();
-    tuneButtons[10].display();
-    tuneButtons[11].display();
 
-    //pitch[0] = new SoundFile(this, "C5.mp3");
-    //pitch[1] = new SoundFile(this, "A5.mp3");
-  }
+  rectMode(CENTER);
+  fill(#2B7FD6);
+  //rect(370, 233);
+  textAlign(CENTER, CENTER);
+  textSize(65);
+
+  tuneButtons[0].display();
+  tuneButtons[1].display();
+  tuneButtons[2].display();
+  tuneButtons[3].display();
+  tuneButtons[4].display();
+  tuneButtons[5].display();
+  tuneButtons[6].display();
+  tuneButtons[7].display();
+  tuneButtons[8].display();
+  tuneButtons[9].display();
+  tuneButtons[10].display();
+  tuneButtons[11].display();
+
+  //pitch[0] = new SoundFile(this, "C5.mp3");
+  //pitch[1] = new SoundFile(this, "A5.mp3");
+}
 
 void pitchMode() {
   for (int i=0; i<pitchButtons.length; i++) {
@@ -754,31 +754,31 @@ void harmonize() {
   scaleDeg.clear();
   //Change hashmap based on clef selected
   if (clef==1) {
-    keyConvert.put(14, "E");
-    keyConvert.put(13, "F");
-    keyConvert.put(12, "G");
-    keyConvert.put(11, "A");
-    keyConvert.put(10, "B");
-    keyConvert.put(9, "C");
-    keyConvert.put(8, "D");
-    keyConvert.put(7, "E");
-    keyConvert.put(6, "F");
-    keyConvert.put(5, "G");
-    keyConvert.put(4, "A");
+    keyConvert.put(14, "D");
+    keyConvert.put(13, "E");
+    keyConvert.put(12, "F");
+    keyConvert.put(11, "G");
+    keyConvert.put(10, "A");
+    keyConvert.put(9, "B");
+    keyConvert.put(8, "C");
+    keyConvert.put(7, "D");
+    keyConvert.put(6, "E");
+    keyConvert.put(5, "F");
+    keyConvert.put(4, "G");
     keyConvert.put(0, "rest");
   }
   if (clef==2) {
-    keyConvert.put(14, "G");
-    keyConvert.put(13, "A");
-    keyConvert.put(12, "B");
-    keyConvert.put(11, "C");
-    keyConvert.put(10, "D");
-    keyConvert.put(9, "E");
-    keyConvert.put(8, "F");
-    keyConvert.put(7, "G");
-    keyConvert.put(6, "A");
-    keyConvert.put(5, "B");
-    keyConvert.put(4, "C");
+    keyConvert.put(14, "F");
+    keyConvert.put(13, "G");
+    keyConvert.put(12, "A");
+    keyConvert.put(11, "B");
+    keyConvert.put(10, "C");
+    keyConvert.put(9, "D");
+    keyConvert.put(8, "E");
+    keyConvert.put(7, "F");
+    keyConvert.put(6, "G");
+    keyConvert.put(5, "A");
+    keyConvert.put(4, "B");
     keyConvert.put(0, "rest");
   }
   //Read all notes imputed on score
@@ -860,7 +860,6 @@ void harmonize() {
     } else if (first) {
       harmIndex.put(index.size(), str(inputScore.get(i).charAt(0)));
       index.append(1);
-      harmIndex.put(0, inputScore.get(i));
       first=false;
     }
   }
@@ -888,24 +887,24 @@ void harmonize() {
     }
   }
   println(harmonizeRes);
-  //adjust for sharps in the chord based on keysignature 
+  //adjust for sharps in the chord based on keysignature
   if (keySig=='S') {
     for (int i=0; i<keySigS.size()-1; i++) {
-      if (harmonizeRes.hasValue(str(keySigS.get(i).charAt(1)))) {
+      if (harmonizeRes.hasValue(str(keySigS.get(i).charAt(0)))) {
         for (int i2=0; i2<harmonizeRes.size(); i2++) {
-          if (harmonizeRes.get(i2).equals((str(keySigS.get(i).charAt(1))))) {
+          if (harmonizeRes.get(i2).equals((str(keySigS.get(i).charAt(0))))) {
             harmonizeRes.set(i2, harmonizeRes.get(i2)+"#");
             i2=harmonizeRes.size()+1;
           }
         }
       }
     }
-    //adjust for flats in the chord based on key signature 
+    //adjust for flats in the chord based on key signature
   } else if (keySig=='F') {
     for (int i=0; i<keySigF.size()-1; i++) {
-      if (harmonizeRes.hasValue(str(keySigF.get(i).charAt(1)))) {
+      if (harmonizeRes.hasValue(str(keySigF.get(i).charAt(0)))) {
         for (int i2=0; i2<harmonizeRes.size(); i2++) {
-          if (harmonizeRes.get(i2).equals((str(keySigF.get(i).charAt(1))))) {
+          if (harmonizeRes.get(i2).equals((str(keySigF.get(i).charAt(0))))) {
             harmonizeRes.set(i2, harmonizeRes.get(i2)+"b");
             i2=harmonizeRes.size()+1;
           }
@@ -913,65 +912,67 @@ void harmonize() {
       }
     }
   }
+    println(harmonizeRes);
+    println("NEW HARMONY");
+
 }
 
 //Ethan Tang and Kai Yun Chao | 3B
 void play(String noteVal) {
-    if (noteVal.equals("A")) {
-      pitchA4.playFor(2);
-      println("playing");
-      // delay.process("A4.mp3" );
-      //delay.time(1.0);
-      
-    }
-    if (noteVal.equals("A#/Bb")) {
-      pitchAs4.playFor(2);
-      println("playing");
-      //n = str(n);
-    }
-    if (noteVal.equals("B/Cb")) {
-      pitchB4.playFor(2);
-       println("playing");
-    }
-
-    if (noteVal.equals("C/B#")) {
-      pitchC4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("C#/Db")) {
-      pitchCs4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("D")) {
-      pitchD4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("D#/Eb")) {
-      pitchDs4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("E/Fb")) {
-      pitchE4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("F/E#")) {
-      pitchF4.playFor(2);
-
-      println("playing");
-    }
-    if (noteVal.equals("F#/Gb")) {
-      pitchFs4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("G")) {
-      pitchG4.playFor(2);
-      println("playing");
-    }
-    if (noteVal.equals("G#/Ab")) {
-      pitchGs4.playFor(2);
-      println("playing");
-    }
-    
-    println("note:" + note);
-    //note = str(n);
+  if (noteVal.equals("A")) {
+    pitchA4.playFor(2);
+    println("playing");
+    // delay.process("A4.mp3" );
+    //delay.time(1.0);
   }
+  if (noteVal.equals("A#/Bb")) {
+    pitchAs4.playFor(2);
+    println("playing");
+    //n = str(n);
+  }
+  if (noteVal.equals("B/Cb")) {
+    pitchB4.playFor(2);
+    println("playing");
+  }
+
+  if (noteVal.equals("C/B#")) {
+    pitchC4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("C#/Db")) {
+    pitchCs4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("D")) {
+    pitchD4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("D#/Eb")) {
+    pitchDs4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("E/Fb")) {
+    pitchE4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("F/E#")) {
+    pitchF4.playFor(2);
+
+    println("playing");
+  }
+  if (noteVal.equals("F#/Gb")) {
+    pitchFs4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("G")) {
+    pitchG4.playFor(2);
+    println("playing");
+  }
+  if (noteVal.equals("G#/Ab")) {
+    pitchGs4.playFor(2);
+    println("playing");
+  }
+
+  println("note:" + note);
+  //note = str(n);
+}
