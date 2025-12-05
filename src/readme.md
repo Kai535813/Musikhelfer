@@ -11,11 +11,13 @@
 
 ## File Assimilation Record
 
-12/2/25: 9:57 AM: Kai's updates assimilated. 
+12/5/25: 10:58 AM: Kai's and my updates assimilated, harmonize function is now completed, and the new font doesn't seem to work, so I commented it out for now. -Ethan Tang
 
-11/25/25: 9:57 AM: Kai's and Mo's updates assimilated 
+12/2/25: 9:57 AM: Kai's updates assimilated.  -Ethan Tang
 
-11/14/25: 8:28 PM: All group member updates assimilated.
+11/25/25: 9:57 AM: Kai's and Mo's updates assimilated  -Ethan Tang
+
+11/14/25: 8:28 PM: All group member updates assimilated. -Ethan Tang
 
 11/13/25: 9:42 PM: All of my, Mo's, Simon's and Kai's work has been assimilated into one folder, the note input functions, and the methods tunerMode and harmonize are still unfinished. Also, Aristotle, I saw that you added updates for the metronome, but deleted them later-its fine to upload unfinished work, I can just comment it out when assimilating if said unifinished work prevents the program from running, like what I did with Kai's code today. -Ethan Tang
 
