@@ -4,21 +4,31 @@ SoundFile pitch, pitchA, pitchAs, pitchB, pitchC, pitchCs, pitchD, pitchDs, pitc
 SoundFile metroSound;
 import java.util.Map;
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
+HashMap<Integer, String> orderSharp= new HashMap<Integer, String>();
+HashMap<Integer, String> orderFlat= new HashMap<Integer, String>();
+HashMap<Integer, String> scaleDeg= new HashMap<Integer, String>();
+HashMap<Integer, String> keySigConvert= new HashMap<Integer, String>();
+HashMap<Integer, String> degKeys= new HashMap<Integer, String>();
+HashMap<Integer, String> harmIndex= new HashMap<Integer, String>();
 ArrayList<Note> notes = new ArrayList<Note>();
 PImage[] noteImages = new PImage[45];
-PFont font;
+//PFont font;
 PImage[] musikHelferLogo = new PImage[1];
 boolean mouseClicked, firstSwitch;
 StringList inputScore;
 StringList harmonizeRes;
+StringList keySigS;
+StringList keySigF;
+IntList index;
 Button[] modeButtons=new Button[4];
 Button[] tuneButtons=new Button[12];
 Button[] harmButtons=new Button[13];
 Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
-int modeTog, clef;
+int modeTog, clef, degKey, harmKey;
+char keySig;
 String buttonVal, tuneNote, scoreNote, metroVal;
-Boolean play;
+Boolean first, added;
 Boolean metroPlaying = false;
 Boolean flashOn = false;
 Boolean intervalActive = false;
@@ -26,12 +36,58 @@ int lastTick = 0;
 int Y_AXIS = 1;
 int X_AXIS = 2;
 color c1, c2;
-PFont myFont;
 //Simon Sakata
 int interval, note1, note2;
 
 
 void setup() {
+  degKeys.put(1, "C");
+  degKeys.put(2, "D");
+  degKeys.put(3, "E");
+  degKeys.put(4, "F");
+  degKeys.put(5, "G");
+  degKeys.put(6, "A");
+  degKeys.put(7, "B");
+  degKeys.put(8, "C");
+  degKeys.put(9, "D");
+  degKeys.put(10, "E");
+  degKeys.put(11, "F");
+  degKeys.put(12, "G");
+  degKeys.put(13, "A");
+  degKeys.put(14, "B");
+  degKeys.put(15, "C");
+  degKeys.put(16, "D");
+  degKeys.put(17, "E");
+  degKeys.put(18, "F");
+  keySigConvert.put(0, "C");
+  keySigConvert.put(1, "G");
+  keySigConvert.put(2, "D");
+  keySigConvert.put(3, "A");
+  keySigConvert.put(4, "E");
+  keySigConvert.put(5, "B");
+  keySigConvert.put(6, "F");
+  keySigConvert.put(7, "C");
+  keySigConvert.put(8, "F");
+  keySigConvert.put(9, "B");
+  keySigConvert.put(10, "E");
+  keySigConvert.put(11, "A");
+  keySigConvert.put(12, "D");
+  keySigConvert.put(13, "G");
+  keySigConvert.put(14, "C");
+  orderSharp.put(1, "F#");
+  orderSharp.put(2, "C#");
+  orderSharp.put(3, "G#");
+  orderSharp.put(4, "D#");
+  orderSharp.put(5, "A#");
+  orderSharp.put(6, "E#");
+  orderSharp.put(7, "B#");
+  orderFlat.put(1, "Bb");
+  orderFlat.put(2, "Eb");
+  orderFlat.put(3, "Ab");
+  orderFlat.put(4, "Db");
+  orderFlat.put(5, "Gb");
+  orderFlat.put(6, "Cb");
+  orderFlat.put(7, "Fb");
   clef = 1;
   pitchA = new SoundFile(this, "A4.mp3");
   pitchC = new SoundFile(this, "C4.mp3");
@@ -165,10 +221,10 @@ void setup() {
   noteImages[32].resize(80, 160); //Play
   noteImages[42].resize(50, 110); //Treble
   noteImages[43].resize(50, 70); //Bass
-  noteImages[44].resize(40,60); //Rest
+  noteImages[44].resize(40, 60); //Rest
 
   //Logo
-  musikHelferLogo[0].resize(500,280);
+  musikHelferLogo[0].resize(500, 280);
 
   size(600, 700);
   c1 = color(#5E86D8);
@@ -179,7 +235,6 @@ void setup() {
   modeButtons[1]=new Button(60, 270, 100, 100, 25, #7FA3E0, #5E86D8, "2", "Tuner");
   modeButtons[2]=new Button(60, 420, 100, 100, 25, #7FA3E0, #5E86D8, "3", "Harmonizer");
   modeButtons[3]=new Button(60, 570, 100, 100, 25, #7FA3E0, #5E86D8, "4", "Metronome");
-  clef=1;
   mouseClicked = false;
 
   //Aristotle Stokes
@@ -262,7 +317,7 @@ void mouseReleased() {
       println("interval:" + interval);
       println("note1:" + note1);
       println("note2:" + note2);
-      
+
       intervalActive = true;
     }
     playNoteNumber(note1);
@@ -273,7 +328,7 @@ void mouseReleased() {
     if (pitchButtons[i].hover(mouseX, mouseY)) {
       if (intervalActive) {
         int guessedInterval = i;
-        
+
         if (guessedInterval == interval) {
           println("Correct interval");
           intervalActive = false;
@@ -393,7 +448,7 @@ void mouseReleased() {
 }
 
 void playNoteNumber(int n) {
- if (n == 1)       pitchA.play();
+  if (n == 1)       pitchA.play();
   else if (n == 2)  pitchAs.play();
   else if (n == 3)  pitchB.play();
   else if (n == 4)  pitchC.play();
@@ -439,7 +494,7 @@ void draw() {
   switch(modeTog) {
   case 0:
     fill(230);
-    image(musikHelferLogo[0],125,210);
+    image(musikHelferLogo[0], 125, 210);
     break;
   case 1:
     pitchMode();
@@ -646,7 +701,7 @@ void harmMode() {
   image(noteImages[44], 548, 40);
   image(noteImages[41], 245, 260);
   image(noteImages[40], 468, 260);
-  
+
   if (clef == 1) {
     image(noteImages[43], 170, 290);
   } else if (clef == 2) {
@@ -656,41 +711,179 @@ void harmMode() {
 
 void harmonize() {
   //Ethan Tang | 3B | 11/13/25
+  //Clear and reset everything
   inputScore=new StringList();
+  keySigF=new StringList();
+  keySigS=new StringList();
+  harmonizeRes=new StringList();
+  index=new IntList();
+  first=true;
   keyConvert.clear();
+  harmIndex.clear();
+  scaleDeg.clear();
+  //Change hashmap based on clef selected
   if (clef==1) {
-    keyConvert.put(14, "D");
-    keyConvert.put(13, "E");
-    keyConvert.put(12, "F");
-    keyConvert.put(11, "G");
-    keyConvert.put(10, "A");
-    keyConvert.put(9, "B");
-    keyConvert.put(8, "C");
-    keyConvert.put(7, "D");
-    keyConvert.put(6, "E");
-    keyConvert.put(5, "F");
-    keyConvert.put(4, "G");
-  }
-  if (clef==2) {
-    keyConvert.put(14, "F");
-    keyConvert.put(13, "G");
-    keyConvert.put(12, "A");
-    keyConvert.put(11, "B");
-    keyConvert.put(10, "C");
-    keyConvert.put(9, "D");
-    keyConvert.put(8, "E");
-    keyConvert.put(7, "F");
-    keyConvert.put(6, "G");
-    keyConvert.put(5, "A");
-    keyConvert.put(4, "B");
+    keyConvert.put(14, "E");
+    keyConvert.put(13, "F");
+    keyConvert.put(12, "G");
+    keyConvert.put(11, "A");
+    keyConvert.put(10, "B");
+    keyConvert.put(9, "C");
+    keyConvert.put(8, "D");
+    keyConvert.put(7, "E");
+    keyConvert.put(6, "F");
+    keyConvert.put(5, "G");
+    keyConvert.put(4, "A");
     keyConvert.put(0, "rest");
   }
+  if (clef==2) {
+    keyConvert.put(14, "G");
+    keyConvert.put(13, "A");
+    keyConvert.put(12, "B");
+    keyConvert.put(11, "C");
+    keyConvert.put(10, "D");
+    keyConvert.put(9, "E");
+    keyConvert.put(8, "F");
+    keyConvert.put(7, "G");
+    keyConvert.put(6, "A");
+    keyConvert.put(5, "B");
+    keyConvert.put(4, "C");
+    keyConvert.put(0, "rest");
+  }
+  //Read all notes imputed on score
   for (int i=0; i<notes.size(); i++) {
-    inputScore.append(keyConvert.get(notes.get(i).yVal()));
+    if (notes.get(i).yVal()!=0) {
+      if (notes.get(i).sharp) {
+        inputScore.append(keyConvert.get(notes.get(i).yVal())+"#");
+      } else if (notes.get(i).flat) {
+        inputScore.append(keyConvert.get(notes.get(i).yVal())+"b");
+      } else {
+        inputScore.append(keyConvert.get(notes.get(i).yVal()));
+      }
+    }
   }
   println(inputScore);
+  //determine key signiture
+  for (int i=1; i<8; i++) {
+    if (inputScore.hasValue(orderSharp.get(i))) {
+      keySigS.append(orderSharp.get(i));
+    } else {
+      keySigS.append(keySigConvert.get(i-1));
+      i=9;
+    }
+  }
+  for (int i=1; i<8; i++) {
+    if (inputScore.hasValue(orderFlat.get(i))) {
+      keySigF.append(orderFlat.get(i));
+    } else {
+      keySigF.append(keySigConvert.get(i-1+7));
+      i=9;
+    }
+  }
+  //prefer the longest key signiture, and if the key signitures are the same size, prefer the one with sharps
+  if (keySigF.size()>keySigS.size()) {
+    keySig='F';
+  } else {
+    keySig='S';
+  }
+  println(keySigF);
+  println(keySigS);
+  println(keySig);
+  //determine the tonic of the scale degrees, expressed as the index for that note of degKeys
+  for (int i=1; i<8; i++) {
+    if (keySig=='S') {
+      if (degKeys.get(i).equals(keySigS.get(keySigS.size()-1))) {
+        degKey=i;
+        i=9;
+      }
+    } else if (keySig=='F') {
+      if (degKeys.get(i).equals(keySigF.get(keySigF.size()-1))) {
+        degKey=i;
+        i=9;
+      }
+    }
+  }
+  //Create a list for the scale degree where the tonic is at index 0
+  for (int i=1; i<12; i++) {
+    scaleDeg.put(i, degKeys.get(degKey+i-1));
+  }
+  println(scaleDeg);
+  //measure the exact amount of each note using an int list and hash map with cooresponding indices, int list represents total number, the hashmap represents the note
+  for (int i=0; i<inputScore.size(); i++) {
+    added=false;
+    if (!first) {
+      //checks whether current note is already recorded
+      for (int i2=0; i2<index.size(); i2++) {
+        if (inputScore.get(i).equals(harmIndex.get(i2))) {
+          index.add(i2, 1);
+          added=true;
+          break;
+        }
+      }
+      //if not, then a new entry is created for a new note
+      if (!added) {
+        harmIndex.put(index.size(), str( inputScore.get(i).charAt(0)));
+        index.append(1);
+      }
+      //first is used to prevent null pointer exception
+    } else if (first) {
+      harmIndex.put(index.size(), str(inputScore.get(i).charAt(0)));
+      index.append(1);
+      harmIndex.put(0, inputScore.get(i));
+      first=false;
+    }
+  }
+  println(harmIndex);
+  println(index);
+  //the note that appears the most becomes the root of the harmonizing chord and the index we have is converted to an index that works for scaleDeg
+  for (int i=0; i<index.size(); i++) {
+    if (index.get(i)==index.max()) {
+      for (int i2=1; i2<scaleDeg.size(); i2++) {
+        if (scaleDeg.get(i2).equals(harmIndex.get(i))) {
+          harmKey=i2;
+          break;
+        }
+      }
+      //the chord is then built by combining the root and two notes of every other note
+      println(harmKey);
+      harmonizeRes.append(scaleDeg.get(harmKey));
+      harmonizeRes.append(scaleDeg.get(harmKey+2));
+      harmonizeRes.append(scaleDeg.get(harmKey+4));
+      //for the V chord, V7 is used, so an extra note must be added
+      if (harmIndex.get(i).equals(scaleDeg.get(5))) {
+        harmonizeRes.append(scaleDeg.get(harmKey+6));
+      }
+      break;
+    }
+  }
+  println(harmonizeRes);
+  //adjust for sharps in the chord based on keysignature 
+  if (keySig=='S') {
+    for (int i=0; i<keySigS.size()-1; i++) {
+      if (harmonizeRes.hasValue(str(keySigS.get(i).charAt(1)))) {
+        for (int i2=0; i2<harmonizeRes.size(); i2++) {
+          if (harmonizeRes.get(i2).equals((str(keySigS.get(i).charAt(1))))) {
+            harmonizeRes.set(i2, harmonizeRes.get(i2)+"#");
+            i2=harmonizeRes.size()+1;
+          }
+        }
+      }
+    }
+    //adjust for flats in the chord based on key signature 
+  } else if (keySig=='F') {
+    for (int i=0; i<keySigF.size()-1; i++) {
+      if (harmonizeRes.hasValue(str(keySigF.get(i).charAt(1)))) {
+        for (int i2=0; i2<harmonizeRes.size(); i2++) {
+          if (harmonizeRes.get(i2).equals((str(keySigF.get(i).charAt(1))))) {
+            harmonizeRes.set(i2, harmonizeRes.get(i2)+"b");
+            i2=harmonizeRes.size()+1;
+          }
+        }
+      }
+    }
+  }
 }
-
+//Ethan Tang and Kai Yun Chao | 3B
 void play(String noteVal) {
   if (noteVal.equals("A")) {
     pitchA.play();
