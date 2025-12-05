@@ -1,22 +1,24 @@
 //Simon Sakata
 class Button {
   // Member variables
-  int x, y, w, h, r;
-  color c1, c2;
+  int x, y, w, h, r, s;
+  color c1, c2, c3;
   String disVal, val;
   boolean over;
 
   // Constructor
-  Button(int x, int y, int w, int h, int r, color c1, color c2, String val, String disVal) {
+  Button(int x, int y, int w, int h, int r, int s, color c1, color c2, color c3, String val, String disVal) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.r = r;
+    this.s = s;
     this.disVal = disVal;
     this.val = val;
     this.c1 = c1;
     this.c2 = c2;
+    this.c3 = c3;
     over = false;
   }
 
@@ -33,14 +35,13 @@ class Button {
     } else {
       fill(c2);
     }
-    stroke(#3348F2);
+    stroke(c3);
     rect(x, y, w, h, r);
 
     // Draw button text
-    textFont(font, 30);
+    textFont(font, s);
     noStroke();
     textAlign(CENTER, CENTER);
-    textSize(20);
     fill(255);
     text(disVal, x, y, w, h);
   }
