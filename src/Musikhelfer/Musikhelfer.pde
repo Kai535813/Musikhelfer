@@ -262,7 +262,7 @@ void setup() {
   metroButtons[1] = new Button(362, 600, 100, 100, 25, #7FA3E0, #5E86D8, "0", "-");
   metroButtons[2] = new Button(362, 475, 100, 75, 25, #D3D3D3, #767676, "0", "PLAY");
   metroVal = "100";
-  metroSound = new SoundFile(this, "Metronome Sound.mp3");
+  metroSound[0] = new SoundFile(this, "Metronome Sound.mp3");
 
   //Mo Spiegel
   harmButtons[0] = new Button(170, 40, 60, 60, 25, #7FA3E0, #5E86D8, "1", "");
