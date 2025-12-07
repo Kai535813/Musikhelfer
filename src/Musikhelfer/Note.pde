@@ -3,48 +3,31 @@
 class Note {
 
   //Member variables
-  color c1, c2;
   int x, y;
-  boolean inputted;
-  boolean restMode;
-  boolean flat;
-  boolean sharp;
+  boolean inputted, restMode, flat, sharp;
   int noteTog;
-
-  //Tracks where the mouse is clicked (where the note is to be inputted)
-  int clickX, clickY, harmY;
+  int clickX, clickY; //Tracks where the mouse is clicked (where the note is to be inputted)
+  int harmY; //Tracks values for hash maps
 
   //Constructor
-  Note(color c1, color c2, int x, int noteTog, boolean inputted, boolean restMode, boolean flat, boolean sharp) {
-
-    //Hover color
-    this.c1 = c1;
-
-    //Inputted note color
-    this.c2 = c2;
-    
-
-    //x-position on score
-    this.x = x;
-
-    this.noteTog = noteTog;
-    this.inputted = inputted;
-    this.restMode = restMode;
-    this.flat = flat;
-    this.sharp = sharp;
+  Note(int x, int noteTog, boolean inputted, boolean restMode, boolean flat, boolean sharp) {
+    this.x = x; //x-position on score
+    this.noteTog = noteTog; //Note value (i.e. duration)
+    this.inputted = inputted; //Whether or not the note has been inputted
+    this.restMode = restMode; //Whether or not the note is a rest
+    this.flat = flat; //Whether or not the note is flat
+    this.sharp = sharp; //Whether or not the note is sharp
   }
 
   //Member Methods
 
   //Draws hovering note that snaps to score following user's cursor
   void hover() {
-    stroke(c1);
-    fill(c1);
-
     if (inputted == false) {
       imageMode(CENTER);
       for (int i = 95; i<205; i = i + 10) {
-        if (mouseX>= 140 && mouseX<=580 && mouseY> i && mouseY <= i+10 && mouseY<=155) {
+        if (mouseX>= 140 && mouseX<=580 && mouseY> i && mouseY <= i+10 && mouseY<=155) { //Tracks what line or space on the score the cursor is on
+          //Each if block draws a hovering note on that line or space on the score
           if (noteTog == 1 && restMode == false) {
             image(noteImages[3], x, i+23);
             if (sharp == true && mouseY> 95 && mouseY <= 115) {
@@ -156,6 +139,7 @@ class Note {
           }
         }
       }
+
       //Rests
       if (noteTog == 1 && restMode == true) {
         image(noteImages[19], x, 153);
@@ -173,51 +157,48 @@ class Note {
 
   //Draws a note when it is inputted (mouse clicked)
   void inputNote() {
-    if (mouseClicked == true && inputted == false && mouseX>= 40 && mouseX<=580 && mouseY> 95 && mouseY<205) {
+    if (inputted == false && mouseX>= 40 && mouseX<=580 && mouseY> 95 && mouseY<205) { //Score hitbox
       clickX = mouseX;
       clickY =  mouseY;
     }
 
-    //Draw note
-    strokeWeight(2);
-    fill(c2);
-    stroke(c2);
-    if (clickX >= 40 && clickX <= 580 && clickY> 95 && clickY<205) {
-      if (clickY >= 95 && clickY <= 105) {
-        y = 95;
-        harmY = 40;
-      } else if (clickY > 105 && clickY <=115) {
-        y = 105;
-        harmY = 50;
-      } else if (clickY > 115 && clickY <=125) {
-        y = 115;
-        harmY = 60;
-      } else if (clickY > 125 && clickY <=135) {
-        y = 125;
-        harmY = 70;
-      } else if (clickY > 135 && clickY <=145) {
-        y = 135;
-        harmY = 80;
-      } else if (clickY > 145 && clickY <=155) {
-        y = 145;
-        harmY = 90;
-      } else if (clickY > 155 && clickY <=165) {
-        y = 155;
-        harmY = 100;
-      } else if (clickY > 165 && clickY <=175) {
-        y = 165;
-        harmY = 110;
-      } else if (clickY > 175 && clickY <=185) {
-        y = 175;
-        harmY = 120;
-      } else if (clickY > 185 && clickY <=195) {
-        y = 185;
-        harmY = 130;
-      } else if (clickY > 195 && clickY <=205) {
-        y = 195;
-        harmY = 140;
-      }
+    //Set the note y-position based off of where the user clicked on the score (causes it to snap to line or space)
+    if (clickY >= 95 && clickY <= 105) {
+      y = 95;
+      harmY = 40;
+    } else if (clickY > 105 && clickY <=115) {
+      y = 105;
+      harmY = 50;
+    } else if (clickY > 115 && clickY <=125) {
+      y = 115;
+      harmY = 60;
+    } else if (clickY > 125 && clickY <=135) {
+      y = 125;
+      harmY = 70;
+    } else if (clickY > 135 && clickY <=145) {
+      y = 135;
+      harmY = 80;
+    } else if (clickY > 145 && clickY <=155) {
+      y = 145;
+      harmY = 90;
+    } else if (clickY > 155 && clickY <=165) {
+      y = 155;
+      harmY = 100;
+    } else if (clickY > 165 && clickY <=175) {
+      y = 165;
+      harmY = 110;
+    } else if (clickY > 175 && clickY <=185) {
+      y = 175;
+      harmY = 120;
+    } else if (clickY > 185 && clickY <=195) {
+      y = 185;
+      harmY = 130;
+    } else if (clickY > 195 && clickY <=205) {
+      y = 195;
+      harmY = 140;
     }
+    
+    //Inputs the note based on this y-position
     if (y< 155) {
       if (noteTog == 1 && restMode == false) {
         image(noteImages[1], x, y+23);
@@ -329,6 +310,8 @@ class Note {
         }
       }
     }
+    
+    //Rests
     if (noteTog == 1 && restMode == true) {
       image(noteImages[18], x, 153);
     } else if (noteTog == 2 && restMode == true) {
@@ -342,12 +325,7 @@ class Note {
     }
   }
 
-  //Update mouseClicked when a click has been completed
-  void mouseClick() {
-    if (mouseClicked == false) {
-      mouseClicked = true;
-    }
-  }
+  //Return for hash map
   int yVal() {
     return round(harmY/10);
   }
