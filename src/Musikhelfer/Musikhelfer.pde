@@ -1,11 +1,20 @@
 //Kai Yun Chao | 3B
 import processing.sound.*;
-SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5;
+
+//Sounds
+SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5, pitchC3, pitchCs3, pitchD3, pitchDs3, pitchE3, pitchF3, pitchFs3, pitchG3, pitchGs3, pitchA3, pitchAs3, pitchB3;
 SoundFile metroSound;
+
 Delay delay;
 
 //Ethan Tang | 3B | 11/4/25
 import java.util.Map;
+
+//Images and fonts
+PImage[] noteImages = new PImage[45];
+PImage[] musikHelferLogo = new PImage[1];
+PFont font;
+
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> orderSharp= new HashMap<Integer, String>();
 HashMap<Integer, String> orderFlat= new HashMap<Integer, String>();
@@ -13,38 +22,51 @@ HashMap<Integer, String> scaleDeg= new HashMap<Integer, String>();
 HashMap<Integer, String> keySigConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> degKeys= new HashMap<Integer, String>();
 HashMap<Integer, String> harmIndex= new HashMap<Integer, String>();
+
+//Note array list
 ArrayList<Note> notes = new ArrayList<Note>();
-PImage[] noteImages = new PImage[45];
-PFont font;
-PImage[] musikHelferLogo = new PImage[1];
-boolean mouseClicked, firstSwitch;
+
 StringList inputScore;
 StringList harmonizeRes;
 StringList keySigS;
 StringList keySigF;
 IntList index;
+
+//Button arrays for each screen
 Button[] modeButtons=new Button[4];
 Button[] tuneButtons=new Button[12];
-Button[] harmButtons=new Button[12];
+Button[] harmButtons=new Button[13];
 Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
-int modeTog, clef, degKey, harmKey;
+
+int modeTog; //Tracks current screen/mode
+int degKey, harmKey;
+int lastTick = 0;
+int Y_AXIS = 1;
+int X_AXIS = 2;
+int interval, note1, note2;
+
 char keySig;
+
 String buttonVal, tuneNote, scoreNote, metroVal, noteVal, note;
+
 Boolean first, added;
 Boolean metroPlaying = false;
 Boolean flashOn = false;
 Boolean intervalActive = false;
-int lastTick = 0;
-int Y_AXIS = 1;
-int X_AXIS = 2;
+boolean firstSwitch;
+boolean clef; //Tracks the clef: true = treble clef, false = bass clef
+
 color c1, c2;
-//Simon Sakata
-int interval, note1, note2;
 
 
 void setup() {
+
   font = loadFont("GurmukhiMN-48.vlw");
+  clef = true;
+  size(600, 700);
+  c1 = color(#5E86D8);
+  c2 = color(#6C6C6C);
 
   degKeys.put(1, "C");
   degKeys.put(2, "D");
@@ -93,7 +115,7 @@ void setup() {
   orderFlat.put(5, "Gb");
   orderFlat.put(6, "Cb");
   orderFlat.put(7, "Fb");
-  clef = 1;
+
   //Sounds and Sound Settings, Kai Yun Chao | 3B
   pitchA4 = new SoundFile(this, "A4.mp3");
   pitchC4 = new SoundFile(this, "C4.mp3");
@@ -119,10 +141,25 @@ void setup() {
   pitchFs5 = new SoundFile(this, "Fs5.mp3");
   pitchG5 = new SoundFile(this, "G5.mp3");
   pitchGs5 = new SoundFile(this, "Gs5.mp3");
+  pitchC3 = new SoundFile(this, "C3.mp3");
+  pitchCs3 = new SoundFile(this, "Cs3.mp3");
+  pitchD3 = new SoundFile(this, "D3.mp3");
+  pitchDs3 = new SoundFile(this, "Ds3.mp3");
+  pitchE3 = new SoundFile(this, "E3.mp3");
+  pitchF3 = new SoundFile(this, "F3.mp3");
+  pitchFs3 = new SoundFile(this, "Fs3.mp3");
+  pitchG3 = new SoundFile(this, "G3.mp3");
+  pitchGs3 = new SoundFile(this, "Gs3.mp3");
+  pitchA3 = new SoundFile(this, "A3.mp3");
+  pitchAs3 = new SoundFile(this, "As3.mp3");
+  pitchB3 = new SoundFile(this, "B3.mp3");
+
 
   delay = new Delay(this);
   //delay.process("A4.mp3" );
   //delay.time(1.0);
+
+  //Images
 
   //Logo
   musikHelferLogo[0] = loadImage("Musik Helfer Logo.png");
@@ -199,66 +236,43 @@ void setup() {
   noteImages[15].resize(40, 80);
   noteImages[16].resize(25, 25);
   noteImages[17].resize(25, 25);
-
-  //Quarter Rests
   noteImages[18].resize(30, 70);
   noteImages[19].resize(30, 70);
-
-  //Eight Rests
   noteImages[20].resize(19, 30);
   noteImages[21].resize(19, 30);
-
-  //Sixteenth Rests
   noteImages[22].resize(20, 45);
   noteImages[23].resize(20, 45);
-
-  //Half Rests
   noteImages[24].resize(48, 90);
   noteImages[25].resize(48, 90);
-
-  //Whole Rests
   noteImages[26].resize(48, 90);
   noteImages[27].resize(48, 90);
-
-  //Flats
   noteImages[28].resize(17, 27);
   noteImages[29].resize(17, 27);
-
-  //Sharps
   noteImages[30].resize(17, 25);
   noteImages[31].resize(17, 25);
   noteImages[32].resize(80, 160);
-
-  //Clefs
   noteImages[33].resize(65, 140);
   noteImages[34].resize(60, 96);
-
-  //Labels
-  noteImages[35].resize(40, 60); //Quarter
-  noteImages[36].resize(40, 60); //Eight
-  noteImages[37].resize(40, 60); //Sixteenth
-  noteImages[38].resize(40, 60); //Half
-  noteImages[39].resize(25, 25); //Whole
-  noteImages[40].resize(25, 40); //Flat
-  noteImages[41].resize(30, 40); //Sharp
-  noteImages[32].resize(80, 160); //Play
-  noteImages[42].resize(50, 110); //Treble
-  noteImages[43].resize(50, 70); //Bass
-  noteImages[44].resize(40, 60); //Rest
-
-  //Logo
+  noteImages[35].resize(40, 60);
+  noteImages[36].resize(40, 60);
+  noteImages[37].resize(40, 60);
+  noteImages[38].resize(40, 60);
+  noteImages[39].resize(25, 25);
+  noteImages[40].resize(25, 40);
+  noteImages[41].resize(30, 40);
+  noteImages[32].resize(80, 160);
+  noteImages[42].resize(50, 110);
+  noteImages[43].resize(50, 70);
+  noteImages[44].resize(40, 60);
   musikHelferLogo[0].resize(500, 280);
 
-  size(600, 700);
-  c1 = color(#5E86D8);
-  c2 = color(#6C6C6C);
+  //Buttons
 
   //Simon Sakata | 3B
   modeButtons[0]=new Button(60, 120, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "1", "Pitch Ear Training");
   modeButtons[1]=new Button(60, 270, 100, 100, 25, 25, #7FA3E0, #5E86D8, #3348F2, "2", "Tuner");
   modeButtons[2]=new Button(60, 420, 100, 100, 25, 16, #7FA3E0, #5E86D8, #3348F2, "3", "Auto \n Harmonizer");
   modeButtons[3]=new Button(60, 570, 100, 100, 25, 16, #7FA3E0, #5E86D8, #3348F2, "4", "Metronome");
-  mouseClicked = false;
 
   //Aristotle Stokes
   metroButtons[0] = new Button(362, 350, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "0", "+");
@@ -280,6 +294,7 @@ void setup() {
   harmButtons[9] = new Button(170, 290, 60, 120, 25, 20, #7FA3E0, #5E86D8, #3348F2, "10", "");
   harmButtons[10] = new Button(545, 290, 60, 120, 25, 25, #7FA3E0, #5E86D8, #3348F2, "11", "Del");
   harmButtons[11] = new Button(358, 350, 270, 90, 25, 30, #7FA3E0, #5E86D8, #3348F2, "12", "Harmonize");
+  harmButtons[12] = new Button(240, 495, 160, 100, 25, 30, #7FA3E0, #5E86D8, #3348F2, "13", "Play");
 
   pitchButtons[0] = new Button(200, 70, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "31", "Unison");
   pitchButtons[1] = new Button(320, 140, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "31.5", "Minor 2nd");
@@ -308,201 +323,6 @@ void setup() {
   tuneButtons[9]=new Button(300, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "F#/Gb");
   tuneButtons[10]=new Button(420, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "G");
   tuneButtons[11]=new Button(540, 540, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "G#/Ab");
-}
-
-void keyPressed() {
-  if (modeTog==3&&firstSwitch==true) {
-    firstSwitch=false;
-  } else if (firstSwitch == false && modeTog == 3) {
-    if (keyCode == 8 || keyCode == 127) {
-      if (notes.size()-1 >= 0) {
-        if (notes.get(notes.size()-1).inputted == true && ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x == 490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x == 535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x >= 550) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x == 400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220))) {
-          notes.remove(notes.size()-1);
-        } else if (notes.size()-1 != 0) {
-          notes.remove(notes.size()-2);
-          notes.remove(notes.size()-1);
-        }
-      }
-    } else if (keyCode == 32) {
-      harmonize();
-    }
-  }
-}
-
-void mouseReleased() {
-  //Simon Sakata
-  if (pitchButtons[13].hover(mouseX, mouseY)) {
-    if (!intervalActive) {
-      note1 = int(random(1, 13));
-      note2 = note1 + int(random(0, 13));
-      interval = note2-note1;
-      println("interval:" + interval);
-      println("note1:" + note1);
-      println("note2:" + note2);
-
-      intervalActive = true;
-    }
-    playNoteNumber(note1);
-    delay(800);
-    playNoteNumber(note2);
-  }
-  for (int i = 0; i < 13; i++) {
-    if (pitchButtons[i].hover(mouseX, mouseY)) {
-      if (intervalActive) {
-        int guessedInterval = i;
-
-        if (guessedInterval == interval) {
-          println("Correct interval");
-          intervalActive = false;
-        } else {
-          println("wrong");
-        }
-      }
-    }
-  }
-  if (pitchButtons[0].hover(mouseX, mouseY)) {
-  }
-  for (int i=0; i<modeButtons.length; i++) {
-    if (modeButtons[i].hover(mouseX, mouseY)) {
-      modeTog=int(modeButtons[i].val);
-      firstSwitch=true;
-    }
-  }
-  //Mo Spiegel 3B
-  if (modeTog==3&&firstSwitch==true) {
-    firstSwitch=false;
-  } else if (firstSwitch == false && modeTog == 3) {
-    for (int i = 0; i < harmButtons.length; i++) {
-      if (harmButtons[i].hover(mouseX, mouseY) == true) {
-        if (harmButtons[i] == harmButtons[0]) {
-          if (notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).noteTog = 1;
-          }
-        } else if (harmButtons[i] == harmButtons[1]) {
-          if (notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).noteTog = 2;
-          }
-        } else if (harmButtons[i] == harmButtons[2]) {
-          if (notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).noteTog = 3;
-          }
-        } else if (harmButtons[i] == harmButtons[3]) {
-          if (notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).noteTog = 4;
-          }
-        } else if (harmButtons[i] == harmButtons[4]) {
-          if (notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).noteTog = 5;
-          }
-        } else if (harmButtons[i] == harmButtons[5]) {
-          if (notes.get(notes.size()-1).inputted == false && notes.get(notes.size()-1).restMode == false) {
-            notes.get(notes.size()-1).restMode = true;
-          } else if (notes.get(notes.size()-1).inputted == false && notes.get(notes.size()-1).restMode == true) {
-            notes.get(notes.size()-1).restMode = false;
-          }
-        } else if (harmButtons[i] == harmButtons[6]) {
-          notes.clear();
-        } else if (harmButtons[i] == harmButtons[7]) {
-          if (notes.get(notes.size()-1).sharp == false && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).flat = false;
-            notes.get(notes.size()-1).sharp = true;
-          } else if (notes.get(notes.size()-1).sharp == true && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).sharp = false;
-          }
-        } else if (harmButtons[i] == harmButtons[8]) {
-          if (notes.get(notes.size()-1).flat == false && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).sharp = false;
-            notes.get(notes.size()-1).flat = true;
-          } else if (notes.get(notes.size()-1).flat == true && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
-            notes.get(notes.size()-1).flat = false;
-          }
-        } else if (harmButtons[i] == harmButtons[9]) {
-          if (clef == 1) {
-            clef = 2;
-          } else if (clef == 2) {
-            clef = 1;
-          }
-        } else if (harmButtons[i] == harmButtons[10]) {
-          if (notes.size()-1 >= 0) {
-            if (notes.get(notes.size()-1).inputted == true && ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x == 490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x == 535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x >= 550) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x == 400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220))) {
-              notes.remove(notes.size()-1);
-            } else if (notes.size()-1 != 0) {
-              notes.remove(notes.size()-2);
-              notes.remove(notes.size()-1);
-            }
-          }
-        } else if (harmButtons[i] == harmButtons[11]) {
-          harmonize();
-        }
-      }
-    }
-    if (mouseX>= 40 && mouseX<=580 && mouseY>= 80 && mouseY<=200) {
-      if ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x <=490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x <=535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x <=558) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x <=400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220)) {
-        notes.get(notes.size()-1).mouseClick();
-        notes.get(notes.size()-1).inputNote();
-        notes.get(notes.size()-1).inputted = true;
-      }
-    }
-
-    mouseClicked = false;
-  }
-  //Metronome Buttons
-  if (modeTog == 4) {
-    //+1 BPM
-    if (metroButtons[0].hover(mouseX, mouseY)) {
-      int v = int(metroVal);
-      v = v + 4;
-      metroVal = str(v);
-    }
-    //-1 BPM
-    if (metroButtons[1].hover(mouseX, mouseY)) {
-      int v = int(metroVal);
-      v = v -4;
-      metroVal=str(v);
-    }
-    //PLAY
-    if (metroButtons[2].hover(mouseX, mouseY)) {
-      metroPlaying = !metroPlaying;
-      flashOn = false;
-      lastTick = millis();
-    }
-  }
-}
-
-void playNoteNumber(int n) {
-  if (n == 1)       pitchA4.play();
-  else if (n == 2)  pitchAs4.play();
-  else if (n == 3)  pitchB4.play();
-  else if (n == 4)  pitchC4.play();
-  else if (n == 5)  pitchCs4.play();
-  else if (n == 6)  pitchD4.play();
-  else if (n == 7)  pitchDs4.play();
-  else if (n == 8)  pitchE4.play();
-  else if (n == 9)  pitchF4.play();
-  else if (n == 10) pitchFs4.play();
-  else if (n == 11) pitchG4.play();
-  else if (n == 12) pitchGs4.play();
-  else if (n == 13)  pitchA5.play();
-  else if (n == 14)  pitchAs5.play();
-  else if (n == 15)  pitchB5.play();
-  else if (n == 16)  pitchC5.play();
-  else if (n == 17)  pitchCs5.play();
-  else if (n == 18)  pitchD5.play();
-  else if (n == 19)  pitchDs5.play();
-  else if (n == 20)  pitchE5.play();
-  else if (n == 21)  pitchF5.play();
-  else if (n == 22) pitchFs5.play();
-  else if (n == 23) pitchG5.play();
-  else if (n == 24) pitchGs5.play();
-}
-void mousePressed() {
-
-  //Kai Yun Chao | 3B
-  for (int i = 0; i<tuneButtons.length; i++) {
-    if (tuneButtons[i].over) {
-      play(tuneButtons[i].disVal);
-    }
-  }
 }
 
 void draw() {
@@ -537,6 +357,225 @@ void draw() {
   }
 }
 
+//Mo Spiegel
+void keyPressed() {
+  if (modeTog==3&&firstSwitch==true) {
+    firstSwitch=false;
+  } else if (firstSwitch == false && modeTog == 3) {
+    if (keyCode == 8 || keyCode == 127) { //Backspace functionality
+      if (notes.size()-1 >= 0) {
+        //Removes only the last note if the entire score is filled (therefore causing another note to be added which is just a hovering version of the last note)
+        if (notes.get(notes.size()-1).inputted == true && ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x == 490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x == 535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x >= 550) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x == 400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220))) {
+          notes.remove(notes.size()-1);
+        } else if (notes.size()-1 != 0) { //Removes the two last notes if the score is not filled, therefore causing the note before the currently hovering one to be removed and become hovering
+          notes.remove(notes.size()-2);
+          notes.remove(notes.size()-1);
+        }
+      }
+    } else if (keyCode == 32) { //Hotkeys harmonize to the space bar
+      harmonize();
+    }
+  }
+}
+
+void mouseReleased() {
+
+  //Simon Sakata
+
+  //Screen switch button functionality
+  for (int i=0; i<modeButtons.length; i++) {
+    if (modeButtons[i].hover(mouseX, mouseY)) {
+      modeTog=int(modeButtons[i].val);
+      firstSwitch=true;
+    }
+  }
+
+  //Ear training button functionality
+  if (modeTog==1&&firstSwitch==true) {
+    firstSwitch=false;
+  } else if (firstSwitch == false && modeTog == 3) {
+    if (pitchButtons[13].hover(mouseX, mouseY)) {
+      if (!intervalActive) {
+        note1 = int(random(1, 13));
+        note2 = note1 + int(random(0, 13));
+        interval = note2-note1;
+        println("interval:" + interval);
+        println("note1:" + note1);
+        println("note2:" + note2);
+
+        intervalActive = true;
+      }
+      playNoteNumber(note1);
+      delay(800);
+      playNoteNumber(note2);
+    }
+    for (int i = 0; i < 13; i++) {
+      if (pitchButtons[i].hover(mouseX, mouseY)) {
+        if (intervalActive) {
+          int guessedInterval = i;
+
+          if (guessedInterval == interval) {
+            println("Correct interval");
+            intervalActive = false;
+          } else {
+            println("wrong");
+          }
+        }
+      }
+    }
+    if (pitchButtons[0].hover(mouseX, mouseY)) {
+    }
+  }
+
+  //Mo Spiegel 3B
+
+  //Harmonizer button functionality
+  if (modeTog==3&&firstSwitch==true) {
+    firstSwitch=false;
+  } else if (firstSwitch == false && modeTog == 3) {
+    for (int i = 0; i < harmButtons.length; i++) {
+      if (harmButtons[i].hover(mouseX, mouseY) == true) {
+        if (harmButtons[i] == harmButtons[0]) { //Changes current note to quarter
+          if (notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).noteTog = 1;
+          }
+        } else if (harmButtons[i] == harmButtons[1]) { //Changes current note to eighth
+          if (notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).noteTog = 2;
+          }
+        } else if (harmButtons[i] == harmButtons[2]) { //Changes current note to sixteenth
+          if (notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).noteTog = 3;
+          }
+        } else if (harmButtons[i] == harmButtons[3]) { //Changes current note to half
+          if (notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).noteTog = 4;
+          }
+        } else if (harmButtons[i] == harmButtons[4]) { //Changes current note to whole
+          if (notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).noteTog = 5;
+          }
+        } else if (harmButtons[i] == harmButtons[5]) { //Toggles between rests
+          if (notes.get(notes.size()-1).inputted == false && notes.get(notes.size()-1).restMode == false) {
+            notes.get(notes.size()-1).restMode = true;
+          } else if (notes.get(notes.size()-1).inputted == false && notes.get(notes.size()-1).restMode == true) {
+            notes.get(notes.size()-1).restMode = false;
+          }
+        } else if (harmButtons[i] == harmButtons[6]) { //Clears score
+          notes.clear();
+        } else if (harmButtons[i] == harmButtons[7]) { //Toggles between sharping the current note
+          if (notes.get(notes.size()-1).sharp == false && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).flat = false;
+            notes.get(notes.size()-1).sharp = true;
+          } else if (notes.get(notes.size()-1).sharp == true && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).sharp = false;
+          }
+        } else if (harmButtons[i] == harmButtons[8]) { //Toggles between flatting the current note
+          if (notes.get(notes.size()-1).flat == false && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).sharp = false;
+            notes.get(notes.size()-1).flat = true;
+          } else if (notes.get(notes.size()-1).flat == true && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
+            notes.get(notes.size()-1).flat = false;
+          }
+        } else if (harmButtons[i] == harmButtons[9]) { //Toggles between clefs
+          if (clef == true) {
+            clef = false;
+          } else if (clef == false) {
+            clef = true;
+          }
+        } else if (harmButtons[i] == harmButtons[10]) {
+          if (notes.size()-1 >= 0) {
+            //Removes only the last note if the entire score is filled (therefore causing another note to be added which is just a hovering version of the last note)
+            if (notes.get(notes.size()-1).inputted == true && ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x == 490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x == 535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x >= 550) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x == 400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220))) {
+              notes.remove(notes.size()-1);
+            } else if (notes.size()-1 != 0) { //Removes the two last notes if the score is not filled, therefore causing the note before the currently hovering one to be removed and become hovering
+              notes.remove(notes.size()-2);
+              notes.remove(notes.size()-1);
+            }
+          }
+        } else if (harmButtons[i] == harmButtons[11]) { //Harmonizes the notes
+          harmonize();
+        } else if (harmButtons[i] == harmButtons[12]) { //Plays the notes
+          harmPlay();
+        }
+      }
+    }
+
+    //Note inputting on score
+    if (mouseX>= 40 && mouseX<=580 && mouseY>= 95 && mouseY<=205) { //Score hitbox
+      notes.get(notes.size()-1).inputNote();
+      notes.get(notes.size()-1).inputted = true;
+    }
+  }
+
+  //Aristotle Stokes
+
+  //Metronome button functionality
+  if (modeTog==4&&firstSwitch==true) {
+    firstSwitch=false;
+  } else if (firstSwitch == false && modeTog == 4) {
+    //+1 BPM
+    if (metroButtons[0].hover(mouseX, mouseY)) {
+      int v = int(metroVal);
+      v = v + 4;
+      metroVal = str(v);
+    }
+    //-1 BPM
+    if (metroButtons[1].hover(mouseX, mouseY)) {
+      int v = int(metroVal);
+      v = v -4;
+      metroVal=str(v);
+    }
+    //PLAY
+    if (metroButtons[2].hover(mouseX, mouseY)) {
+      metroPlaying = !metroPlaying;
+      flashOn = false;
+      lastTick = millis();
+    }
+  }
+
+  //Kai Yun Chao | 3B\
+
+  //Tuner button functionality
+  if (modeTog==2&&firstSwitch==true) {
+    firstSwitch=false;
+  } else if (firstSwitch == false && modeTog == 2) {
+    for (int i = 0; i<tuneButtons.length; i++) {
+      if (tuneButtons[i].over) {
+        play(tuneButtons[i].disVal);
+      }
+    }
+  }
+}
+
+
+void playNoteNumber(int n) {
+  if (n == 1)       pitchA4.play();
+  else if (n == 2)  pitchAs4.play();
+  else if (n == 3)  pitchB4.play();
+  else if (n == 4)  pitchC4.play();
+  else if (n == 5)  pitchCs4.play();
+  else if (n == 6)  pitchD4.play();
+  else if (n == 7)  pitchDs4.play();
+  else if (n == 8)  pitchE4.play();
+  else if (n == 9)  pitchF4.play();
+  else if (n == 10) pitchFs4.play();
+  else if (n == 11) pitchG4.play();
+  else if (n == 12) pitchGs4.play();
+  else if (n == 13)  pitchA5.play();
+  else if (n == 14)  pitchAs5.play();
+  else if (n == 15)  pitchB5.play();
+  else if (n == 16)  pitchC5.play();
+  else if (n == 17)  pitchCs5.play();
+  else if (n == 18)  pitchD5.play();
+  else if (n == 19)  pitchDs5.play();
+  else if (n == 20)  pitchE5.play();
+  else if (n == 21)  pitchF5.play();
+  else if (n == 22) pitchFs5.play();
+  else if (n == 23) pitchG5.play();
+  else if (n == 24) pitchGs5.play();
+}
+
 void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
 
   noFill();
@@ -558,14 +597,8 @@ void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
   }
 }
 
-void display() {
-  rectMode(CENTER);
-  noStroke();
-}
-
+//Kai Yun Chao
 void tunerMode() {
-  //Kai Yun Chao | 3B
-
 
   fill(#5E86D8);
   rect(360, 120, 440, 160, 25);
@@ -581,18 +614,9 @@ void tunerMode() {
   textAlign(CENTER, CENTER);
   textSize(65);
 
-  tuneButtons[0].display();
-  tuneButtons[1].display();
-  tuneButtons[2].display();
-  tuneButtons[3].display();
-  tuneButtons[4].display();
-  tuneButtons[5].display();
-  tuneButtons[6].display();
-  tuneButtons[7].display();
-  tuneButtons[8].display();
-  tuneButtons[9].display();
-  tuneButtons[10].display();
-  tuneButtons[11].display();
+  for (int i = 0; i < tuneButtons.length; i++) {
+    tuneButtons[i].display();
+  }
 
   //pitch[0] = new SoundFile(this, "C5.mp3");
   //pitch[1] = new SoundFile(this, "A5.mp3");
@@ -640,21 +664,32 @@ void metroMode() {
   }
 }
 
+//Mo Spiegel
 void harmMode() {
-  //Mo Spiegel | 3B
-
-  //Draw scores
   rectMode(CORNER);
   noStroke();
+  
+  //Drop shadows
   fill(60);
   rect(135, 97, 444, 120, 25);
   rect(355, 452, 224, 160, 25);
-  rect(135, 452, 204, 160, 25);
+  rect(157, 564, 160, 100, 25);
+  
+  //Draw scores
   fill(255);
   rect(140, 90, 440, 120, 25);
   rect(360, 445, 220, 160, 25);
   fill(50);
-  rect(140, 445, 200, 160, 25);
+  rect(160, 560, 160, 100, 25);
+  
+  //Draw chord output box
+  stroke(50);
+  strokeWeight(2);
+  
+  //Draw divider
+  line(140, 418, 580, 418);
+  
+  //Draw score lines
   strokeWeight(1);
   stroke(0);
   for (int i = 485; i <= 565; i = i + 20) {
@@ -665,40 +700,42 @@ void harmMode() {
   }
 
   //Logic for note adding
-  if (notes.size() == 0) {
-    notes.add(new Note(125, 0, 220, 2, false, false, false, false));
+  if (notes.size() == 0) { //Adds first note, hovering
+    notes.add(new Note(220, 2, false, false, false, false));
   }
   if ( notes.size()-1 != 0) {
+    //Checks for threshold at which quarter notes can't fit in the score, adds quarter notes once a note is inputted prior to this; same principle with rest of lines
     if (notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x + 90 <= 490 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 90, 1, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 90, 1, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x + 90 <= 535 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 90, 2, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 90, 2, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x + 90 <= 558 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 90, 3, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 90, 3, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x + 45 <= 535 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 45, 2, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 45, 2, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x + 45 <= 558 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 45, 3, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 45, 3, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x + 22 <= 558 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 22, 3, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 22, 3, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x + 180 <= 400 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 180, 4, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 180, 4, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x + 180 <= 490 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 180, 1, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 180, 1, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x + 180 <= 535 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 180, 2, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 180, 2, false, false, false, false));
     } else if (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x + 180 <= 558 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, notes.get(notes.size()-1).x + 180, 3, false, false, false, false));
+      notes.add(new Note(notes.get(notes.size()-1).x + 180, 3, false, false, false, false));
     }
+    //Adds the second note if the first note is inputted
   } else if (notes.size()-1 == 0) {
     if (notes.get(0).noteTog == 1 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note (125, 0, 220+90, 1, false, false, false, false));
+      notes.add(new Note (220+90, 1, false, false, false, false));
     } else if (notes.get(0).noteTog == 2 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note (125, 0, 220+45, 2, false, false, false, false));
+      notes.add(new Note (220+45, 2, false, false, false, false));
     } else if (notes.get(0).noteTog == 3 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note (125, 0, 220 + 22, 3, false, false, false, false));
+      notes.add(new Note (220 + 22, 3, false, false, false, false));
     } else if (notes.get(0).noteTog == 4 && notes.get(notes.size()-1).inputted == true) {
-      notes.add(new Note(125, 0, 220 +180, 4, false, false, false, false));
+      notes.add(new Note(220 +180, 4, false, false, false, false));
     }
   }
 
@@ -717,9 +754,9 @@ void harmMode() {
   }
 
   //Display clefs
-  if (clef == 1) {
+  if (clef == true) {
     image(noteImages[33], 170, 155);
-  } else if (clef == 2) {
+  } else if (clef == false) {
     image(noteImages[34], 175, 145);
   }
 
@@ -732,13 +769,264 @@ void harmMode() {
   image(noteImages[44], 548, 40);
   image(noteImages[41], 245, 260);
   image(noteImages[40], 468, 260);
-
-  if (clef == 1) {
+  
+  //Image changing logic on clef-toggle button
+  if (clef == true) {
     image(noteImages[43], 170, 290);
-  } else if (clef == 2) {
+  } else if (clef == false) {
     image(noteImages[42], 168, 290);
   }
 }
+
+//Mo Spiegel
+void harmPlay() { //Plays notes
+  for (int i = 0; i < notes.size(); i ++) {
+    
+    //Treble Clef
+    if (clef == true) {
+      
+      //Each one of these blocks detects the y-position of the ith note and its accidentals, and determines what pitch to play
+      if (notes.get(i).restMode == false) {
+        if (notes.get(i).y == 95) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchG5.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchGs5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchFs5.play();
+          }
+        } else if (notes.get(i).y == 105) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchF5.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchFs5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchE5.play();
+          }
+        } else if (notes.get(i).y == 115) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchE5.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchF5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchDs5.play();
+          }
+        } else if (notes.get(i).y == 125) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchD5.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchDs5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchCs5.play();
+          }
+        } else if (notes.get(i).y == 135) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchC5.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchCs5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchB4.play();
+          }
+        } else if (notes.get(i).y == 145) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchB4.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchC5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchAs4.play();
+          }
+        } else if (notes.get(i).y == 155) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchA4.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchAs4.play();
+          } else if (notes.get(i).flat == true) {
+            pitchGs4.play();
+          }
+        } else if (notes.get(i).y == 165) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchG4.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchGs4.play();
+          } else if (notes.get(i).flat == true) {
+            pitchFs4.play();
+          }
+        } else if (notes.get(i).y == 175) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchF4.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchFs4.play();
+          } else if (notes.get(i).flat == true) {
+            pitchE4.play();
+          }
+        } else if (notes.get(i).y == 185) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchE4.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchF4.play();
+          } else if (notes.get(i).flat == true) {
+            pitchDs4.play();
+          }
+        } else if (notes.get(i).y == 195) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchD4.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchDs4.play();
+          } else if (notes.get(i).flat == true) {
+            pitchCs4.play();
+          }
+        }
+      }
+    } else if (clef == false) { //Bass clef
+      if (notes.get(i).restMode == false) {
+        if (notes.get(i).y == 95) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchB3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchC4.play();
+          } else if (notes.get(i).flat == true) {
+            pitchAs3.play();
+          }
+        } else if (notes.get(i).y == 105) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchA3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchAs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchGs3.play();
+          }
+        } else if (notes.get(i).y == 115) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchG3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchGs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchFs3.play();
+          }
+        } else if (notes.get(i).y == 125) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchF3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchFs5.play();
+          } else if (notes.get(i).flat == true) {
+            pitchE3.play();
+          }
+        } else if (notes.get(i).y == 135) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchE3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchF3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchDs3.play();
+          }
+        } else if (notes.get(i).y == 145) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchD3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchDs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchCs3.play();
+          }
+        } else if (notes.get(i).y == 155) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchC3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchCs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchB3.play();
+          }
+        } else if (notes.get(i).y == 165) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchB3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchC3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchAs3.play();
+          }
+        } else if (notes.get(i).y == 175) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchA3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchAs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchGs3.play();
+          }
+        } else if (notes.get(i).y == 185) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchG3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchGs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchFs3.play();
+          }
+        } else if (notes.get(i).y == 195) {
+          if (notes.get(i).sharp == false && notes.get(i).flat == false) {
+            pitchF3.play();
+          } else if (notes.get(i).sharp == true) {
+            pitchFs3.play();
+          } else if (notes.get(i).flat == true) {
+            pitchE3.play();
+          }
+        }
+      }
+    }
+    
+    //Depending on the note length, delays the for loop for a certain time to sustain the sound
+    if (notes.get(i).noteTog == 1) {
+      delay(1000);
+    } else if (notes.get(i).noteTog == 2) {
+      delay(500);
+    } else if (notes.get(i).noteTog == 3) {
+      delay(250);
+    } else if (notes.get(i).noteTog == 4) {
+      delay(2000);
+    } else if (notes.get(i).noteTog == 5) {
+      delay(4000);
+    }
+    
+    //Halts all sounds
+    pitchA4.stop();
+    pitchAs4.stop();
+    pitchB4.stop();
+    pitchC4.stop();
+    pitchCs4.stop();
+    pitchD4.stop();
+    pitchDs4.stop();
+    pitchE4.stop();
+    pitchF4.stop();
+    pitchFs4.stop();
+    pitchG4.stop();
+    pitchGs4.stop();
+    pitchA5.stop();
+    pitchAs5.stop();
+    pitchB5.stop();
+    pitchC5.stop();
+    pitchCs5.stop();
+    pitchD5.stop();
+    pitchDs5.stop();
+    pitchE5.stop();
+    pitchF5.stop();
+    pitchFs5.stop();
+    pitchG5.stop();
+    pitchGs5.stop();
+    pitchC3.stop();
+    pitchCs3.stop();
+    pitchD3.stop();
+    pitchDs3.stop();
+    pitchE3.stop();
+    pitchF3.stop();
+    pitchFs3.stop();
+    pitchG3.stop();
+    pitchGs3.stop();
+    pitchA3.stop();
+    pitchAs3.stop();
+    pitchB3.stop();
+    
+    //For loop repeats, moves onto the next note, plays all notes seqeuentially
+  }
+}
+
+
 
 void harmonize() {
   //Ethan Tang | 3B | 11/13/25
@@ -753,7 +1041,7 @@ void harmonize() {
   harmIndex.clear();
   scaleDeg.clear();
   //Change hashmap based on clef selected
-  if (clef==1) {
+  if (clef==true) {
     keyConvert.put(14, "D");
     keyConvert.put(13, "E");
     keyConvert.put(12, "F");
@@ -767,7 +1055,7 @@ void harmonize() {
     keyConvert.put(4, "G");
     keyConvert.put(0, "rest");
   }
-  if (clef==2) {
+  if (clef==false) {
     keyConvert.put(14, "F");
     keyConvert.put(13, "G");
     keyConvert.put(12, "A");
@@ -912,9 +1200,8 @@ void harmonize() {
       }
     }
   }
-    println(harmonizeRes);
-    println("NEW HARMONY");
-
+  println(harmonizeRes);
+  println("NEW HARMONY");
 }
 
 //Ethan Tang and Kai Yun Chao | 3B
