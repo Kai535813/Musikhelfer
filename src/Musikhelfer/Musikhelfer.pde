@@ -3,6 +3,10 @@ import processing.sound.*;
 
 //Sounds
 SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5, pitchC3, pitchCs3, pitchD3, pitchDs3, pitchE3, pitchF3, pitchFs3, pitchG3, pitchGs3, pitchA3, pitchAs3, pitchB3;
+
+//Duplicate sounds used for playing the harmonized chord and inputted notes simeltaneously for the auto-harmonizer tool, prevents cuttoff of harmonized chord sound
+SoundFile pitchA42, pitchAs42, pitchB42, pitchF42, pitchFs42, pitchG42, pitchGs42, pitchC52, pitchCs52, pitchD52, pitchDs52, pitchE52, pitchF52, pitchE42;
+
 SoundFile metroSound;
 
 Delay delay;
@@ -67,6 +71,7 @@ void setup() {
   size(600, 700);
   c1 = color(#5E86D8);
   c2 = color(#6C6C6C);
+  harmonizeRes=new StringList();
 
   degKeys.put(1, "C");
   degKeys.put(2, "D");
@@ -153,6 +158,22 @@ void setup() {
   pitchA3 = new SoundFile(this, "A3.mp3");
   pitchAs3 = new SoundFile(this, "As3.mp3");
   pitchB3 = new SoundFile(this, "B3.mp3");
+
+  //Duplicate sounds for chord
+  pitchA42 = new SoundFile(this, "A4.mp3");
+  pitchAs42 = new SoundFile(this, "A#4.mp3");
+  pitchB42 = new SoundFile(this, "B4.mp3");
+  pitchE42 = new SoundFile(this, "E4.mp3");
+  pitchF42 = new SoundFile(this, "F4.mp3");
+  pitchFs42 = new SoundFile(this, "F#4.mp3");
+  pitchG42 = new SoundFile(this, "G4.mp3");
+  pitchGs42 = new SoundFile(this, "G#4.mp3");
+  pitchC52 = new SoundFile(this, "C5.mp3");
+  pitchCs52 = new SoundFile(this, "Cs5.mp3");
+  pitchD52 = new SoundFile(this, "D5.mp3");
+  pitchDs52 = new SoundFile(this, "Ds5.mp3");
+  pitchE52 = new SoundFile(this, "E5.mp3");
+  pitchF52 = new SoundFile(this, "F5.mp3");
 
 
   delay = new Delay(this);
@@ -393,7 +414,7 @@ void mouseReleased() {
   //Ear training button functionality
   if (modeTog==1&&firstSwitch==true) {
     firstSwitch=false;
-  } else if (firstSwitch == false && modeTog == 3) {
+  } else if (firstSwitch == false && modeTog == 1) {
     if (pitchButtons[13].hover(mouseX, mouseY)) {
       if (!intervalActive) {
         note1 = int(random(1, 13));
@@ -461,8 +482,9 @@ void mouseReleased() {
           } else if (notes.get(notes.size()-1).inputted == false && notes.get(notes.size()-1).restMode == true) {
             notes.get(notes.size()-1).restMode = false;
           }
-        } else if (harmButtons[i] == harmButtons[6]) { //Clears score
+        } else if (harmButtons[i] == harmButtons[6]) { //Clears score and harmonizer result
           notes.clear();
+          harmonizeRes.clear();
         } else if (harmButtons[i] == harmButtons[7]) { //Toggles between sharping the current note
           if (notes.get(notes.size()-1).sharp == false && notes.get(notes.size()-1).restMode == false && notes.get(notes.size()-1).inputted == false) {
             notes.get(notes.size()-1).flat = false;
@@ -503,8 +525,12 @@ void mouseReleased() {
 
     //Note inputting on score
     if (mouseX>= 40 && mouseX<=580 && mouseY>= 95 && mouseY<=205) { //Score hitbox
-      notes.get(notes.size()-1).inputNote();
-      notes.get(notes.size()-1).inputted = true;
+
+      //Checks to see if there is enough room in the score to input the selected note value
+      if ((notes.get(notes.size()-1).noteTog == 1 && notes.get(notes.size()-1).x <=490) || (notes.get(notes.size()-1).noteTog == 2 && notes.get(notes.size()-1).x <=535) || (notes.get(notes.size()-1).noteTog == 3 && notes.get(notes.size()-1).x <=558) || (notes.get(notes.size()-1).noteTog == 4 && notes.get(notes.size()-1).x <=400) || (notes.get(notes.size()-1).noteTog == 5 && notes.get(notes.size()-1).x == 220)) {
+        notes.get(notes.size()-1).inputNote();
+        notes.get(notes.size()-1).inputted = true;
+      }
     }
   }
 
@@ -668,27 +694,37 @@ void metroMode() {
 void harmMode() {
   rectMode(CORNER);
   noStroke();
-  
+
   //Drop shadows
   fill(60);
   rect(135, 97, 444, 120, 25);
   rect(355, 452, 224, 160, 25);
   rect(157, 564, 160, 100, 25);
-  
+
   //Draw scores
   fill(255);
   rect(140, 90, 440, 120, 25);
   rect(360, 445, 220, 160, 25);
+
+  //Draw chord output box
   fill(50);
   rect(160, 560, 160, 100, 25);
-  
-  //Draw chord output box
+  fill(255);
+  textMode(CENTER);
+  textSize(20);
+  text("Chord:", 240, 590);
+  textSize(30);
+  if (harmonizeRes.size()>3) {
+    text(harmonizeRes.get(0) +  ", " + harmonizeRes.get(1) + ", " + harmonizeRes.get(2) + ", " + harmonizeRes.get(3), 240, 620);
+  } else if (harmonizeRes.size()> 0) {
+    text(harmonizeRes.get(0) +  ", " + harmonizeRes.get(1) + ", " + harmonizeRes.get(2), 240, 620);
+  }
+
+  //Draw divider
   stroke(50);
   strokeWeight(2);
-  
-  //Draw divider
   line(140, 418, 580, 418);
-  
+
   //Draw score lines
   strokeWeight(1);
   stroke(0);
@@ -759,6 +795,7 @@ void harmMode() {
   } else if (clef == false) {
     image(noteImages[34], 175, 145);
   }
+  image(noteImages[33], 390, 530);
 
   //Display button labels
   image(noteImages[35], 170, 40);
@@ -769,25 +806,261 @@ void harmMode() {
   image(noteImages[44], 548, 40);
   image(noteImages[41], 245, 260);
   image(noteImages[40], 468, 260);
-  
+
   //Image changing logic on clef-toggle button
   if (clef == true) {
     image(noteImages[43], 170, 290);
   } else if (clef == false) {
     image(noteImages[42], 168, 290);
   }
+
+  //Display outputted chord
+
+  //A
+  if (harmonizeRes.hasValue("A")) {
+    if (harmonizeRes.hasValue("B") || harmonizeRes.hasValue("B#") || harmonizeRes.hasValue("Bb") || harmonizeRes.hasValue("G") || harmonizeRes.hasValue("G#") || harmonizeRes.hasValue("Gb")) {
+      image(noteImages[16], 495, 535);
+    } else {
+      image(noteImages[16], 480, 535);
+    }
+  }
+  if (harmonizeRes.hasValue("A#")) {
+    if (harmonizeRes.hasValue("B") || harmonizeRes.hasValue("B#") || harmonizeRes.hasValue("Bb") || harmonizeRes.hasValue("G") || harmonizeRes.hasValue("G#") || harmonizeRes.hasValue("Gb")) {
+      image(noteImages[16], 495, 535);
+      image(noteImages[30], 460, 535);
+    } else {
+      image(noteImages[16], 480, 535);
+      image(noteImages[30], 460, 535);
+    }
+  }
+  if (harmonizeRes.hasValue("Ab")) {
+    if (harmonizeRes.hasValue("B") || harmonizeRes.hasValue("B#") || harmonizeRes.hasValue("Bb") || harmonizeRes.hasValue("G") || harmonizeRes.hasValue("G#") || harmonizeRes.hasValue("Gb")) {
+      image(noteImages[16], 495, 535);
+      image(noteImages[28], 455, 535);
+    } else {
+      image(noteImages[16], 480, 535);
+      image(noteImages[28], 455, 535);
+    }
+  }
+
+  //B
+  if (harmonizeRes.hasValue("B")) {
+    image(noteImages[16], 480, 525);
+  }
+  if (harmonizeRes.hasValue("B#")) {
+    image(noteImages[16], 480, 525);
+    if (harmonizeRes.hasValue("A#") || harmonizeRes.hasValue("Ab") || harmonizeRes.hasValue("C#") || harmonizeRes.hasValue("Cb")) {
+      image(noteImages[30], 440, 525);
+    } else {
+      image(noteImages[30], 460, 525);
+    }
+  }
+  if (harmonizeRes.hasValue("Bb")) {
+    image(noteImages[16], 480, 525);
+    if (harmonizeRes.hasValue("A#") || harmonizeRes.hasValue("Ab") || harmonizeRes.hasValue("C#") || harmonizeRes.hasValue("Cb")) {
+      image(noteImages[28], 435, 525);
+    } else {
+      image(noteImages[28], 455, 525);
+    }
+  }
+
+  //C
+  if (harmonizeRes.hasValue("C")) {
+    if (harmonizeRes.hasValue("B") || harmonizeRes.hasValue("B#") || harmonizeRes.hasValue("Bb") || harmonizeRes.hasValue("D") || harmonizeRes.hasValue("D#") || harmonizeRes.hasValue("Db")) {
+      image(noteImages[16], 495, 515);
+    } else {
+      image(noteImages[16], 480, 515);
+    }
+  }
+  if (harmonizeRes.hasValue("C#")) {
+    if (harmonizeRes.hasValue("B") || harmonizeRes.hasValue("B#") || harmonizeRes.hasValue("Bb") || harmonizeRes.hasValue("D") || harmonizeRes.hasValue("D#") || harmonizeRes.hasValue("Db")) {
+      image(noteImages[16], 495, 515);
+      image(noteImages[30], 460, 515);
+    } else {
+      image(noteImages[16], 480, 515);
+      image(noteImages[30], 460, 515);
+    }
+  }
+  if (harmonizeRes.hasValue("Cb")) {
+    if (harmonizeRes.hasValue("B") || harmonizeRes.hasValue("B#") || harmonizeRes.hasValue("Bb") || harmonizeRes.hasValue("D") || harmonizeRes.hasValue("D#") || harmonizeRes.hasValue("Db")) {
+      image(noteImages[16], 495, 515);
+      image(noteImages[28], 455, 515);
+    } else {
+      image(noteImages[16], 480, 515);
+      image(noteImages[28], 455, 515);
+    }
+  }
+
+  //D
+  if (harmonizeRes.hasValue("D")) {
+    image(noteImages[16], 480, 505);
+  }
+  if (harmonizeRes.hasValue("D#")) {
+    image(noteImages[16], 480, 505);
+    if (harmonizeRes.hasValue("C#") || harmonizeRes.hasValue("Cb") || harmonizeRes.hasValue("E#") || harmonizeRes.hasValue("Eb")) {
+      image(noteImages[30], 440, 505);
+    } else {
+      image(noteImages[30], 460, 505);
+    }
+  }
+  if (harmonizeRes.hasValue("Db")) {
+    image(noteImages[16], 480, 505);
+    if (harmonizeRes.hasValue("C#") || harmonizeRes.hasValue("Cb") || harmonizeRes.hasValue("E#") || harmonizeRes.hasValue("Eb")) {
+      image(noteImages[28], 435, 505);
+    } else {
+      image(noteImages[28], 455, 505);
+    }
+  }
+
+  //E
+  if (harmonizeRes.hasValue("E")) {
+    if (harmonizeRes.hasValue("D") || harmonizeRes.hasValue("D#") || harmonizeRes.hasValue("Db")) {
+      image(noteImages[16], 495, 495);
+    } else {
+      image(noteImages[16], 480, 495);
+    }
+  }
+  if (harmonizeRes.hasValue("E#")) {
+    if (harmonizeRes.hasValue("D") || harmonizeRes.hasValue("D#") || harmonizeRes.hasValue("Db")) {
+      image(noteImages[16], 495, 495);
+      image(noteImages[30], 460, 495);
+    } else {
+      image(noteImages[16], 480, 495);
+      image(noteImages[30], 460, 495);
+    }
+  }
+  if (harmonizeRes.hasValue("Eb")) {
+    if (harmonizeRes.hasValue("D") || harmonizeRes.hasValue("D#") || harmonizeRes.hasValue("Db")) {
+      image(noteImages[16], 495, 495);
+      image(noteImages[28], 455, 495);
+    } else {
+      image(noteImages[16], 480, 495);
+      image(noteImages[28], 455, 495);
+    }
+  }
+
+  //F
+  if (harmonizeRes.hasValue("F")) {
+    if (harmonizeRes.hasValue("G") || harmonizeRes.hasValue("G#") || harmonizeRes.hasValue("Gb")) {
+      image(noteImages[16], 495, 555);
+    } else {
+      image(noteImages[16], 480, 555);
+    }
+  }
+  if (harmonizeRes.hasValue("F#")) {
+    if (harmonizeRes.hasValue("G") || harmonizeRes.hasValue("G#") || harmonizeRes.hasValue("Gb")) {
+      image(noteImages[16], 495, 555);
+      image(noteImages[30], 460, 555);
+    } else {
+      image(noteImages[16], 480, 555);
+      image(noteImages[30], 460, 555);
+    }
+  }
+  if (harmonizeRes.hasValue("Fb")) {
+    if (harmonizeRes.hasValue("G") || harmonizeRes.hasValue("G#") || harmonizeRes.hasValue("Gb")) {
+      image(noteImages[16], 495, 555);
+      image(noteImages[28], 455, 555);
+    } else {
+      image(noteImages[16], 480, 555);
+      image(noteImages[28], 455, 555);
+    }
+  }
+
+  //G
+  if (harmonizeRes.hasValue("G")) {
+    image(noteImages[16], 480, 545);
+  }
+  if (harmonizeRes.hasValue("G#")) {
+    image(noteImages[16], 480, 545);
+    if (harmonizeRes.hasValue("F#") || harmonizeRes.hasValue("Fb") || harmonizeRes.hasValue("A#") || harmonizeRes.hasValue("Ab")) {
+      image(noteImages[30], 440, 545);
+    } else {
+      image(noteImages[30], 460, 545);
+    }
+  }
+  if (harmonizeRes.hasValue("Gb")) {
+    image(noteImages[16], 480, 545);
+    if (harmonizeRes.hasValue("F#") || harmonizeRes.hasValue("Fb") || harmonizeRes.hasValue("A#") || harmonizeRes.hasValue("Ab")) {
+      image(noteImages[28], 435, 545);
+    } else {
+      image(noteImages[28], 455, 545);
+    }
+  }
 }
 
 //Mo Spiegel
-void harmPlay() { //Plays notes
+void harmPlay() {
+
+  //Plays harmonized chord
+  if (harmonizeRes.hasValue("A")) {
+    pitchA42.play();
+  }
+  if (harmonizeRes.hasValue("A#")) {
+    pitchAs42.play();
+  }
+  if (harmonizeRes.hasValue("Ab")) {
+    pitchGs42.play();
+  }
+  if (harmonizeRes.hasValue("B")) {
+    pitchB42.play();
+  }
+  if (harmonizeRes.hasValue("B#")) {
+    pitchC52.play();
+  }
+  if (harmonizeRes.hasValue("Bb")) {
+    pitchAs42.play();
+  }
+  if (harmonizeRes.hasValue("C")) {
+    pitchC52.play();
+  }
+  if (harmonizeRes.hasValue("C#")) {
+    pitchCs52.play();
+  }
+  if (harmonizeRes.hasValue("Cb")) {
+    pitchB42.play();
+  }
+  if (harmonizeRes.hasValue("D")) {
+    pitchD52.play();
+  }
+  if (harmonizeRes.hasValue("D#")) {
+    pitchDs52.play();
+  }
+  if (harmonizeRes.hasValue("Db")) {
+    pitchCs52.play();
+  }
+  if (harmonizeRes.hasValue("E")) {
+    pitchE52.play();
+  }
+  if (harmonizeRes.hasValue("E#")) {
+    pitchF52.play();
+  }
+  if (harmonizeRes.hasValue("Eb")) {
+    pitchDs52.play();
+  }
+  if (harmonizeRes.hasValue("F")) {
+    pitchF42.play();
+  }
+  if (harmonizeRes.hasValue("F#")) {
+    pitchFs42.play();
+  }
+  if (harmonizeRes.hasValue("Fb")) {
+    pitchE42.play();
+  }
+  if (harmonizeRes.hasValue("G")) {
+    pitchG42.play();
+  }
+  if (harmonizeRes.hasValue("G#")) {
+    pitchGs42.play();
+  }
+  if (harmonizeRes.hasValue("Gb")) {
+    pitchFs42.play();
+  }
+
+  //Plays inputted notes
   for (int i = 0; i < notes.size(); i ++) {
-    
-    //Treble Clef
-    if (clef == true) {
-      
-      //Each one of these blocks detects the y-position of the ith note and its accidentals, and determines what pitch to play
+    if (clef == true) { //Treble Clef
       if (notes.get(i).restMode == false) {
-        if (notes.get(i).y == 95) {
+        if (notes.get(i).y == 95) { //Each one of these blocks detects the y-position of the ith note and its accidentals, and determines what pitch to play
           if (notes.get(i).sharp == false && notes.get(i).flat == false) {
             pitchG5.play();
           } else if (notes.get(i).sharp == true) {
@@ -970,7 +1243,7 @@ void harmPlay() { //Plays notes
         }
       }
     }
-    
+
     //Depending on the note length, delays the for loop for a certain time to sustain the sound
     if (notes.get(i).noteTog == 1) {
       delay(1000);
@@ -983,7 +1256,7 @@ void harmPlay() { //Plays notes
     } else if (notes.get(i).noteTog == 5) {
       delay(4000);
     }
-    
+
     //Halts all sounds
     pitchA4.stop();
     pitchAs4.stop();
@@ -1021,9 +1294,24 @@ void harmPlay() { //Plays notes
     pitchA3.stop();
     pitchAs3.stop();
     pitchB3.stop();
-    
+
     //For loop repeats, moves onto the next note, plays all notes seqeuentially
   }
+
+  //Halts all sounds (from harmonized chord) following the completion of the for loop (i.e. all notes have been played through)
+  pitchA42.stop();
+  pitchAs42.stop();
+  pitchB42.stop();
+  pitchE42.stop();
+  pitchF42.stop();
+  pitchFs42.stop();
+  pitchG42.stop();
+  pitchGs42.stop();
+  pitchC52.stop();
+  pitchCs52.stop();
+  pitchD52.stop();
+  pitchDs52.stop();
+  pitchE52.stop();
 }
 
 
