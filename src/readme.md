@@ -11,7 +11,7 @@
 
 ## File Assimilation Record
 
-12/8/25: 10:04 AM: Kai's updates assimilated-I might have missed something because there seemed to be no changes. Also, update your local files, eveyone, many clasess and methods that you are not involved in have significantly changed.
+12/8/25: 10:04 AM: Kai's updates assimilated-I might have missed something because there seemed to be no changes. Also, update your local files, eveyone, many clasess and methods that you are not involved in have significantly changed. -Ethan Tang
 
 12/5/25: 10:58 AM: Kai's and my updates assimilated, harmonize function is now completed, and the new font doesn't seem to work, so I commented it out for now. -Ethan Tang
 
