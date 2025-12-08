@@ -1,3 +1,5 @@
+# MusikHelfer
+
 # Logo
 
 ![MusikHelferLogo](https://github.com/Kai535813/Musikhelfer/blob/main/images/Musik%20Helfer%20Logo.png?raw=true)
@@ -5,9 +7,9 @@
 **Classification: Utility Tool**
 
 ## Discription:
-Musikhelfer is a music software. It includes regular practice functions such as a tuner and metronome. On top of that it has a harmonizer and ear training functions.
+Musikhelfer is a music  application, with four major utilities including an auto-harmonizer, a pitch ear trainer, a tuner, and a metronome. The application utilizes a note class for melody inputting underneath the harmonizer utility, and a button class.
 
-## GUI:
+## Artifacts:
 
 ![Mock UI](https://github.com/Kai535813/Musikhelfer/blob/main/images/UIDesign.png?raw=true)
 
@@ -23,11 +25,6 @@ Musikhelfer is a music software. It includes regular practice functions such as 
 
 **Kai Yun Chao: Sound files & Tuner page**
 
-**Mo Spiegel: Note Class & Harmonizer page graphics & play back functionality**
+**Mo Spiegel: Note Class, Harmonizer page graphics, & play back functionality**
 
 **Simon Sakata: Button Class & Pitch Ear Traning page**
-
-## To Do List
-
-3. Finish ear training screen/method
-10. Improve UI aesthetics with fonts and shapes
