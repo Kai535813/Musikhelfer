@@ -1,4 +1,4 @@
-# MusikHelfer
+# MusikHelfer | Programming Group 2 | 3B
 
 # Logo
 
