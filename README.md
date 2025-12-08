@@ -17,13 +17,13 @@ Musikhelfer is a music software. It includes regular practice functions such as 
 
 ## Group Members:
 
-**Aristotle Stokes: Metranome page**
+**Aristotle Stokes: Metronome page, Home page, & Logo graphic**
 
-**Ethan Tang: Harmonizer page logic**
+**Ethan Tang: Harmonizer page logic (harmonization logic) & Main file**
 
-**Kai Yun Chao: Sound files**
+**Kai Yun Chao: Sound files & Tuner page**
 
-**Mo Spiegel: Note Class & Harmonizer page layout**
+**Mo Spiegel: Note Class & Harmonizer page graphics & play back functionality**
 
 **Simon Sakata: Button Class & Pitch Ear Traning page**
 
