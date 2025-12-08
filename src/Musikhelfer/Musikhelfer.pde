@@ -2,7 +2,7 @@
 import processing.sound.*;
 
 //Sounds
-SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5, pitchC3, pitchCs3, pitchD3, pitchDs3, pitchE3, pitchF3, pitchFs3, pitchG3, pitchGs3, pitchA3, pitchAs3, pitchB3;
+SoundFile pitch, pitchA4, pitchAs4, pitchB4, pitchC4, pitchCs4, pitchD4, pitchDs4, pitchE4, pitchF4, pitchFs4, pitchG4, pitchGs4, pitchA5, pitchAs5, pitchB5, pitchC5, pitchCs5, pitchD5, pitchDs5, pitchE5, pitchF5, pitchFs5, pitchG5, pitchGs5, pitchC3, pitchCs3, pitchD3, pitchDs3, pitchE3, pitchF3, pitchFs3, pitchG3, pitchGs3, pitchA3, pitchAs3, pitchB3, pitchE2, pitchF2, pitchFs2, pitchG2, pitchGs2, pitchA2, pitchAs2, pitchB2;
 
 //Duplicate sounds used for playing the harmonized chord and inputted notes simeltaneously for the auto-harmonizer tool, prevents cuttoff of harmonized chord sound
 SoundFile pitchA42, pitchAs42, pitchB42, pitchF42, pitchFs42, pitchG42, pitchGs42, pitchC52, pitchCs52, pitchD52, pitchDs52, pitchE52, pitchF52, pitchE42;
@@ -158,7 +158,15 @@ void setup() {
   pitchA3 = new SoundFile(this, "A3.mp3");
   pitchAs3 = new SoundFile(this, "As3.mp3");
   pitchB3 = new SoundFile(this, "B3.mp3");
-
+  pitchE2 = new SoundFile(this, "E2.mp3");
+  pitchF2 = new SoundFile(this, "F2.mp3");
+  pitchFs2 = new SoundFile(this, "Fs2.mp3");
+  pitchG2 = new SoundFile(this, "G2.mp3");
+  pitchGs2 = new SoundFile(this, "Gs2.mp3");
+  pitchA2 = new SoundFile(this, "A2.mp3");
+  pitchAs2 = new SoundFile(this, "As2.mp3");
+  pitchB2 = new SoundFile(this, "B2.mp3");
+  
   //Duplicate sounds for chord
   pitchA42 = new SoundFile(this, "A4.mp3");
   pitchAs42 = new SoundFile(this, "A#4.mp3");
@@ -720,11 +728,6 @@ void harmMode() {
     text(harmonizeRes.get(0) +  ", " + harmonizeRes.get(1) + ", " + harmonizeRes.get(2), 240, 620);
   }
 
-  //Draw divider
-  stroke(50);
-  strokeWeight(2);
-  line(140, 418, 580, 418);
-
   //Draw score lines
   strokeWeight(1);
   stroke(0);
@@ -1206,39 +1209,39 @@ void harmPlay() {
           } else if (notes.get(i).sharp == true) {
             pitchCs3.play();
           } else if (notes.get(i).flat == true) {
-            pitchB3.play();
+            pitchB2.play();
           }
         } else if (notes.get(i).y == 165) {
           if (notes.get(i).sharp == false && notes.get(i).flat == false) {
-            pitchB3.play();
+            pitchB2.play();
           } else if (notes.get(i).sharp == true) {
             pitchC3.play();
           } else if (notes.get(i).flat == true) {
-            pitchAs3.play();
+            pitchAs2.play();
           }
         } else if (notes.get(i).y == 175) {
           if (notes.get(i).sharp == false && notes.get(i).flat == false) {
-            pitchA3.play();
+            pitchA2.play();
           } else if (notes.get(i).sharp == true) {
-            pitchAs3.play();
+            pitchAs2.play();
           } else if (notes.get(i).flat == true) {
-            pitchGs3.play();
+            pitchGs2.play();
           }
         } else if (notes.get(i).y == 185) {
           if (notes.get(i).sharp == false && notes.get(i).flat == false) {
-            pitchG3.play();
+            pitchG2.play();
           } else if (notes.get(i).sharp == true) {
-            pitchGs3.play();
+            pitchGs2.play();
           } else if (notes.get(i).flat == true) {
-            pitchFs3.play();
+            pitchFs2.play();
           }
         } else if (notes.get(i).y == 195) {
           if (notes.get(i).sharp == false && notes.get(i).flat == false) {
-            pitchF3.play();
+            pitchF2.play();
           } else if (notes.get(i).sharp == true) {
-            pitchFs3.play();
+            pitchFs2.play();
           } else if (notes.get(i).flat == true) {
-            pitchE3.play();
+            pitchE2.play();
           }
         }
       }
@@ -1294,7 +1297,15 @@ void harmPlay() {
     pitchA3.stop();
     pitchAs3.stop();
     pitchB3.stop();
-
+    pitchF2.stop();
+    pitchFs2.stop();
+    pitchE2.stop();
+    pitchG2.stop();
+    pitchGs2.stop();
+    pitchA2.stop();
+    pitchAs2.stop();
+    pitchB2.stop();
+    
     //For loop repeats, moves onto the next note, plays all notes seqeuentially
   }
 
