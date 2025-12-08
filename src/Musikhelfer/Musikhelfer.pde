@@ -169,7 +169,7 @@ void setup() {
   pitchA2 = new SoundFile(this, "A2.mp3");
   pitchAs2 = new SoundFile(this, "As2.mp3");
   pitchB2 = new SoundFile(this, "B2.mp3");
-  
+  noteVal = "";
   //Duplicate sounds for chord
   pitchA42 = new SoundFile(this, "A4.mp3");
   pitchAs42 = new SoundFile(this, "A#4.mp3");
@@ -680,16 +680,18 @@ void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
   }
 }
 
-//Kai Yun Chao
+//Kai Yun Chao | 3B
 void tunerMode() {
 
   fill(#5E86D8);
   rect(360, 120, 440, 160, 25);
+  rect(360,645, 440,70,25);
 
   fill(0);
   textSize(120);
-  //text(noteVal,360,100);
-
+  text(noteVal,360,100);
+ strokeWeight(20);
+  line(250,645,550,645);
 
   rectMode(CENTER);
   fill(#2B7FD6);
@@ -697,9 +699,18 @@ void tunerMode() {
   textAlign(CENTER, CENTER);
   textSize(65);
 
-  for (int i = 0; i < tuneButtons.length; i++) {
-    tuneButtons[i].display();
-  }
+  tuneButtons[0].display();
+  tuneButtons[1].display();
+  tuneButtons[2].display();
+  tuneButtons[3].display();
+  tuneButtons[4].display();
+  tuneButtons[5].display();
+  tuneButtons[6].display();
+  tuneButtons[7].display();
+  tuneButtons[8].display();
+  tuneButtons[9].display();
+  tuneButtons[10].display();
+  tuneButtons[11].display();
 
   //pitch[0] = new SoundFile(this, "C5.mp3");
   //pitch[1] = new SoundFile(this, "A5.mp3");
