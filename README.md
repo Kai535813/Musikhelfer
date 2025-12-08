@@ -40,4 +40,4 @@ Musikhelfer is a music  application, with four major utilities including an auto
 
 
 ## Source Code:
-* [Source Code]([https://github.com/Mo59471/portfolio/tree/main/src/Calculator](https://github.com/Kai535813/Musikhelfer/tree/main/src/Musikhelfer))
+* [Source Code](https://github.com/Kai535813/Musikhelfer/tree/main/src/Musikhelfer)
