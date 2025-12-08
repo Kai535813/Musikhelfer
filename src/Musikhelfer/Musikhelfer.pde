@@ -387,6 +387,12 @@ void draw() {
     metroMode();
     break;
   }
+  if (intervalCorrectFlash) {
+    drawIntervalCorrectFlash();
+  }
+  if (intervalWrongFlash) {
+    drawIntervalWrongFlash();
+  }
 }
 
 //Mo Spiegel
