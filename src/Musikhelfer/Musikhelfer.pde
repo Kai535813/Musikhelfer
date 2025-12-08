@@ -124,7 +124,7 @@ void setup() {
   orderFlat.put(6, "Cb");
   orderFlat.put(7, "Fb");
 
-  //Sounds and Sound Settings, Kai Yun Chao | 3B
+  //Sounds and Sound Settings | Kai Yun Chao | 3B
   pitchA4 = new SoundFile(this, "A4.mp3");
   pitchC4 = new SoundFile(this, "C4.mp3");
   pitchAs4 = new SoundFile(this, "A#4.mp3");
@@ -170,7 +170,8 @@ void setup() {
   pitchAs2 = new SoundFile(this, "As2.mp3");
   pitchB2 = new SoundFile(this, "B2.mp3");
   noteVal = "";
-  //Duplicate sounds for chord
+  
+  //Duplicate sounds for chord, Mo Spiegel | 3B
   pitchA42 = new SoundFile(this, "A4.mp3");
   pitchAs42 = new SoundFile(this, "A#4.mp3");
   pitchB42 = new SoundFile(this, "B4.mp3");
@@ -193,9 +194,11 @@ void setup() {
 
   //Images
 
-  //Logo
+  //Logo | Aristotle Stokes | 3B
   musikHelferLogo[0] = loadImage("Musik Helfer Logo.png");
-
+  
+  //Note Images | Mo Spiegel | 3B
+  
   //Notes
   noteImages[0] = loadImage("Quarter Note.png");
   noteImages[1] = loadImage("Quarter Note (BOTTOM SIDE).png");
@@ -306,14 +309,14 @@ void setup() {
   modeButtons[2]=new Button(60, 420, 100, 100, 25, 16, #7FA3E0, #5E86D8, #3348F2, "3", "Auto \n Harmonizer");
   modeButtons[3]=new Button(60, 570, 100, 100, 25, 16, #7FA3E0, #5E86D8, #3348F2, "4", "Metronome");
 
-  //Aristotle Stokes
+  //Aristotle Stokes | 3B
   metroButtons[0] = new Button(362, 350, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "0", "+");
   metroButtons[1] = new Button(362, 600, 100, 100, 25, 20, #7FA3E0, #5E86D8, #3348F2, "0", "-");
   metroButtons[2] = new Button(362, 475, 100, 75, 25, 20, #D3D3D3, #767676, #3348F2, "0", "PLAY");
   metroVal = "100";
   metroSound = new SoundFile(this, "Metronome Sound.mp3");
 
-  //Mo Spiegel
+  //Mo Spiegel | 3B
   harmButtons[0] = new Button(170, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "1", "");
   harmButtons[1] = new Button(245, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "2", "");
   harmButtons[2] = new Button(320, 40, 60, 60, 25, 20, #7FA3E0, #5E86D8, #3348F2, "3", "");
@@ -327,7 +330,8 @@ void setup() {
   harmButtons[10] = new Button(545, 290, 60, 120, 25, 25, #7FA3E0, #5E86D8, #3348F2, "11", "Del");
   harmButtons[11] = new Button(358, 350, 270, 90, 25, 30, #7FA3E0, #5E86D8, #3348F2, "12", "Harmonize");
   harmButtons[12] = new Button(240, 495, 160, 100, 25, 30, #7FA3E0, #5E86D8, #3348F2, "13", "Play");
-
+  
+  //Simon Sakata | 3B
   pitchButtons[0] = new Button(200, 70, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "31", "Unison");
   pitchButtons[1] = new Button(320, 140, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "31.5", "Minor 2nd");
   pitchButtons[2] = new Button(200, 140, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "32", "Major 2nd");
@@ -342,7 +346,8 @@ void setup() {
   pitchButtons[11] = new Button(200, 490, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "37", "Major 7th");
   pitchButtons[12] = new Button(200, 560, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "38", "Octave");
   pitchButtons[13] = new Button(200, 650, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "39", "PLAY");
-
+  
+  //Kai Yun Chao | 3B
   tuneButtons[0]=new Button(180, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "A");
   tuneButtons[1]=new Button(300, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "A#/Bb");
   tuneButtons[2]=new Button(420, 300, 80, 80, 25, 20, #7FA3E0, #5E86D8, #3348F2, "", "B/Cb");
@@ -365,6 +370,8 @@ void draw() {
     modeButtons[i].display();
     modeButtons[i].hover(mouseX, mouseY);
   }
+  
+  //Ethan Tang | 3B
   switch(modeTog) {
   case 0:
     fill(230);
@@ -395,7 +402,7 @@ void draw() {
   }
 }
 
-//Mo Spiegel
+//Mo Spiegel | 3B
 void keyPressed() {
   if (modeTog==3&&firstSwitch==true) {
     firstSwitch=false;
@@ -414,42 +421,6 @@ void keyPressed() {
       harmonize();
     }
   }
-}
-
-void drawIntervalCorrectFlash() {
-  int elapsed = millis() - intervalFlashStartTime;
-  if (elapsed >= intervalFlashDuration) {
-    intervalCorrectFlash = false;
-    return;
-  }
-  float t = elapsed / (float)intervalFlashDuration;
-  float fade = 1.0 - t;
-  int x = width / 2;
-  int w = width - x;
-  color from = color(#0BE33B, 0);                  
-  color to   = color(#22F050, int(180 * fade));    
-
-  pushStyle();
-  setGradient(x, 0, w, height, from, to, X_AXIS);
-  popStyle();
-}
-
-void drawIntervalWrongFlash() {
-  int elapsed = millis() - intervalFlashStartTime;
-  if (elapsed >= intervalFlashDuration) {
-    intervalWrongFlash = false;
-    return;
-  }
-  float t = elapsed/(float)intervalFlashDuration;
-  float fade = 1.0-t;
-  int x = width / 2;
-  int w = width - x;
-  color from = color(#DE2C19, 0);                  
-  color to   = color(#F25140, int(180 * fade));
-  
-  pushStyle();
-  setGradient(x, 0, w, height, from, to, X_AXIS);
-  popStyle();
 }
 
 void mouseReleased() {
@@ -492,7 +463,7 @@ void mouseReleased() {
             println("Correct interval");
             intervalActive = false;
             intervalCorrectFlash = true;
-          intervalFlashStartTime = millis();
+            intervalFlashStartTime = millis();
           } else {
             println("wrong");
             intervalWrongFlash = true;
@@ -604,7 +575,7 @@ void mouseReleased() {
       metroVal = str(v);
     }
     //-1 BPM
-    if (metroButtons[1].hover(mouseX, mouseY)) {
+    if (metroButtons[1].hover(mouseX, mouseY) && int(metroVal) > 4) {
       int v = int(metroVal);
       v = v -4;
       metroVal=str(v);
@@ -617,7 +588,7 @@ void mouseReleased() {
     }
   }
 
-  //Kai Yun Chao | 3B\
+  //Kai Yun Chao | 3B
 
   //Tuner button functionality
   if (modeTog==2&&firstSwitch==true) {
@@ -631,6 +602,44 @@ void mouseReleased() {
   }
 }
 
+//Simon Sakata
+void drawIntervalCorrectFlash() {
+  int elapsed = millis() - intervalFlashStartTime;
+  if (elapsed >= intervalFlashDuration) {
+    intervalCorrectFlash = false;
+    return;
+  }
+
+  //Small Bug Fix: changed "to" to "Cto"; the variable name "to" doesn't work  -Mo
+  float t = elapsed / (float)intervalFlashDuration;
+  float fade = 1.0 - t;
+  int x = width / 2;
+  int w = width - x;
+  color from = color(#0BE33B, 0);
+  color Cto = color(#22F050, int(180 * fade));
+
+  pushStyle();
+  setGradient(x, 0, w, height, from, Cto, X_AXIS);
+  popStyle();
+}
+
+void drawIntervalWrongFlash() {
+  int elapsed = millis() - intervalFlashStartTime;
+  if (elapsed >= intervalFlashDuration) {
+    intervalWrongFlash = false;
+    return;
+  }
+  float t = elapsed/(float)intervalFlashDuration;
+  float fade = 1.0-t;
+  int x = width / 2;
+  int w = width - x;
+  color from = color(#DE2C19, 0);
+  color Cto = color(#F25140, int(180 * fade));
+
+  pushStyle();
+  setGradient(x, 0, w, height, from, Cto, X_AXIS);
+  popStyle();
+}
 
 void playNoteNumber(int n) {
   if (n == 1)       pitchA4.play();
@@ -685,13 +694,13 @@ void tunerMode() {
 
   fill(#5E86D8);
   rect(360, 120, 440, 160, 25);
-  rect(360,645, 440,70,25);
+  rect(360, 645, 440, 70, 25);
 
   fill(0);
   textSize(120);
-  text(noteVal,360,100);
- strokeWeight(20);
-  line(250,645,550,645);
+  text(noteVal, 360, 100);
+  strokeWeight(20);
+  line(250, 645, 550, 645);
 
   rectMode(CENTER);
   fill(#2B7FD6);
@@ -699,23 +708,16 @@ void tunerMode() {
   textAlign(CENTER, CENTER);
   textSize(65);
 
-  tuneButtons[0].display();
-  tuneButtons[1].display();
-  tuneButtons[2].display();
-  tuneButtons[3].display();
-  tuneButtons[4].display();
-  tuneButtons[5].display();
-  tuneButtons[6].display();
-  tuneButtons[7].display();
-  tuneButtons[8].display();
-  tuneButtons[9].display();
-  tuneButtons[10].display();
-  tuneButtons[11].display();
+  strokeWeight(1);
+  for (int i = 0; i < tuneButtons.length; i ++ ) {
+    tuneButtons[i].display();
+  }
 
   //pitch[0] = new SoundFile(this, "C5.mp3");
   //pitch[1] = new SoundFile(this, "A5.mp3");
 }
 
+//Simon Sakata | 3B
 void pitchMode() {
   for (int i=0; i<pitchButtons.length; i++) {
     pitchButtons[i].display();
@@ -723,6 +725,7 @@ void pitchMode() {
   }
 }
 
+//Aristotle Stokes | 3B
 void metroMode() {
   //Button Funtionality
   for (int i = 0; i < metroButtons.length; i++) {
@@ -758,7 +761,7 @@ void metroMode() {
   }
 }
 
-//Mo Spiegel
+//Mo Spiegel | 3B
 void harmMode() {
   rectMode(CORNER);
   noStroke();
@@ -1051,7 +1054,7 @@ void harmMode() {
   }
 }
 
-//Mo Spiegel
+//Mo Spiegel | 3B
 void harmPlay() {
 
   //Plays harmonized chord
@@ -1365,7 +1368,7 @@ void harmPlay() {
     pitchA2.stop();
     pitchAs2.stop();
     pitchB2.stop();
-    
+
     //For loop repeats, moves onto the next note, plays all notes seqeuentially
   }
 
@@ -1386,9 +1389,9 @@ void harmPlay() {
 }
 
 
+//Ethan Tang | 3B | 11/13/25
 
 void harmonize() {
-  //Ethan Tang | 3B | 11/13/25
   //Clear and reset everything
   inputScore=new StringList();
   keySigF=new StringList();
