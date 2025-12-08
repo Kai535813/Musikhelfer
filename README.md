@@ -29,12 +29,5 @@ Musikhelfer is a music software. It includes regular practice functions such as 
 
 ## To Do List
 
-2. Update harmonizer logic with a hash map
 3. Finish ear training screen/method
-4. Add 16th, half, and whole notes to the note class
-5. Implement metronome logic
-6. Implement tuner logic
-7. Implement clef toggling and rest inputting
-8. Add sounds for metronome and tuner methods
-9. Design logo and other graphics
 10. Improve UI aesthetics with fonts and shapes
