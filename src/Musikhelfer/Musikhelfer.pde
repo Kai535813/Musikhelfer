@@ -60,6 +60,9 @@ Boolean flashOn = false;
 Boolean intervalActive = false;
 boolean firstSwitch;
 boolean clef; //Tracks the clef: true = treble clef, false = bass clef
+boolean intervalCorrectFlash = false, intervalWrongFlash = false;
+int intervalFlashStartTime = 0;
+int intervalFlashDuration = 400;
 
 color c1, c2;
 
@@ -407,6 +410,42 @@ void keyPressed() {
   }
 }
 
+void drawIntervalCorrectFlash() {
+  int elapsed = millis() - intervalFlashStartTime;
+  if (elapsed >= intervalFlashDuration) {
+    intervalCorrectFlash = false;
+    return;
+  }
+  float t = elapsed / (float)intervalFlashDuration;
+  float fade = 1.0 - t;
+  int x = width / 2;
+  int w = width - x;
+  color from = color(#0BE33B, 0);                  
+  color to   = color(#22F050, int(180 * fade));    
+
+  pushStyle();
+  setGradient(x, 0, w, height, from, to, X_AXIS);
+  popStyle();
+}
+
+void drawIntervalWrongFlash() {
+  int elapsed = millis() - intervalFlashStartTime;
+  if (elapsed >= intervalFlashDuration) {
+    intervalWrongFlash = false;
+    return;
+  }
+  float t = elapsed/(float)intervalFlashDuration;
+  float fade = 1.0-t;
+  int x = width / 2;
+  int w = width - x;
+  color from = color(#DE2C19, 0);                  
+  color to   = color(#F25140, int(180 * fade));
+  
+  pushStyle();
+  setGradient(x, 0, w, height, from, to, X_AXIS);
+  popStyle();
+}
+
 void mouseReleased() {
 
   //Simon Sakata
@@ -446,8 +485,12 @@ void mouseReleased() {
           if (guessedInterval == interval) {
             println("Correct interval");
             intervalActive = false;
+            intervalCorrectFlash = true;
+          intervalFlashStartTime = millis();
           } else {
             println("wrong");
+            intervalWrongFlash = true;
+            intervalFlashStartTime = millis();
           }
         }
       }
