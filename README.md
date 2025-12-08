@@ -21,7 +21,7 @@ Musikhelfer is a music  application, with four major utilities including an auto
 ![Time Line](https://github.com/Kai535813/Musikhelfer/blob/main/images/ScheduledTimeline.png?raw=true)
 
 
-## Running Application
+## Running Application:
 
 ![Running Application](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-08%20164036.png?.raw=true)
 
@@ -37,3 +37,7 @@ Musikhelfer is a music  application, with four major utilities including an auto
 **Mo Spiegel: Note Class, Harmonizer page graphics, & play back functionality**
 
 **Simon Sakata: Button Class & Pitch Ear Traning page**
+
+
+## Source Code:
+* [Source Code]([https://github.com/Mo59471/portfolio/tree/main/src/Calculator](https://github.com/Kai535813/Musikhelfer/tree/main/src/Musikhelfer))
