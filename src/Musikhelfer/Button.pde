@@ -1,4 +1,5 @@
-//Simon Sakata
+//Simon Sakata | 3B
+
 class Button {
   // Member variables
   int x, y, w, h, r, s;
@@ -25,11 +26,13 @@ class Button {
   // Member Methods
   void display() {
     rectMode(CENTER);
+    
     //Draw shadow
     noStroke();
     fill(60);
     rect(x-3, y+4, w, h, r);
 
+    //Draw Button
     if (over) {
       fill(c1);
     } else {
