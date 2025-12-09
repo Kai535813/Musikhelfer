@@ -34,6 +34,11 @@ harmMode screen:
 
 ![harmMode screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-08%20164036.png?.raw=true)
 
+## Source Files Contributed To
+* [Note Class](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Note.pde)
+* [Main Project File](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Musikhelfer.pde)
+
+
 
 
 
