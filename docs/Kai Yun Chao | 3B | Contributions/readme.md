@@ -20,5 +20,8 @@ Helped make the UI Mock-UP:
 - Plays chosen piano note.
 - Displays note played.
 
+## File Links:
+* [Main Project File](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Musikhelfer.pde)
+
 
 
