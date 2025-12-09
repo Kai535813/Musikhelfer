@@ -29,6 +29,10 @@ Photoshopped note, rest, and accidental images, added a custom font
   * Bug fixes and documentation contributions
   * Coded a keyPressed method that hotkeys the "Harmonize" and "Delete" buttons
 
+## Images of Application Contributions
+harmMode screen:
+
+![harmMode screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-08%20164036.png?.raw=true)
 
 
 
