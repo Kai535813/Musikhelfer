@@ -599,7 +599,6 @@ void mouseReleased() {
   }
     if (pitchButtons[0].hover(mouseX, mouseY)) {
     }
-  }
 
   //Ethan Tang | 3B
   //Harmonizer switch button functionality
@@ -1689,8 +1688,8 @@ if(chordSwitch!=harmSwitch.size()){
 chordSwitch=1;
 }
       harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)));
-      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+2);
-      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+4);
+      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+2));
+      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+4));
       //for the V chord, V7 is used, so an extra note must be added
       if (harmIndex.get(i).equals(scaleDeg.get(5))) {
         harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+6));
@@ -1788,7 +1787,3 @@ void play(String noteVal) {
   println("note:" + note);
   //note = str(n);
 }
-
-
-
-
