@@ -41,3 +41,7 @@ Musikhelfer is a music  application, with four major utilities including an auto
 
 ## Source Code:
 * [Source Code](https://github.com/Kai535813/Musikhelfer/tree/main/src/Musikhelfer)
+
+
+## Contribution Documentation:
+* ![Mo Spiegel](https://github.com/Kai535813/Musikhelfer/blob/main/docs/Mo%20Spiegel%20%7C%20Contributions%20Documentation%20%7C%203B.md)
