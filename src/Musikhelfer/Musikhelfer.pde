@@ -73,7 +73,7 @@ boolean firstSwitch;
 boolean clef; //Tracks the clef: true = treble clef, false = bass clef
 boolean intervalCorrectFlash = false, intervalWrongFlash = false;
 int intervalFlashStartTime = 0;
-int intervalFlashDuration = 400;
+int intervalFlashDuration = 800;
 
 color c1, c2;
 
@@ -1788,6 +1788,7 @@ void play(String noteVal) {
   println("note:" + note);
   //note = str(n);
 }
+
 
 
 
