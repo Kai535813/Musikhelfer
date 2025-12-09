@@ -415,11 +415,12 @@ void draw() {
     metroMode();
     break;
   }
-  if (intervalCorrectFlash) {
-    drawIntervalCorrectFlash();
+    //Simon Sakata
+  if (intervalCorrectFlash) { //if boolean is true... 
+    drawIntervalCorrectFlash(); // shines green light on right side of screen
   }
-  if (intervalWrongFlash) {
-    drawIntervalWrongFlash();
+  if (intervalWrongFlash) { //if boolean is true...
+    drawIntervalWrongFlash(); // shines red light on right side of screen
   }
 }
 void mousePressed() {
@@ -547,7 +548,6 @@ void keyPressed() {
 void mouseReleased() {
 
   //Simon Sakata
-
   //Screen switch button functionality
   for (int i=0; i<modeButtons.length; i++) {
     if (modeButtons[i].hover(mouseX, mouseY)) {
@@ -556,43 +556,47 @@ void mouseReleased() {
     }
   }
 
-  //Ear training button functionality
-  if (modeTog==1&&firstSwitch==true) {
+  //Simon Sakata ear training button functionality 
+  if (modeTog==1&&firstSwitch==true) { //checks for modetog to = 1 to open screen
     firstSwitch=false;
-  } else if (firstSwitch == false && modeTog == 1) {
+  } else if (firstSwitch == false && modeTog == 1) { //checks if play button is pressed
     if (pitchButtons[13].hover(mouseX, mouseY)) {
       if (!intervalActive) {
-        note1 = int(random(1, 13));
-        note2 = note1 + int(random(0, 13));
-        interval = note2-note1;
-        println("interval:" + interval);
+        
+        note1 = int(random(1, 13)); //generates first random integer to correspond to a note
+        note2 = note1 + int(random(0, 13)); //generates second random integer
+        interval = note2-note1; //calculates interval based on distance of two notes
+        
+        println("interval:" + interval); //prints integers and interval output for troubleshooting
         println("note1:" + note1);
         println("note2:" + note2);
 
-        intervalActive = true;
+        intervalActive = true; //keeps from generating different output until correct interval is guessed
       }
-      playNoteNumber(note1);
-      delay(800);
-      playNoteNumber(note2);
+      playNoteNumber(note1); //plays note corresponding to 1st int
+      delay(800); //0.8 sec delay...
+      playNoteNumber(note2); //plays note corresponding to 2nd int
     }
-    for (int i = 0; i < 13; i++) {
-      if (pitchButtons[i].hover(mouseX, mouseY)) {
+    for (int i = 0; i < 13; i++) { 
+      if (pitchButtons[i].hover(mouseX, mouseY)) { //finds the interval guessed via pitchButton[?] integer
         if (intervalActive) {
           int guessedInterval = i;
 
-          if (guessedInterval == interval) {
+          if (guessedInterval == interval) { //if i = to the interval generated...
             println("Correct interval");
-            intervalActive = false;
-            intervalCorrectFlash = true;
-            intervalFlashStartTime = millis();
+            intervalActive = false; //allows new interval to be played
+            intervalCorrectFlash = true; //triggers green "correct" flash
+            intervalFlashStartTime = millis(); //records timestamp when green flash starts
+            
           } else {
-            println("wrong");
-            intervalWrongFlash = true;
-            intervalFlashStartTime = millis();
+            println("wrong"); 
+            intervalWrongFlash = true; //triggers red "wrong" flash
+            intervalFlashStartTime = millis(); //records timestamp when red flash starts
           }
         }
       }
     }
+  }
     if (pitchButtons[0].hover(mouseX, mouseY)) {
     }
   }
@@ -729,26 +733,25 @@ void mouseReleased() {
 
 //Simon Sakata
 void drawIntervalCorrectFlash() {
-  int elapsed = millis() - intervalFlashStartTime;
-  if (elapsed >= intervalFlashDuration) {
-    intervalCorrectFlash = false;
+  int elapsed = millis() - intervalFlashStartTime; //calculates how long flash has been running with "elapsed"
+  if (elapsed >= intervalFlashDuration) { //if the time elapsed is more than the time set for flash to run, ends flash
+    intervalCorrectFlash = false; //turns off flash
     return;
   }
 
-  //Small Bug Fix: changed "to" to "Cto"; the variable name "to" doesn't work  -Mo
-  float t = elapsed / (float)intervalFlashDuration;
+  float t = elapsed / (float)intervalFlashDuration; //creates variables for colorGradient function
   float fade = 1.0 - t;
   int x = width / 2;
   int w = width - x;
   color from = color(#0BE33B, 0);
   color Cto = color(#22F050, int(180 * fade));
 
-  pushStyle();
-  setGradient(x, 0, w, height, from, Cto, X_AXIS);
-  popStyle();
+  pushStyle(); //saves design data to not be messed up by gradient
+  setGradient(x, 0, w, height, from, Cto, X_AXIS); //creates flash
+  popStyle(); //restores data
 }
 
-void drawIntervalWrongFlash() {
+void drawIntervalWrongFlash() { //exact same logic as drawIntervalCorrectFlash()
   int elapsed = millis() - intervalFlashStartTime;
   if (elapsed >= intervalFlashDuration) {
     intervalWrongFlash = false;
@@ -766,7 +769,7 @@ void drawIntervalWrongFlash() {
   popStyle();
 }
 
-void playNoteNumber(int n) {
+void playNoteNumber(int n) { //matches the 2 integers created in mouseReleased to corresponding sounds
   if (n == 1)       pitchC3.play();
   else if (n == 2)  pitchCs3.play();
   else if (n == 3)  pitchD3.play();
@@ -1785,5 +1788,6 @@ void play(String noteVal) {
   println("note:" + note);
   //note = str(n);
 }
+
 
 
