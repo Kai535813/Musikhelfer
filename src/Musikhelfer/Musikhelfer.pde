@@ -642,30 +642,30 @@ void drawIntervalWrongFlash() {
 }
 
 void playNoteNumber(int n) {
-  if (n == 1)       pitchA4.play();
-  else if (n == 2)  pitchAs4.play();
-  else if (n == 3)  pitchB4.play();
-  else if (n == 4)  pitchC4.play();
-  else if (n == 5)  pitchCs4.play();
-  else if (n == 6)  pitchD4.play();
-  else if (n == 7)  pitchDs4.play();
-  else if (n == 8)  pitchE4.play();
-  else if (n == 9)  pitchF4.play();
-  else if (n == 10) pitchFs4.play();
-  else if (n == 11) pitchG4.play();
-  else if (n == 12) pitchGs4.play();
-  else if (n == 13)  pitchA5.play();
-  else if (n == 14)  pitchAs5.play();
-  else if (n == 15)  pitchB5.play();
-  else if (n == 16)  pitchC5.play();
-  else if (n == 17)  pitchCs5.play();
-  else if (n == 18)  pitchD5.play();
-  else if (n == 19)  pitchDs5.play();
-  else if (n == 20)  pitchE5.play();
-  else if (n == 21)  pitchF5.play();
-  else if (n == 22) pitchFs5.play();
-  else if (n == 23) pitchG5.play();
-  else if (n == 24) pitchGs5.play();
+  if (n == 1)       pitchC3.play();
+  else if (n == 2)  pitchCs3.play();
+  else if (n == 3)  pitchD3.play();
+  else if (n == 4)  pitchDs3.play();
+  else if (n == 5)  pitchE3.play();
+  else if (n == 6)  pitchF3.play();
+  else if (n == 7)  pitchFs3.play();
+  else if (n == 8)  pitchG3.play();
+  else if (n == 9)  pitchGs3.play();
+  else if (n == 10) pitchA3.play();
+  else if (n == 11) pitchAs3.play();
+  else if (n == 12) pitchB3.play();
+  else if (n == 13)  pitchC4.play();
+  else if (n == 14)  pitchCs4.play();
+  else if (n == 15)  pitchD4.play();
+  else if (n == 16)  pitchDs4.play();
+  else if (n == 17)  pitchE4.play();
+  else if (n == 18)  pitchF4.play();
+  else if (n == 19)  pitchFs4.play();
+  else if (n == 20)  pitchG4.play();
+  else if (n == 21)  pitchGs4.play();
+  else if (n == 22) pitchA4.play();
+  else if (n == 23) pitchAs4.play();
+  else if (n == 24) pitchB4.play();
 }
 
 void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
