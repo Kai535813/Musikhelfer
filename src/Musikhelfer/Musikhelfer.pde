@@ -26,6 +26,7 @@ PImage[] noteImages = new PImage[45];
 PImage[] musikHelferLogo = new PImage[1];
 PFont font;
 
+//Hash Maps for Harmonizer 
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> orderSharp= new HashMap<Integer, String>();
 HashMap<Integer, String> orderFlat= new HashMap<Integer, String>();
@@ -33,10 +34,12 @@ HashMap<Integer, String> scaleDeg= new HashMap<Integer, String>();
 HashMap<Integer, String> keySigConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> degKeys= new HashMap<Integer, String>();
 HashMap<Integer, String> harmIndex= new HashMap<Integer, String>();
+HashMap<Integer, String> harmSwitch= new HashMap<Integer, String>();
 
 //Note array list
 ArrayList<Note> notes = new ArrayList<Note>();
 
+//Lists for Harmonizer
 StringList inputScore;
 StringList harmonizeRes;
 StringList keySigS;
@@ -83,6 +86,7 @@ void setup() {
   c2 = color(#6C6C6C);
   harmonizeRes=new StringList();
 
+//Two C major octaves and a couple extra notes in order to create Hash Map with scale degrees corresponding to the correct notes. Extra notes are to harmonize up to VI chords
   degKeys.put(1, "C");
   degKeys.put(2, "D");
   degKeys.put(3, "E");
@@ -101,6 +105,7 @@ void setup() {
   degKeys.put(16, "D");
   degKeys.put(17, "E");
   degKeys.put(18, "F");
+//Converts sharps or flats in key signature to single letter signature 
   keySigConvert.put(0, "C");
   keySigConvert.put(1, "G");
   keySigConvert.put(2, "D");
@@ -116,6 +121,7 @@ void setup() {
   keySigConvert.put(12, "D");
   keySigConvert.put(13, "G");
   keySigConvert.put(14, "C");
+//order of sharps for key signature 
   orderSharp.put(1, "F#");
   orderSharp.put(2, "C#");
   orderSharp.put(3, "G#");
@@ -123,6 +129,7 @@ void setup() {
   orderSharp.put(5, "A#");
   orderSharp.put(6, "E#");
   orderSharp.put(7, "B#");
+//order of flats for key signature
   orderFlat.put(1, "Bb");
   orderFlat.put(2, "Eb");
   orderFlat.put(3, "Ab");
@@ -381,13 +388,16 @@ void draw() {
 
   //Ethan Tang | 3B
   switch(modeTog) {
+//Starting page-only displays once
   case 0:
     fill(230);
     image(musikHelferLogo[0], 125, 210);
     break;
+//Pitch ear training page
   case 1:
     pitchMode();
     break;
+//Tuner page
   case 2:
     tunerMode();
     for (int i = 0; i<tuneButtons.length; i++) {
@@ -395,9 +405,11 @@ void draw() {
       tuneButtons[i].hover(mouseX, mouseY);
     }
     break;
+//Harmonization page
   case 3:
     harmMode();
     break;
+//Metronome page
   case 4:
     metroMode();
     break;
@@ -1579,7 +1591,7 @@ void harmonize() {
     }
   }
   println(inputScore);
-  //determine key signiture
+  //determine key signature
   for (int i=1; i<8; i++) {
     if (inputScore.hasValue(orderSharp.get(i))) {
       keySigS.append(orderSharp.get(i));
@@ -1596,7 +1608,7 @@ void harmonize() {
       i=9;
     }
   }
-  //prefer the longest key signiture, and if the key signitures are the same size, prefer the one with sharps
+  //prefer the longest key signature, and if the key signatures are the same size, prefer the one with sharps
   if (keySigF.size()>keySigS.size()) {
     keySig='F';
   } else {
@@ -1761,3 +1773,4 @@ void play(String noteVal) {
   println("note:" + note);
   //note = str(n);
 }
+
