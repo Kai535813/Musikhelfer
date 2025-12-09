@@ -15,3 +15,6 @@ Metronome Screen:
 
 ![Metronome Screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Metronome%20Screen.png?raw=true)
 
+Start Screen:
+
+![Start Screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Musik%20Helfer%20Start%20Screen.png?raw=true)
