@@ -26,7 +26,7 @@ PImage[] noteImages = new PImage[45];
 PImage[] musikHelferLogo = new PImage[1];
 PFont font;
 
-//Hash Maps for Harmonizer 
+//Hash Maps for Harmonizer
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> orderSharp= new HashMap<Integer, String>();
 HashMap<Integer, String> orderFlat= new HashMap<Integer, String>();
@@ -54,7 +54,7 @@ Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
 
 int modeTog; //Tracks current screen/mode
-int degKey,chordSwitch;
+int degKey, chordSwitch;
 int lastTick = 0;
 int Y_AXIS = 1;
 int X_AXIS = 2;
@@ -87,7 +87,7 @@ void setup() {
   c2 = color(#6C6C6C);
   harmonizeRes=new StringList();
 
-//Two C major octaves and a couple extra notes in order to create Hash Map with scale degrees corresponding to the correct notes. Extra notes are to harmonize up to VI chords
+  //Two C major octaves and a couple extra notes in order to create Hash Map with scale degrees corresponding to the correct notes. Extra notes are to harmonize up to VI chords
   degKeys.put(1, "C");
   degKeys.put(2, "D");
   degKeys.put(3, "E");
@@ -106,7 +106,7 @@ void setup() {
   degKeys.put(16, "D");
   degKeys.put(17, "E");
   degKeys.put(18, "F");
-//Converts sharps or flats in key signature to single letter signature 
+  //Converts sharps or flats in key signature to single letter signature
   keySigConvert.put(0, "C");
   keySigConvert.put(1, "G");
   keySigConvert.put(2, "D");
@@ -122,7 +122,7 @@ void setup() {
   keySigConvert.put(12, "D");
   keySigConvert.put(13, "G");
   keySigConvert.put(14, "C");
-//order of sharps for key signature 
+  //order of sharps for key signature
   orderSharp.put(1, "F#");
   orderSharp.put(2, "C#");
   orderSharp.put(3, "G#");
@@ -130,7 +130,7 @@ void setup() {
   orderSharp.put(5, "A#");
   orderSharp.put(6, "E#");
   orderSharp.put(7, "B#");
-//order of flats for key signature
+  //order of flats for key signature
   orderFlat.put(1, "Bb");
   orderFlat.put(2, "Eb");
   orderFlat.put(3, "Ab");
@@ -389,16 +389,16 @@ void draw() {
 
   //Ethan Tang | 3B
   switch(modeTog) {
-//Starting page-only displays once
+    //Starting page-only displays once
   case 0:
     fill(230);
     image(musikHelferLogo[0], 125, 210);
     break;
-//Pitch ear training page
+    //Pitch ear training page
   case 1:
     pitchMode();
     break;
-//Tuner page
+    //Tuner page
   case 2:
     tunerMode();
     for (int i = 0; i<tuneButtons.length; i++) {
@@ -406,17 +406,17 @@ void draw() {
       tuneButtons[i].hover(mouseX, mouseY);
     }
     break;
-//Harmonization page
+    //Harmonization page
   case 3:
     harmMode();
     break;
-//Metronome page
+    //Metronome page
   case 4:
     metroMode();
     break;
   }
-    //Simon Sakata
-  if (intervalCorrectFlash) { //if boolean is true... 
+  //Simon Sakata
+  if (intervalCorrectFlash) { //if boolean is true...
     drawIntervalCorrectFlash(); // shines green light on right side of screen
   }
   if (intervalWrongFlash) { //if boolean is true...
@@ -463,7 +463,7 @@ void mousePressed() {
   //for (int i = 0; i < tuneButtons.length; i++) {
   //  if (!tuneButtons[i].over) continue;
   //  tuneVolume = map(tuneVolumeX, tuneVolumeMin, tuneVolumeMax, 0.0, 1.0);
- 
+
   //  SoundFile next = null;
   //  String pitch = tuneButtons[i].disVal;
   //  if (pitch == null) pitch = "";
@@ -480,7 +480,7 @@ void mousePressed() {
   //  else if (pitch.equals("Fs4.mp3")) next = pitchFs4;
   //  else if (pitch.equals("Gs4.mp3")) next = pitchG4;
   //  else if (pitch.equals("Gs4.mp3")) next = pitchGs4;
-// AI code use attempt -Kai Yun Chao 
+  // AI code use attempt -Kai Yun Chao
   //  if (next == null) {
   //    println("No SoundFile Found: '" + pitch + "'");
   //    break;
@@ -509,7 +509,6 @@ void mousePressed() {
 void stopSounds() {
   //if(pitchA4 == null && pitchA4.isPlaying()) pitchA4.stop();
   //if(pitchAs4 == null && pitchAs4.isPlaying()) pitchAs4.stop();
-  
 }
 //Kai Yun Chao, 3B
 
@@ -556,17 +555,17 @@ void mouseReleased() {
     }
   }
 
-  //Simon Sakata ear training button functionality 
+  //Simon Sakata ear training button functionality
   if (modeTog==1&&firstSwitch==true) { //checks for modetog to = 1 to open screen
     firstSwitch=false;
   } else if (firstSwitch == false && modeTog == 1) { //checks if play button is pressed
     if (pitchButtons[13].hover(mouseX, mouseY)) {
       if (!intervalActive) {
-        
+
         note1 = int(random(1, 13)); //generates first random integer to correspond to a note
         note2 = note1 + int(random(0, 13)); //generates second random integer
         interval = note2-note1; //calculates interval based on distance of two notes
-        
+
         println("interval:" + interval); //prints integers and interval output for troubleshooting
         println("note1:" + note1);
         println("note2:" + note2);
@@ -577,7 +576,7 @@ void mouseReleased() {
       delay(800); //0.8 sec delay...
       playNoteNumber(note2); //plays note corresponding to 2nd int
     }
-    for (int i = 0; i < 13; i++) { 
+    for (int i = 0; i < 13; i++) {
       if (pitchButtons[i].hover(mouseX, mouseY)) { //finds the interval guessed via pitchButton[?] integer
         if (intervalActive) {
           int guessedInterval = i;
@@ -587,9 +586,8 @@ void mouseReleased() {
             intervalActive = false; //allows new interval to be played
             intervalCorrectFlash = true; //triggers green "correct" flash
             intervalFlashStartTime = millis(); //records timestamp when green flash starts
-            
           } else {
-            println("wrong"); 
+            println("wrong");
             intervalWrongFlash = true; //triggers red "wrong" flash
             intervalFlashStartTime = millis(); //records timestamp when red flash starts
           }
@@ -597,8 +595,8 @@ void mouseReleased() {
       }
     }
   }
-    if (pitchButtons[0].hover(mouseX, mouseY)) {
-    }
+  if (pitchButtons[0].hover(mouseX, mouseY)) {
+  }
 
   //Ethan Tang | 3B
   //Harmonizer switch button functionality
@@ -1556,9 +1554,9 @@ void harmonize() {
   harmIndex.clear();
   scaleDeg.clear();
   harmSwitch.clear();
-if(!cSwitch){
-  chordSwitch=1;
-}
+  if (!cSwitch) {
+    chordSwitch=1;
+  }
   //Change hashmap based on clef selected
   if (clef==true) {
     keyConvert.put(14, "D");
@@ -1677,16 +1675,17 @@ if(!cSwitch){
     if (index.get(i)==index.max()) {
       for (int i2=1; i2<scaleDeg.size(); i2++) {
         if (scaleDeg.get(i2).equals(harmIndex.get(i))) {
-          harmSwitch.put(harmSwitch.size()+1,i2);
+          harmSwitch.put(harmSwitch.size()+1, i2);
         }
       }
       //the chord is then built by combining the root and two notes of every other note
       println(harmSwitch);
-if(chordSwitch!=harmSwitch.size()){
-      chordSwitch++;
-}else{
-chordSwitch=1;
-}
+      if (chordSwitch!=harmSwitch.size()&&cSwitch) {
+        chordSwitch++;
+      } else {
+        chordSwitch=1;
+      }
+      println(chordSwitch);
       harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)));
       harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+2));
       harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+4));
