@@ -14,7 +14,7 @@ Photoshopped note, rest, and accidental images, added a custom font
 * Logic for note hovering that enables the user to hover over the score and see where a note will be placed
 * Logic for sharp/flat toggling and the resulting accidental displaying
 * Logic for rest toggling and the resulting rest dsiplaying
-2. Coded the harmMode method (screen) in the main project file
+**1. Coded the harmMode method (screen) in the main project file**
 * Programically displays the input and output score for the harmonizer utility
 * Programically displays an output screen that provides the notes of the harmonized chord
 * Programically displays the harmonized chord on a score taking the StringList output from the harmonize method
