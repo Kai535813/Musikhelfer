@@ -20,7 +20,7 @@ Helped make the UI Mock-UP:
 - Plays chosen piano note.
 - Displays note played.
 
-   ![Tuner Page](https://github.com/Kai535813/Musikhelfer/blob/main/images/ScheduledTimeline.png?raw=true))
+   ![Tuner Page](https://github.com/Kai535813/Musikhelfer/blob/main/images/Tuner%20Page.png?raw=true)
 
 ## File Links:
 * [Main Project File](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Musikhelfer.pde)
