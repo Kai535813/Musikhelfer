@@ -19,6 +19,7 @@ PImage[] noteImages = new PImage[45];
 PImage[] musikHelferLogo = new PImage[1];
 PFont font;
 
+//Harmmonizer Hashmaps
 HashMap<Integer, String> keyConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> orderSharp= new HashMap<Integer, String>();
 HashMap<Integer, String> orderFlat= new HashMap<Integer, String>();
@@ -30,6 +31,7 @@ HashMap<Integer, String> harmIndex= new HashMap<Integer, String>();
 //Note array list
 ArrayList<Note> notes = new ArrayList<Note>();
 
+//Lists used for harmonizer
 StringList inputScore;
 StringList harmonizeRes;
 StringList keySigS;
@@ -76,6 +78,7 @@ void setup() {
   c2 = color(#6C6C6C);
   harmonizeRes=new StringList();
 
+  //Generic two octave scale and a couple notes extra to write out new hashmap that creates the correct scale degrees. The extra notes account for harmonizing up to VI chords
   degKeys.put(1, "C");
   degKeys.put(2, "D");
   degKeys.put(3, "E");
@@ -94,6 +97,7 @@ void setup() {
   degKeys.put(16, "D");
   degKeys.put(17, "E");
   degKeys.put(18, "F");
+//Converts a list of sharps or flats into its key signature 
   keySigConvert.put(0, "C");
   keySigConvert.put(1, "G");
   keySigConvert.put(2, "D");
@@ -109,6 +113,7 @@ void setup() {
   keySigConvert.put(12, "D");
   keySigConvert.put(13, "G");
   keySigConvert.put(14, "C");
+//order of sharps for determining key signature
   orderSharp.put(1, "F#");
   orderSharp.put(2, "C#");
   orderSharp.put(3, "G#");
@@ -116,6 +121,7 @@ void setup() {
   orderSharp.put(5, "A#");
   orderSharp.put(6, "E#");
   orderSharp.put(7, "B#");
+//order of flats for determining key signature 
   orderFlat.put(1, "Bb");
   orderFlat.put(2, "Eb");
   orderFlat.put(3, "Ab");
@@ -373,13 +379,16 @@ void draw() {
   
   //Ethan Tang | 3B
   switch(modeTog) {
+//Starting screen-only displays once
   case 0:
     fill(230);
     image(musikHelferLogo[0], 125, 210);
     break;
+//Pitch Ear Training
   case 1:
     pitchMode();
     break;
+//Tuner
   case 2:
     tunerMode();
     for (int i = 0; i<tuneButtons.length; i++) {
@@ -387,9 +396,11 @@ void draw() {
       tuneButtons[i].hover(mouseX, mouseY);
     }
     break;
+//Harmonization
   case 3:
     harmMode();
     break;
+//Metronome
   case 4:
     metroMode();
     break;
@@ -1432,7 +1443,7 @@ void harmonize() {
     keyConvert.put(4, "B");
     keyConvert.put(0, "rest");
   }
-  //Read all notes imputed on score
+  //Read all notes imputed on score by using previous Hash Map
   for (int i=0; i<notes.size(); i++) {
     if (notes.get(i).yVal()!=0) {
       if (notes.get(i).sharp) {
@@ -1445,7 +1456,7 @@ void harmonize() {
     }
   }
   println(inputScore);
-  //determine key signiture
+  //determine key signature
   for (int i=1; i<8; i++) {
     if (inputScore.hasValue(orderSharp.get(i))) {
       keySigS.append(orderSharp.get(i));
@@ -1462,7 +1473,7 @@ void harmonize() {
       i=9;
     }
   }
-  //prefer the longest key signiture, and if the key signitures are the same size, prefer the one with sharps
+  //prefer the longest key signature, and if the key signatures are the same size, prefer the one with sharps
   if (keySigF.size()>keySigS.size()) {
     keySig='F';
   } else {
@@ -1569,6 +1580,7 @@ void harmonize() {
 
 //Ethan Tang and Kai Yun Chao | 3B
 void play(String noteVal) {
+//Checks every button for its note value and plays the cooresponding note
   if (noteVal.equals("A")) {
     pitchA4.playFor(2);
     println("playing");
