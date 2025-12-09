@@ -34,7 +34,7 @@ HashMap<Integer, String> scaleDeg= new HashMap<Integer, String>();
 HashMap<Integer, String> keySigConvert= new HashMap<Integer, String>();
 HashMap<Integer, String> degKeys= new HashMap<Integer, String>();
 HashMap<Integer, String> harmIndex= new HashMap<Integer, String>();
-HashMap<Integer, String> harmSwitch= new HashMap<Integer, String>();
+HashMap<Integer, Integer> harmSwitch= new HashMap<Integer, Integer>();
 
 //Note array list
 ArrayList<Note> notes = new ArrayList<Note>();
@@ -54,7 +54,7 @@ Button[] metroButtons=new Button[3];
 Button[] pitchButtons=new Button[14];
 
 int modeTog; //Tracks current screen/mode
-int degKey, harmKey;
+int degKey,chordSwitch;
 int lastTick = 0;
 int Y_AXIS = 1;
 int X_AXIS = 2;
@@ -68,6 +68,7 @@ Boolean first, added;
 Boolean metroPlaying = false;
 Boolean flashOn = false;
 Boolean intervalActive = false;
+boolean cSwitch=false;
 boolean firstSwitch;
 boolean clef; //Tracks the clef: true = treble clef, false = bass clef
 boolean intervalCorrectFlash = false, intervalWrongFlash = false;
@@ -595,6 +596,9 @@ void mouseReleased() {
     if (pitchButtons[0].hover(mouseX, mouseY)) {
     }
   }
+
+  //Ethan Tang | 3B
+  //Harmonizer switch button functionality
 
   //Mo Spiegel 3B
 
@@ -1549,6 +1553,10 @@ void harmonize() {
   keyConvert.clear();
   harmIndex.clear();
   scaleDeg.clear();
+  harmSwitch.clear();
+if(!cSwitch){
+  chordSwitch=1;
+}
   //Change hashmap based on clef selected
   if (clef==true) {
     keyConvert.put(14, "D");
@@ -1667,18 +1675,22 @@ void harmonize() {
     if (index.get(i)==index.max()) {
       for (int i2=1; i2<scaleDeg.size(); i2++) {
         if (scaleDeg.get(i2).equals(harmIndex.get(i))) {
-          harmKey=i2;
-          break;
+          harmSwitch.put(harmSwitch.size()+1,i2);
         }
       }
       //the chord is then built by combining the root and two notes of every other note
-      println(harmKey);
-      harmonizeRes.append(scaleDeg.get(harmKey));
-      harmonizeRes.append(scaleDeg.get(harmKey+2));
-      harmonizeRes.append(scaleDeg.get(harmKey+4));
+      println(harmSwitch);
+if(chordSwitch!=harmSwitch.size()){
+      chordSwitch++;
+}else{
+chordSwitch=1;
+}
+      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)));
+      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+2);
+      harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+4);
       //for the V chord, V7 is used, so an extra note must be added
       if (harmIndex.get(i).equals(scaleDeg.get(5))) {
-        harmonizeRes.append(scaleDeg.get(harmKey+6));
+        harmonizeRes.append(scaleDeg.get(harmSwitch.get(chordSwitch)+6));
       }
       break;
     }
@@ -1773,4 +1785,5 @@ void play(String noteVal) {
   println("note:" + note);
   //note = str(n);
 }
+
 
