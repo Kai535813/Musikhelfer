@@ -2,9 +2,19 @@
 
 ## Artifacts
 
- UI Mock-UP:
+Helped make the UI Mock-UP:
 
  ![Mock UI](https://github.com/Kai535813/Musikhelfer/blob/main/images/UIDesign.png?raw=true)
+
+ Time-line:
+
+ ![Time Line](https://github.com/Kai535813/Musikhelfer/blob/main/images/ScheduledTimeline.png?raw=true)
+
+ ## Data/Code
+
+ - Import origin note images.
+ - Import all SoundFiles.
+ - Tuner page logic.
 
 
 
