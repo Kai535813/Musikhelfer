@@ -14,7 +14,11 @@ Helped make the UI Mock-UP:
 
  - Import origin note images.
  - Import all SoundFiles.
- - Tuner page logic.
+
+### Tuner page logic:
+
+- Plays chosen piano note.
+- Displays note played.
 
 
 
