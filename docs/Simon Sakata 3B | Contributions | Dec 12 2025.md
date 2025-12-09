@@ -18,7 +18,7 @@ Helped to construct the UI mockup of left sidebar:
 ## Images of Application Contributions
 Pitch Ear Training screen:
 
-![harmMode screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-08%20164036.png?.raw=true)
+![PitchEarTraining screen]()
 
 ## Source Files Contributed To
 * [Button Class](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Button.pde)
