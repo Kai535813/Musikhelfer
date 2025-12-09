@@ -337,9 +337,9 @@ void setup() {
   pitchButtons[2] = new Button(200, 140, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "32", "Major 2nd");
   pitchButtons[3] = new Button(320, 210, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "32.5", "Minor 3rd");
   pitchButtons[4] = new Button(200, 210, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "33", "Major 3rd");
-  pitchButtons[5] = new Button(200, 280, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "34", "Perfect 4th");
+  pitchButtons[5] = new Button(200, 280, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "34", "Perf 4th");
   pitchButtons[6] = new Button(320, 350, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "34.5", "Tritone");
-  pitchButtons[7] = new Button(200, 350, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "35", "Perfect 5th");
+  pitchButtons[7] = new Button(200, 350, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "35", "Perf 5th");
   pitchButtons[8] = new Button(320, 420, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "35.5", "Minor 6th");
   pitchButtons[9] = new Button(200, 420, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "36", "Major 6th");
   pitchButtons[10] = new Button(320, 490, 100, 40, 25, 20, #7FA3E0, #5E86D8, #3348F2, "36.5", "Minor 7th");
