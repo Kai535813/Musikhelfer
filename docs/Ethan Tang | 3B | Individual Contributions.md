@@ -19,6 +19,11 @@ Created the UML for the project
   * Manual assimilation of files upload containing team member's updates and recorded through a file assimilation record found in the readme of the Musikhelfer folder
 
 ## Images of Application Contributions 
+**Harmonizer:**
 ![Harmonizer](https://github.com/Kai535813/Musikhelfer/blob/main/images/Harmonizer.png?raw=true)
+**File Assimilation Record:**
 ![Assimilation Record](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-09%207.56.45%20PM.png?raw=true)
 
+##Scource Files Contributed to:
+* [Main Project File](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Musikhelfer.pde)
+* [Button Class](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Button.pde)
