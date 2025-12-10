@@ -2,7 +2,7 @@
 ## Artifact Contributions
 Created the UML for the project
 
-![UML](https://github.com/Kai535813/Musikhelfer/blob/main/images/UIDesign.png?raw=true)
+![UML](https://github.com/Kai535813/Musikhelfer/blob/main/images/MusikHelferUML.png?raw=true)
 
 ## Outline of Application Contributions
 ### Writing of the logic and functionallity of the harmonize method for the harmonizer
@@ -16,4 +16,9 @@ Created the UML for the project
   * Involved in the inital writing of methods, such as play and harmMode
 ### Handled the organization of the project and incorporation of the file updates of others
   * Coordinated between team members to combine each individuals contributions into one organized folder 
-  * Manual assimilation of files upload containing team member's updates and recorded through a file assimilation record found in the readme of the Musikhelfer folder 
+  * Manual assimilation of files upload containing team member's updates and recorded through a file assimilation record found in the readme of the Musikhelfer folder
+
+## Images of Application Contributions 
+![Harmonizer](https://github.com/Kai535813/Musikhelfer/blob/main/images/Harmonizer.png?raw=true)
+![Assimilation Record](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-09%207.56.45%20PM.png?raw=true)
+
