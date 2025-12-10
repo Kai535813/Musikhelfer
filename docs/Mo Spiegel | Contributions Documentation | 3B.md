@@ -32,7 +32,7 @@ Photoshopped note, rest, and accidental images, added a custom font
 ## Images of Application Contributions
 harmMode screen:
 
-![harmMode screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-08%20164036.png?.raw=true)
+![harmMode screen](https://github.com/Kai535813/Musikhelfer/blob/main/images/Harmonizer.png?raw=true)
 
 ## Source Files Contributed To
 * [Note Class](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Note.pde)
