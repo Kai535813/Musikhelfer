@@ -1,4 +1,9 @@
 # Ethan Tang Project Contributions 
+## Artifact Contributions
+Created the UML for the project
+
+![UML](https://github.com/Kai535813/Musikhelfer/blob/main/images/UIDesign.png?raw=true)
+
 ## Outline of Application Contributions
 ### Writing of the logic and functionallity of the harmonize method for the harmonizer
   * Determines score key signature
