@@ -45,7 +45,7 @@ Musikhelfer is a music  application, with four major utilities including an auto
 
 ## Contribution Documentation:
 * [Mo Spiegel](docs/Mo%20Spiegel%20%7C%20Contributions%20Documentation%20%7C%203B.md)
-* [Ethan Tang]()
-* [Aristole Stokes]()
-* [Kai Yun Chao]()
-* [Simon Sakata]()
+* [Ethan Tang](https://github.com/Kai535813/Musikhelfer/blob/main/docs/Ethan%20Tang%20%7C%203B%20%7C%20Individual%20Contributions.md)
+* [Aristole Stokes](https://github.com/Kai535813/Musikhelfer/blob/main/docs/Aristotle%20Stokes%20%7C%203B%20%7C%20Contributions%20Documentation.md)
+* [Kai Yun Chao](https://github.com/Kai535813/Musikhelfer/tree/main/docs/Kai%20Yun%20Chao%20%7C%203B%20%7C%20Contributions)
+* [Simon Sakata](https://github.com/Kai535813/Musikhelfer/blob/main/docs/Simon%20Sakata%203B%20%7C%20Contributions%20%7C%20Dec%2012%202025.md)
