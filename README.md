@@ -23,7 +23,7 @@ Musikhelfer is a music  application, with four major utilities including an auto
 
 ## Running Application:
 
-![Running Application](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-08%20164036.png?raw=true)
+![Running Application](https://github.com/Kai535813/Musikhelfer/blob/main/images/Harmonizer.png?raw=true)
 
 
 ## Group Members:
