@@ -45,3 +45,7 @@ Musikhelfer is a music  application, with four major utilities including an auto
 
 ## Contribution Documentation:
 * [Mo Spiegel](docs/Mo%20Spiegel%20%7C%20Contributions%20Documentation%20%7C%203B.md)
+* [Ethan Tang]()
+* [Aristole Stokes]()
+* [Kai Yun Chao]()
+* [Simon Sakata]()
