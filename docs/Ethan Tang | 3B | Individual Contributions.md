@@ -24,6 +24,6 @@ Created the UML for the project
 **File Assimilation Record:**
 ![Assimilation Record](https://github.com/Kai535813/Musikhelfer/blob/main/images/Screenshot%202025-12-09%207.56.45%20PM.png?raw=true)
 
-##Scource Files Contributed to:
+## Scource Files Contributed to:
 * [Main Project File](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Musikhelfer.pde)
 * [Button Class](https://github.com/Kai535813/Musikhelfer/blob/main/src/Musikhelfer/Button.pde)
